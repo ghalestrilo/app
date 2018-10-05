@@ -31,7 +31,7 @@ export default class Start extends React.Component {
                 title="Login"
               />
               <Button
-                onPress={() => this.props.navigation.navigate("Signup")}
+                onPress={() => this.props.navigation.navigate("Signin")}
                 style={styles.buttonLayout}
                 title="Cadastro"
               />

@@ -9,7 +9,7 @@ const igor = require("../../images/logo/logo.png");
 const background = require("../../images/background/background.png");
 
 
-const Inputs = children => (
+const Inputs = ({ children }) => (
   <TextInput
     placeholder={children}
     style={styles.inputs}
@@ -19,7 +19,7 @@ const Inputs = children => (
 // static navigationOptions = {
 //   header: null,
 // };
-export default class Signin extends React.Component {
+class Signup extends React.Component {
   render() {
     return (
       <View>
@@ -56,3 +56,4 @@ export default class Signin extends React.Component {
     );
   }
 }
+export default Signup;

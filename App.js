@@ -3,7 +3,7 @@ import { createStackNavigator } from "react-navigation";
 
 import Start from "./screens/start";
 import Login from "./screens/login";
-import Signin from "./screens/signup";
+import Signin from "./screens/signin";
 
 // const background = "./images/background/background.png';
 
