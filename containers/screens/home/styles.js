@@ -6,6 +6,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+
+  background: {
+    width: '100%', 
+    height: '100%'
+  },
+
+  // DEFAULT
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
