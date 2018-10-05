@@ -1,4 +1,4 @@
-import React from 'react';
+import React from '../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react';
 import {
     Text, View,ImageBackground,TouchableOpacity,TextInput,Image
   } from 'react-native';
@@ -9,10 +9,6 @@ let entrar = '../../images/buttons/login-entrar.png'
 let background = '../../images/background/background.png'
 
 export default class Login extends React.Component {
-    static navigationOptions = {
-        header:null
-    }
-
     render(){
         return(
             <View> 
