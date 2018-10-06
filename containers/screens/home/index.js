@@ -8,6 +8,8 @@ import { WebBrowser } from 'expo';
 
 import styles from './styles'
 
+const loginBg1 = require('../../../.assets/images/login-bg.png')
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -17,7 +19,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ImageBackground
           source={
-            require('../../../assets/images/login-bg.png')
+            loginBg1
           }
           style={styles.background}
           resizeMethod="resize"
