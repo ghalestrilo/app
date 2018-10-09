@@ -4,11 +4,11 @@ import {
 } from "react-native";
 import styles from "./styles.js";
 
-const igor = require("../../images/logo/logo.png");
-const entrar = require("../../images/buttons/login-entrar.png");
-const background = require("../../images/background/background.png");
+const igor = require("../../../images/logo/logo.png");
+const entrar = require("../../../images/buttons/login-entrar.png");
+const background = require("../../../images/background/background.png");
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   render() {
     return (
       <View>
@@ -69,3 +69,8 @@ export default class Login extends React.Component {
 }
 
 
+const mapStateToProps = (state) => ({
+
+})
+
+export default connect(mapStateToProps)(Login);

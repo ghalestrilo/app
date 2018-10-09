@@ -1,13 +1,17 @@
 import React from "react";
+import { connect } from "redux";
 import {
-  View, ImageBackground, Image, Button
+  View,
+  ImageBackground,
+  Image,
+  Button
 } from "react-native";
 import styles from "./styles";
 
-const background = require("../../images/background/background.png");
-const igor = require("../../images/logo/logo.png");
+const background = require("../../../images/background/background.png");
+const igor = require("../../../images/logo/logo.png");
 
-export default class Start extends React.Component {
+class Start extends React.Component {
   render() {
     return (
       <View>
@@ -43,4 +47,8 @@ export default class Start extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
 
+})
+
+export default connect(mapStateToProps)(Start);

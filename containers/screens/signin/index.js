@@ -1,12 +1,13 @@
 import React from "react";
+import { connect } from "redux";
 import {
   View, ImageBackground, TouchableOpacity, TextInput, Image
 } from "react-native";
 import styles from "./styles";
 
-const criar = require("../../images/buttons/signin-criar.png");
-const igor = require("../../images/logo/logo.png");
-const background = require("../../images/background/background.png");
+const criar = require("../../../images/buttons/signin-criar.png");
+const igor = require("../../../images/logo/logo.png");
+const background = require("../../../images/background/background.png");
 
 
 const Inputs = ({ children }) => (
@@ -56,4 +57,9 @@ class Signup extends React.Component {
     );
   }
 }
-export default Signup;
+
+const mapStateToProps = (state) => ({
+
+})
+
+export default connect(mapStateToProps)(Signup);
