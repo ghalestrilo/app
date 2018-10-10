@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
   Text, View, ImageBackground, TouchableOpacity, TextInput, Image
 } from "react-native";

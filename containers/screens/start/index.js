@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "redux";
+import { connect } from "react-redux";
 import {
   View,
   ImageBackground,
@@ -8,16 +8,29 @@ import {
 } from "react-native";
 import styles from "./styles";
 
+// Isolei essa variavel por flexibilidade
+// O plano seria migra-las para a store
 const background = require("../../../images/background/background.png");
 const igor = require("../../../images/logo/logo.png");
+const options = [
+  {
+    title: "Login",
+    destination: "Login"
+  },
+  {
+    title: "Cadastro",
+    destination: "Signin"
+  }
+]
 
 class Start extends React.Component {
   render() {
+    let { navigation } = this.props
     return (
       <View>
         <ImageBackground
           source={background}
-          style={{ width: "100%", height: "100%" }}
+          style={styles.background}
           resizeMethod="resize"
         >
           <View style={styles.container}>
@@ -29,16 +42,12 @@ class Start extends React.Component {
               />
             </View>
             <View style={styles.buttonsContainer}>
-              <Button
-                onPress={() => this.props.navigation.navigate("Login")}
-                style={styles.buttonLayout}
-                title="Login"
-              />
-              <Button
-                onPress={() => this.props.navigation.navigate("Signin")}
-                style={styles.buttonLayout}
-                title="Cadastro"
-              />
+              {options.map(option =>
+                (<Button
+                  style={styles.buttonLayout}
+                  onPress={() => navigation.navigate(option.destination)}
+                  title={option.title}
+                  />))}
             </View>
           </View>
         </ImageBackground>
@@ -48,7 +57,7 @@ class Start extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-
+  // options: state.start.options
 })
 
 export default connect(mapStateToProps)(Start);

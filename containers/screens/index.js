@@ -1,11 +1,11 @@
-import SignInScreen from './signin'
+import SignUpScreen from './signup'
 import LoginScreen from './login'
 import StartScreen from './start'
 
 const screens = {
-  signin: SignInScreen,
-  login: LoginScreen,
-  start: StartScreen,
+  Start: StartScreen,
+  Signup: SignUpScreen,
+  Login: LoginScreen,
 }
 
 export default screens
