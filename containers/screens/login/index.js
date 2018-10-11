@@ -1,70 +1,100 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  Text, View, ImageBackground, TouchableOpacity, TextInput, Image
-} from "react-native";
 import styles from "./styles.js";
 
-const igor = require("../../../images/logo/logo.png");
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Image
+} from "react-native";
+
+import {
+  IgorBackground,
+  IgorLogo
+} from "../../../components/Igor";
+
+import {
+  requestLogin
+} from "../../../actions/user";
+
+
 const entrar = require("../../../images/buttons/login-entrar.png");
-const background = require("../../../images/background/background.png");
 
 class Login extends React.Component {
+  state = {
+    username: "",
+    password: ""
+  }
+
+  updateUserName(text){
+    this.setState({
+      ...this.state,
+      username: text
+    });
+  }
+
+  updatePassword(text){
+    this.setState({
+      ...this.state,
+      password: text
+    });
+  }
+
   render() {
+    const { navigation } = this.props;
+    const { username, password } = this.state;
     return (
-      <View>
-        <ImageBackground
-          source={background}
-          style={{ width: "100%", height: "100%" }}
-          resizeMethod="resize"
-        >
-          <View style={styles.container}>
-            <View style={styles.igorLayout}>
-              <Image
-                source={igor}
-                resizeMode="contain"
-                style={styles.logo}
-              />
+      IgorBackground(
+        <View style={styles.container}>
+          {IgorLogo(styles)}
+          <View style={styles.loginContainer}>
+            <Text style={styles.login}>E-mail:</Text>
+            <TextInput
+              placeholder="E-mail"
+              style={styles.login}
+              onChange={(e) => this.updateUserName(e.target.value)}
+            />
+            <Text style={styles.senha}>Senha:</Text>
+            <TextInput
+              placeholder="Senha"
+              style={styles.senha}
+              onChange={(e) => this.updatePassword(e.target.value)}
+            />
+          </View>
+          <View style={styles.buttonsContainer}>
+            <View>
+              <TouchableOpacity>
+                <Image
+                  source={entrar}
+                  style={styles.entrarimg}
+                  resizeMode="contain"
+                  onPress={() => requestLogin(username, password)}
+                />
+                <Button
+                  style={styles.buttonLayout}
+                  onPress={() => navigation.navigate("Home")}
+                  title={"(dev)"}
+                />
+              </TouchableOpacity>
             </View>
-            <View style={styles.loginContainer}>
-              <Text style={styles.login}>E-mail:</Text>
-              <TextInput
-                placeholder="E-mail"
-                style={styles.login}
-              />
-              <Text style={styles.senha}>Senha:</Text>
-              <TextInput
-                placeholder="Senha"
-                style={styles.senha}
-              />
-            </View>
-            <View style={styles.buttonsContainer}>
-              <View>
-                <TouchableOpacity>
-                  <Image
-                    source={entrar}
-                    style={styles.entrarimg}
-                    resizeMode="contain"
-                  />
-                </TouchableOpacity>
-              </View>
-              <View>
-                <TouchableOpacity
-                  style={styles.rest}
-                  onPress={() => this.props.navigation.navigate("Signin")}
-                >
-                  <Text style={styles.restText}>Criar conta</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.rest}
-                >
-                  <Text style={styles.restText}>Esqueci minha senha</Text>
-                </TouchableOpacity>
-              </View>
+            <View>
+              <TouchableOpacity
+                style={styles.rest}
+                onPress={() => navigation.navigate("Signin")}
+              >
+                <Text style={styles.restText}>Criar conta</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.rest}
+              >
+                <Text style={styles.restText}>Esqueci minha senha</Text>
+              </TouchableOpacity>
             </View>
           </View>
-        </ImageBackground>
-      </View>
+        </View>
+      )
     );
   }
 }
@@ -72,6 +102,10 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => ({
 
-})
+});
 
-export default connect(mapStateToProps)(Login);
+// const mapStateToProps = (state) => ({
+
+// })
+
+export default connect(mapStateToProps, { requestLogin })(Login);

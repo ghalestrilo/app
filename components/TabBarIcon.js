@@ -1,7 +1,7 @@
-import React from 'react';
-import { Icon } from 'expo';
+import React from "react";
+import { Icon } from "expo";
 
-import Colors from '../constants/Colors';
+import Colors from "../constants/Colors";
 
 const TabBarIcon = (props) => (
   <Icon.Ionicons
@@ -9,9 +9,9 @@ const TabBarIcon = (props) => (
     size={26}
     style={{ marginBottom: -3 }}
     color={props.focused
-            ? Colors.tabIconSelected
-            : Colors.tabIconDefault}
+      ? Colors.tabIconSelected
+      : Colors.tabIconDefault}
   />
 );
 
-export default TabBarIcon
+export default TabBarIcon;

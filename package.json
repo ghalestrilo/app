@@ -7,9 +7,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "lint": "eslint *.js **/*.js *.jsx **/*.jsx"
+    "lint": "eslint *.js **/*.js *.jsx **/*.jsx",
+    "lintfix": "runeslint"
   },
   "dependencies": {
+    "babel-eslint": "^10.0.1",
     "expo": "^30.0.1",
     "prop-types": "^15.6.2",
     "react": "16.3.1",

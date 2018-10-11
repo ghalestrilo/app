@@ -1,85 +1,88 @@
 import React from "react";
 import { connect } from "react-redux";
+import styles from "./styles";
+
 import {
   View,
-  ImageBackground,
   TouchableOpacity,
   TextInput,
   Image
 } from "react-native";
-import styles from "./styles";
+
+import {
+  IgorBackground,
+  IgorLogo
+} from "../../../components/Igor";
 
 const criar = require("../../../images/buttons/signin-criar.png");
-const igor = require("../../../images/logo/logo.png");
-const background = require("../../../images/background/background.png");
-
 // User Reducer as well
 const forms = [
- {
-   name: "E-mail",
-   text: '',
-   valid: false
+  {
+    name: "E-mail",
+    text: "",
+    valid: false
   },
- {
-   name: "Senha",
-   text: '',
-   valid: false
+  {
+    name: "Senha",
+    text: "",
+    valid: false
   },
- {
-   name: "Nome do Usuario",
-   text: '',
-   valid: false
+  {
+    name: "Nome do Usuario",
+    text: "",
+    valid: false
   },
- {
-   name: "Data de Nascimento",
-   text: '',
-   valid: false
+  {
+    name: "Data de Nascimento",
+    text: "",
+    valid: false
   },
- {
-   name: "Sexo",
-   text: '',
-   valid: false
-  },
-]
+  {
+    name: "Sexo",
+    text: "",
+    valid: false
+  }
+];
 
-const Input = ({ children }) => (
+const Input = (form) => (
   <TextInput
-    placeholder={children}
+    placeholder={form.name}
     style={styles.inputs}
+    on
   />
 );
 
-// Util para outras telas tambem. Criar Componente
-const IgorBackground = (content) => (
-  <View>
-    <ImageBackground
-      source={background}
-      style={{ width: "100%", height: "100%" }}
-      resizeMethod="resize">
-      {content}
-    </ImageBackground>
-  </View>
-)
-
-const IgorLogo = (styles) => (
-  <View style={styles.igorLayout}>
-    <Image
-      source={igor}
-      resizeMode="contain"
-      style={styles.logo}
-    />
-  </View>
-)
-
 class SignUp extends React.Component {
+  state = {
+    forms: forms || []
+  }
+
+  updateForm(index, text){
+    const state = this.state;
+    state.forms[index].text = text;
+    this.setState(state);
+    // this.setState({
+    //   ...this.state,
+    //   forms: this.state.forms.map((f, i) =>
+    //     (i === index)
+    //       ? { ...f, text: text}
+    //       : f)
+    // })
+  }
+
   render() {
-    const { forms } = this.props
+    // const { forms } = this.props
+    const { forms } = this.state;
     return (
-      <IgorBackground>
+      IgorBackground(
         <View style={styles.container}>
-          <IgorLogo styles={styles}/>
+          {IgorLogo(styles)}
           <View style={styles.buttonsContainer}>
-            { forms.map(form => (<Input>{form.title}</Input>)) }
+            { forms.map((form, index) =>
+              <TextInput
+                placeholder={form.name}
+                style={styles.inputs}
+                onChange={(e) => this.updateForm(index, e.target.value)}/>) }
             <TouchableOpacity style={{ alignItems: "flex-end" }}>
               <Image
                 source={criar}
@@ -89,12 +92,13 @@ class SignUp extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-    </IgorBackground>);
+      )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
-  forms: state.user.forms
-})
+  // forms: state.user.forms
+});
 
 export default connect(mapStateToProps)(SignUp);
