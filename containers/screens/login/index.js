@@ -7,7 +7,8 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  Image
+  Image,
+  Button
 } from "react-native";
 
 import {

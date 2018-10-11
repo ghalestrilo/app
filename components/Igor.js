@@ -4,12 +4,14 @@ const background = require("../images/background/background.png");
 
 import {
   View,
+  Text,
   ImageBackground,
   Image,
   TouchableOpacity
 } from "react-native";
 
-// Util para outras telas tambem. Criar Componente.
+/* Background: Padrao para a maioria das telas
+*/
 export const IgorBackground = (content) => (
   <View>
     <ImageBackground
@@ -21,6 +23,8 @@ export const IgorBackground = (content) => (
   </View>
 );
 
+/* Background
+*/
 export const IgorLogo = (styles) => (
   <View style={styles.igorLayout}>
     <Image
@@ -31,6 +35,11 @@ export const IgorLogo = (styles) => (
   </View>
 );
 
+/* Fab: Botaozinho que flutua na parte inferior direia da tela
+*/
+export const Fab = (image, callback) => <Image source={image} onPress={callback}/>;
+
+export const Progress = (props) => <Text>{props.progress}</Text>
 
 /* Aventura:
   - Background
@@ -38,14 +47,23 @@ export const IgorLogo = (styles) => (
   - Proxima sessao
   - Barra de progressao (inline)
 */
-export const Adventure = (adventure) => <TouchableOpacity>
-  <Image
-    source={adventure.image}
-    classname="adventure">
-    <Text classname="adv-title">{adventure.title}</Text>
-    <Text classname="adv-next-session">{adventure.nextSession}</Text>
-    <Progress percentage={adventure.progress}/>
-  </Image>
-</TouchableOpacity>;
+export const Adventure = (adventure) => {
+  if (!adventure) return null;
+  const progress = (adventure.progress < 100)
+    ? adventure.progress
+    : 100;
 
-export const Fab = (image, callback) => <Image source={image} onPress={callback}/>;
+
+  return (
+  <TouchableOpacity>
+    <ImageBackground
+      source={adventure.image}
+      style={{width: '100%', height: '20%'}}
+      classname="adventure">
+      <Text classname="adv-title">{adventure.title}</Text>
+      <Text classname="adv-next-session">{adventure.nextSession}</Text>
+      <Progress percentage={progress}/>
+    </ImageBackground>
+  </TouchableOpacity>);
+};
+
