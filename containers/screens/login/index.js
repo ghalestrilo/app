@@ -10,10 +10,11 @@ import {
   Image,
   Button
 } from "react-native";
+<<<<<<< HEAD
 
 import {
   IgorBackground,
-  IgorLogo
+  IgorLogo,
 } from "../../../components/Igor";
 
 import {
@@ -43,6 +44,18 @@ class Login extends React.Component {
     });
   }
 
+=======
+import styles from "./styles.js";
+import Buttons from "../../../components/Buttons-start/Buttons-start"
+
+const igor = require("../../../images/logo/logo.png");
+const background = require("../../../images/background/background.png");
+
+class Login extends React.Component {
+  static navigationOptions = {
+    header:null
+  }
+>>>>>>> 3a612700f76d486ef8910defb27ee7fb100cbe17
   render() {
     const { navigation } = this.props;
     const { username, password } = this.state;
@@ -80,6 +93,7 @@ class Login extends React.Component {
                 />
               </TouchableOpacity>
             </View>
+<<<<<<< HEAD
             <View>
               <TouchableOpacity
                 style={styles.rest}
@@ -92,6 +106,28 @@ class Login extends React.Component {
               >
                 <Text style={styles.restText}>Esqueci minha senha</Text>
               </TouchableOpacity>
+=======
+            <View style={styles.buttonsContainer}>
+              <View>
+                <Buttons
+                  navigate = {()=>{}}
+                  title = "ENTRAR"
+                />
+              </View>
+              <View>
+                <TouchableOpacity
+                  style={styles.rest}
+                  onPress={() => this.props.navigation.navigate("Signup")}
+                >
+                  <Text style={styles.restText}>Criar conta</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.rest}
+                >
+                  <Text style={styles.restText}>Esqueci minha senha</Text>
+                </TouchableOpacity>
+              </View>
+>>>>>>> 3a612700f76d486ef8910defb27ee7fb100cbe17
             </View>
           </View>
         </View>

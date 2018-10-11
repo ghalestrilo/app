@@ -7,7 +7,8 @@ import {
 
 import {
   IgorBackground,
-  IgorLogo
+  IgorLogo,
+  MainMenuButton
 } from "../../../components/Igor";
 
 import styles from "./styles";
@@ -16,16 +17,19 @@ import styles from "./styles";
 // O plano seria migra-las para a store
 const options = [
   {
-    title: "Login",
+    title: "LOGIN",
     destination: "Login"
   },
   {
-    title: "Cadastro",
+    title: "CADASTRO",
     destination: "Signup"
   }
 ];
 
 class Start extends React.Component {
+  static navigationOptions = {
+    header:null
+  }
   render() {
     const { navigation } = this.props;
     return (
@@ -34,7 +38,7 @@ class Start extends React.Component {
           {IgorLogo(styles)}
           <View style={styles.buttonsContainer}>
             {options.map(option =>
-              (<Button
+              (<MainMenuButton
                 key={"btn" + option.title}
                 style={styles.buttonLayout}
                 onPress={() => navigation.navigate(option.destination)}

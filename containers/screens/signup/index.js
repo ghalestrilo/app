@@ -11,11 +11,13 @@ import {
 
 import {
   IgorBackground,
-  IgorLogo
+  IgorLogo,
+  MainMenuButton
 } from "../../../components/Igor";
 
 const criar = require("../../../images/buttons/signin-criar.png");
-// User Reducer as well
+
+// User Reducer / Forms Reducer
 const forms = [
   {
     name: "E-mail",
@@ -44,15 +46,18 @@ const forms = [
   }
 ];
 
-const Input = (form) => (
+const Input = (props) => (
   <TextInput
-    placeholder={form.name}
+    placeholder={props.form.name}
     style={styles.inputs}
-    on
+    onChange={(e) => props.onChange(e.target.value)}
   />
 );
 
 class SignUp extends React.Component {
+  static navigationOptions = {
+    header:null
+  }
   state = {
     forms: forms || []
   }
@@ -78,18 +83,11 @@ class SignUp extends React.Component {
         <View style={styles.container}>
           {IgorLogo(styles)}
           <View style={styles.buttonsContainer}>
-            { forms.map((form, index) =>
-              <TextInput
-                placeholder={form.name}
-                style={styles.inputs}
-                onChange={(e) => this.updateForm(index, e.target.value)}/>) }
-            <TouchableOpacity style={{ alignItems: "flex-end" }}>
-              <Image
-                source={criar}
-                style={styles.image}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
+            { forms.map(form => (<Input onChange={this.updateForm.apply(index)}>{form.name}</Input>)) }
+            <MainMenuButton 
+              navigate = {() => {}}
+              title = 'CRIAR'
+            />
           </View>
         </View>
       )

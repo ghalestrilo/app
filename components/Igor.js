@@ -2,6 +2,8 @@ import React from "react";
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
 
+import styles from './styles.js'
+
 import {
   View,
   Text,
@@ -16,7 +18,7 @@ export const IgorBackground = (content) => (
   <View>
     <ImageBackground
       source={background}
-      style={{ width: "100%", height: "100%" }}
+      style={styles.background}
       resizeMethod="resize">
       {content}
     </ImageBackground>
@@ -25,21 +27,21 @@ export const IgorBackground = (content) => (
 
 /* Background
 */
-export const IgorLogo = (styles) => (
-  <View style={styles.igorLayout}>
+export const IgorLogo = (overrides) => {
+  return <View style={styles.igorLayout}>
     <Image
       source={igor}
       resizeMode="contain"
-      style={styles.logo}
+      style={{...styles.logo, ...overrides}}
     />
   </View>
-);
+}
 
 /* Fab: Botaozinho que flutua na parte inferior direia da tela
 */
-export const Fab = (image, callback) => <Image source={image} onPress={callback}/>;
+export const Fab = (image, callback) => <Image classname="fab" source={image} onPress={callback}/>;
 
-export const Progress = (props) => <Text>{props.progress}</Text>
+export const Progress = (props) => <Text classname="progbar">{props.progress}</Text>
 
 /* Aventura:
   - Background
@@ -67,3 +69,12 @@ export const Adventure = (adventure) => {
   </TouchableOpacity>);
 };
 
+
+export const MainMenuButton = (props) => (
+  <TouchableOpacity
+      style={styles.buttonLayout}
+      onPress={props.navigate}
+  >
+      <Text style = {styles.buttonText}>{props.title}</Text>
+  </TouchableOpacity>
+);
