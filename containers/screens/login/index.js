@@ -4,12 +4,15 @@ import {
   Text, View, ImageBackground, TouchableOpacity, TextInput, Image
 } from "react-native";
 import styles from "./styles.js";
+import Buttons from "../../../components/Buttons-start/Buttons-start"
 
 const igor = require("../../../images/logo/logo.png");
-const entrar = require("../../../images/buttons/login-entrar.png");
 const background = require("../../../images/background/background.png");
 
 class Login extends React.Component {
+  static navigationOptions = {
+    header:null
+  }
   render() {
     return (
       <View>
@@ -40,18 +43,15 @@ class Login extends React.Component {
             </View>
             <View style={styles.buttonsContainer}>
               <View>
-                <TouchableOpacity>
-                  <Image
-                    source={entrar}
-                    style={styles.entrarimg}
-                    resizeMode="contain"
-                  />
-                </TouchableOpacity>
+                <Buttons
+                  navigate = {()=>{}}
+                  title = "ENTRAR"
+                />
               </View>
               <View>
                 <TouchableOpacity
                   style={styles.rest}
-                  onPress={() => this.props.navigation.navigate("Signin")}
+                  onPress={() => this.props.navigation.navigate("Signup")}
                 >
                   <Text style={styles.restText}>Criar conta</Text>
                 </TouchableOpacity>

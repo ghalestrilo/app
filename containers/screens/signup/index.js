@@ -7,9 +7,10 @@ import {
   TextInput,
   Image
 } from "react-native";
-import styles from "./styles";
 
-const criar = require("../../../images/buttons/signin-criar.png");
+import styles from "./styles";
+import Buttons from "../../../components/Buttons-start/Buttons-start"
+
 const igor = require("../../../images/logo/logo.png");
 const background = require("../../../images/background/background.png");
 
@@ -72,6 +73,9 @@ const IgorLogo = (styles) => (
 )
 
 class SignUp extends React.Component {
+  static navigationOptions = {
+    header:null
+  }
   render() {
     const { forms } = this.props
     return (
@@ -79,14 +83,11 @@ class SignUp extends React.Component {
         <View style={styles.container}>
           <IgorLogo styles={styles}/>
           <View style={styles.buttonsContainer}>
-            { forms.map(form => (<Input>{form.title}</Input>)) }
-            <TouchableOpacity style={{ alignItems: "flex-end" }}>
-              <Image
-                source={criar}
-                style={styles.image}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
+            { forms.map(form => (<Input>{form.name}</Input>)) }
+            <Buttons 
+              navigate = {() => {}}
+              title = 'CRIAR'
+            />
           </View>
         </View>
     </IgorBackground>);
