@@ -15,16 +15,15 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%"
   },
-  buttonLayout: {
+  buttonLayout:{
     height: 50,
     width: 175,
     margin: 30,
     backgroundColor: colors.greenButton,
-    borderColor: colors.blackBorder,
-    borderWidth: 2
-  },
+    alignItems: 'center',
+    justifyContent: "center",
+},
   buttonText: {
-    textAlign: "center",
     fontSize: fonts.bigger,
     color: colors.buttonText
   },

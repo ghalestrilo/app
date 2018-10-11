@@ -32,10 +32,17 @@ const styles = StyleSheet.create({
     flex: 4,
     alignItems: 'flex-end',
   },
-  entrarimg: {
-    marginRight: 30,
-    width: 120,
-    height: 100,
+  buttonLayout:{
+    height: 50,
+    width: 175,
+    margin: 30,
+    backgroundColor: colors.greenButton,
+    alignItems: 'center',
+    justifyContent: "center",
+},
+  buttonText: {
+    fontSize: fonts.bigger,
+    color: colors.buttonText
   },
   rest: {
     margin: 10,

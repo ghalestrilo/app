@@ -4,9 +4,10 @@ import {
   View,
   ImageBackground,
   Image,
-  Button
 } from "react-native";
 import styles from "./styles";
+
+import Buttons from "../../../components/Buttons-start/Buttons-start"
 
 // Isolei essa variavel por flexibilidade
 // O plano seria migra-las para a store
@@ -14,16 +15,19 @@ const background = require("../../../images/background/background.png");
 const igor = require("../../../images/logo/logo.png");
 const options = [
   {
-    title: "Login",
+    title: "LOGIN",
     destination: "Login"
   },
   {
-    title: "Cadastro",
-    destination: "Signin"
+    title: "CADASTRO",
+    destination: "Signup"
   }
 ]
 
 class Start extends React.Component {
+  static navigationOptions = {
+    header:null
+  }
   render() {
     let { navigation } = this.props
     return (
@@ -43,11 +47,11 @@ class Start extends React.Component {
             </View>
             <View style={styles.buttonsContainer}>
               {options.map(option =>
-                (<Button
-                  style={styles.buttonLayout}
-                  onPress={() => navigation.navigate(option.destination)}
-                  title={option.title}
-                  />))}
+                (<Buttons 
+                  navigate = {() => navigation.navigate(option.destination)}
+                  title = {option.title}
+                  key = {option.title}/>
+                ))}
             </View>
           </View>
         </ImageBackground>
