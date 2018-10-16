@@ -39,6 +39,7 @@ class Login extends React.Component {
               <TextInput
                 placeholder="Senha"
                 style={styles.senha}
+                secureTextEntry = {true}
               />
             </View>
             <View style={styles.buttonsContainer}>

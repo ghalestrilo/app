@@ -22,13 +22,14 @@ const styles = StyleSheet.create({
   },
   inputs: {
     fontSize: fonts.bigbig,
-    margin: 2
+    margin: 5,
+    color:colors.yellow,
   },
   buttonsContainer: {
     flex: 4,
     marginBottom: "10%",
     marginLeft: "10%",
-    marginRight: "10%"
+    marginRight: "10%",
   },
   image: {
     width: 120,
