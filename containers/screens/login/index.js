@@ -3,28 +3,49 @@ import { connect } from "react-redux";
 import styles from "./styles.js";
 
 import {
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Image,
-  Button
+  View
 } from "react-native";
-<<<<<<< HEAD
 
 import {
   IgorBackground,
   IgorLogo,
+  MainMenuButton,
+  RestButton
 } from "../../../components/Igor";
 
 import {
   requestLogin
 } from "../../../actions/user";
 
+// Constants
+const mainoptions = [
+  {
+    title: "ENTRAR",
+    destination: "Login"
+  },
+  {
+    title: "DEV",
+    destination: "Home"
+  }
+];
 
-const entrar = require("../../../images/buttons/login-entrar.png");
+const otheroptions = [
+  {
+    title: "Criar conta",
+    destination: "Signup"
+  },
+  {
+    title: "Esqueci minha senha",
+    destination: "Login"
+  }
+];
 
+// Class
 class Login extends React.Component {
+  static navigationOptions = {
+    header: null
+  }
+
   state = {
     username: "",
     password: ""
@@ -44,27 +65,23 @@ class Login extends React.Component {
     });
   }
 
-=======
-import styles from "./styles.js";
-import Buttons from "../../../components/Buttons-start/Buttons-start"
-
-const igor = require("../../../images/logo/logo.png");
-const background = require("../../../images/background/background.png");
-
-class Login extends React.Component {
-  static navigationOptions = {
-    header:null
-  }
->>>>>>> 3a612700f76d486ef8910defb27ee7fb100cbe17
   render() {
     const { navigation } = this.props;
-    const { username, password } = this.state;
+
+    // This is for the action call
+    // const { username, password } = this.state;
     return (
       IgorBackground(
         <View style={styles.container}>
           {IgorLogo(styles)}
           <View style={styles.loginContainer}>
-            <Text style={styles.login}>E-mail:</Text>
+            <Input
+              title="E-mail"
+              onChange={this.updateUserName}/>
+            <Input
+              title="Senha"
+              onChange={this.updatePassword}/>
+            {/* <Text style={styles.login}>E-mail:</Text>
             <TextInput
               placeholder="E-mail"
               style={styles.login}
@@ -75,59 +92,22 @@ class Login extends React.Component {
               placeholder="Senha"
               style={styles.senha}
               onChange={(e) => this.updatePassword(e.target.value)}
-            />
+            /> */}
           </View>
           <View style={styles.buttonsContainer}>
             <View>
-              <TouchableOpacity>
-                <Image
-                  source={entrar}
-                  style={styles.entrarimg}
-                  resizeMode="contain"
-                  onPress={() => requestLogin(username, password)}
-                />
-                <Button
-                  style={styles.buttonLayout}
-                  onPress={() => navigation.navigate("Home")}
-                  title={"(dev)"}
-                />
-              </TouchableOpacity>
+              {mainoptions.map(option =>
+                <MainMenuButton
+                  title={option.title}
+                  navigate={() => navigation.navigate(option.destination)}/>)
+              }
             </View>
-<<<<<<< HEAD
             <View>
-              <TouchableOpacity
-                style={styles.rest}
-                onPress={() => navigation.navigate("Signin")}
-              >
-                <Text style={styles.restText}>Criar conta</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.rest}
-              >
-                <Text style={styles.restText}>Esqueci minha senha</Text>
-              </TouchableOpacity>
-=======
-            <View style={styles.buttonsContainer}>
-              <View>
-                <Buttons
-                  navigate = {()=>{}}
-                  title = "ENTRAR"
-                />
-              </View>
-              <View>
-                <TouchableOpacity
-                  style={styles.rest}
-                  onPress={() => this.props.navigation.navigate("Signup")}
-                >
-                  <Text style={styles.restText}>Criar conta</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.rest}
-                >
-                  <Text style={styles.restText}>Esqueci minha senha</Text>
-                </TouchableOpacity>
-              </View>
->>>>>>> 3a612700f76d486ef8910defb27ee7fb100cbe17
+              {otheroptions.map(option =>
+                <RestButton
+                  title={option.title}
+                  navigate={() => navigation.navigate(option.destination)}/>)
+              }
             </View>
           </View>
         </View>

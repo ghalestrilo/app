@@ -28,7 +28,7 @@ const options = [
 
 class Start extends React.Component {
   static navigationOptions = {
-    header:null
+    header: null
   }
   render() {
     const { navigation } = this.props;

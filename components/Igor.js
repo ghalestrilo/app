@@ -2,7 +2,7 @@ import React from "react";
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
 
-import styles from './styles.js'
+import styles from "./styles.js";
 
 import {
   View,
@@ -32,17 +32,28 @@ export const IgorLogo = (overrides) => {
     <Image
       source={igor}
       resizeMode="contain"
-      style={{...styles.logo, ...overrides}}
+      style={{ ...styles.logo, ...overrides }}
     />
-  </View>
-}
+  </View>;
+};
 
 /* Fab: Botaozinho que flutua na parte inferior direia da tela
 */
 export const Fab = (image, callback) => <Image classname="fab" source={image} onPress={callback}/>;
 
-export const Progress = (props) => <Text classname="progbar">{props.progress}</Text>
+export const Progress = (props) => <Text classname="progbar">{props.progress}</Text>;
 
+export const Input = (props) => (
+  // TODO: Slant Behaviour
+  // (props.text === '')
+  //   ?
+  //   :
+  <TextInput
+    placeholder={props.title}
+    style={styles.inputs}
+    onChange={(e) => props.onChange(e.target.value)}
+  />
+);
 /* Aventura:
   - Background
   - Nome
@@ -57,24 +68,33 @@ export const Adventure = (adventure) => {
 
 
   return (
-  <TouchableOpacity>
-    <ImageBackground
-      source={adventure.image}
-      style={{width: '100%', height: '20%'}}
-      classname="adventure">
-      <Text classname="adv-title">{adventure.title}</Text>
-      <Text classname="adv-next-session">{adventure.nextSession}</Text>
-      <Progress percentage={progress}/>
-    </ImageBackground>
-  </TouchableOpacity>);
+    <TouchableOpacity>
+      <ImageBackground
+        source={adventure.image}
+        style={{ width: "100%", height: "20%" }}
+        classname="adventure">
+        <Text classname="adv-title">{adventure.title}</Text>
+        <Text classname="adv-next-session">{adventure.nextSession}</Text>
+        <Progress percentage={progress}/>
+      </ImageBackground>
+    </TouchableOpacity>);
 };
 
 
 export const MainMenuButton = (props) => (
   <TouchableOpacity
-      style={styles.buttonLayout}
-      onPress={props.navigate}
+    style={styles.buttonLayout}
+    onPress={props.navigate}
   >
-      <Text style = {styles.buttonText}>{props.title}</Text>
+    <Text style = {styles.buttonText}>{props.title}</Text>
+  </TouchableOpacity>
+);
+
+export const RestButton = (props) => (
+  <TouchableOpacity
+    style={styles.rest}
+    onPress={props.navigate}
+  >
+    <Text style = {styles.restText}>{props.title}</Text>
   </TouchableOpacity>
 );

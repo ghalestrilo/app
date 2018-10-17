@@ -3,19 +3,15 @@ import { connect } from "react-redux";
 import styles from "./styles";
 
 import {
-  View,
-  TouchableOpacity,
-  TextInput,
-  Image
+  View
 } from "react-native";
 
 import {
   IgorBackground,
   IgorLogo,
-  MainMenuButton
+  MainMenuButton,
+  Input
 } from "../../../components/Igor";
-
-const criar = require("../../../images/buttons/signin-criar.png");
 
 // User Reducer / Forms Reducer
 const forms = [
@@ -46,17 +42,9 @@ const forms = [
   }
 ];
 
-const Input = (props) => (
-  <TextInput
-    placeholder={props.form.name}
-    style={styles.inputs}
-    onChange={(e) => props.onChange(e.target.value)}
-  />
-);
-
 class SignUp extends React.Component {
   static navigationOptions = {
-    header:null
+    header: null
   }
   state = {
     forms: forms || []
@@ -83,10 +71,10 @@ class SignUp extends React.Component {
         <View style={styles.container}>
           {IgorLogo(styles)}
           <View style={styles.buttonsContainer}>
-            { forms.map(form => (<Input onChange={this.updateForm.apply(index)}>{form.name}</Input>)) }
-            <MainMenuButton 
+            { forms.map((form, index) => (<Input onChange={this.updateForm.apply(index)}>{form.name}</Input>)) }
+            <MainMenuButton
               navigate = {() => {}}
-              title = 'CRIAR'
+              title = "CRIAR"
             />
           </View>
         </View>
