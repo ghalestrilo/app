@@ -39,12 +39,13 @@ class Login extends React.Component {
               <TextInput
                 placeholder="Senha"
                 style={styles.senha}
+                secureTextEntry = {true}
               />
             </View>
             <View style={styles.buttonsContainer}>
               <View>
                 <Buttons
-                  navigate = {()=>{}}
+                  navigate = {()=>this.props.navigation.navigate("Home")}
                   title = "ENTRAR"
                 />
               </View>
@@ -73,5 +74,5 @@ class Login extends React.Component {
 const mapStateToProps = (state) => ({
 
 })
-
+//export default Login;
 export default connect(mapStateToProps)(Login);

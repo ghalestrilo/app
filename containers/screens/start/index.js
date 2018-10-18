@@ -29,7 +29,6 @@ class Start extends React.Component {
     header:null
   }
   render() {
-    let { navigation } = this.props
     return (
       <View>
         <ImageBackground
@@ -48,7 +47,7 @@ class Start extends React.Component {
             <View style={styles.buttonsContainer}>
               {options.map(option =>
                 (<Buttons 
-                  navigate = {() => navigation.navigate(option.destination)}
+                  navigate = {() => this.props.navigation.navigate(option.destination)}
                   title = {option.title}
                   key = {option.title}/>
                 ))}
@@ -63,5 +62,5 @@ class Start extends React.Component {
 const mapStateToProps = (state) => ({
   // options: state.start.options
 })
-
-export default connect(mapStateToProps)(Start);
+//export default Start;
+export default connect(null)(Start);
