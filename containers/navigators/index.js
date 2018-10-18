@@ -1,46 +1,49 @@
 import {
   SignUpScreen, LoginScreen, StartScreen, HomeScreen,
-  AccountScreen,AdventuresScreen,BooksScreen,ConfigurationsScreen,
-  NotificationsScreen,
-} from '../screens'
+  AccountScreen, AdventuresScreen, BooksScreen, ConfigurationsScreen,
+  NotificationsScreen
+} from "../screens";
 
-import { 
-  createStackNavigator, 
+import {
+  createStackNavigator,
   createSwitchNavigator,
-  createDrawerNavigator,
-} from 'react-navigation'
+  createDrawerNavigator
+} from "react-navigation";
 
 const LoginStack = createStackNavigator(
   {
     Start: StartScreen,
     Signup: SignUpScreen,
-    Login: LoginScreen,
+    Login: LoginScreen
   },
+  {
+    initialRouteName: "Start"
+  }
 );
 
 
 const DrawerNavigator = createDrawerNavigator(
   {
     Home: HomeScreen,
-    Adventure:AdventuresScreen,
-    Books:BooksScreen,
+    Adventure: AdventuresScreen,
+    Books: BooksScreen,
     Account: AccountScreen,
     Notifications: NotificationsScreen,
-    Configurations:ConfigurationsScreen,
+    Configurations: ConfigurationsScreen
 
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: "Home"
   }
 );
 
 const AppNavigator = createSwitchNavigator(
   {
-    LoginStack: LoginStack ,
-    Drawer: DrawerNavigator,
+    LoginStack: LoginStack,
+    Drawer: DrawerNavigator
   },
   {
-    initialRouteName: 'LoginStack',
+    initialRouteName: "LoginStack"
   },
 );
-export {AppNavigator,LoginStack,DrawerNavigator};
+export { AppNavigator, LoginStack, DrawerNavigator };

@@ -4,7 +4,7 @@ import {
 import {
   colors,
   fonts
-} from "../../../styles";
+} from "../styles";
 
 const styles = StyleSheet.create({
   container: {

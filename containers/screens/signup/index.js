@@ -1,105 +1,93 @@
 import React from "react";
 import { connect } from "react-redux";
+import styles from "./styles";
+
 import {
-  View,
-  ImageBackground,
-  TextInput,
-  Image
+  View
 } from "react-native";
 
-import styles from "./styles";
-import Buttons from "../../../components/Buttons-start/Buttons-start"
+import {
+  IgorBackground,
+  IgorLogo,
+  MainMenuButton,
+  Input
+} from "../../../components/Igor";
 
-const igor = require("../../../images/logo/logo.png");
-const background = require("../../../images/background/background.png");
-
-// User Reducer as well
-const forms = [
- {
-   name: "E-mail",
-   text: '',
-   valid: false
+// Constants
+const signupForms = [
+  {
+    name: "E-mail",
+    text: "",
+    valid: false
   },
- {
-   name: "Senha",
-   text: '',
-   valid: false
+  {
+    name: "Senha",
+    text: "",
+    valid: false
   },
- {
-   name: "Nome do Usuario",
-   text: '',
-   valid: false
+  {
+    name: "Nome do Usuario",
+    text: "",
+    valid: false
   },
- {
-   name: "Data de Nascimento",
-   text: '',
-   valid: false
+  {
+    name: "Data de Nascimento",
+    text: "",
+    valid: false
   },
- {
-   name: "Sexo",
-   text: '',
-   valid: false
-  },
-]
-
-const Input = (props) => (
-  <TextInput
-    placeholder={props.children}
-    style={styles.inputs}
-    autoCapitalize = {props.autoCapitalize}
-    secureTextEntry = {props.children === 'Senha'}
-  />
-);
-
-const IgorLogo = (styles) => (
-  <View style={styles.igorLayout}>
-    <Image
-      source={igor}
-      resizeMode="contain"
-      style={styles.logo}
-    />
-  </View>
-)
+  {
+    name: "Sexo",
+    text: "",
+    valid: false
+  }
+];
 
 class SignUp extends React.Component {
   static navigationOptions = {
-    header:null
+    header: null
   }
-  render(){
-    return(
-        <View> 
-            <ImageBackground
-            source = {background}
-            style = {{width: '100%', height: '100%'}}
-            resizeMethod="resize"
-            >
-                <View style = {styles.container}>
-                    <View style = {styles.igorLayout}>
-                        <Image
-                            source = {igor}
-                            resizeMode = 'contain'
-                            style = {styles.logo}
-                        />
-                    </View>
-                    <View style = {styles.buttonsContainer}>
-                        {forms.map(form => <Input key = {form.name}
-                          children = {form.name}
-                          autoCapitalize = 'none'
-                        ></Input>)}
-                        <Buttons 
-                          navigate = {() => {}}
-                          title = 'CRIAR'
-                        />
-                    </View>  
-                </View>
-            </ImageBackground>
+  state = {
+    forms: signupForms
+  }
+
+  updateForm = (index, text) =>
+    this.setState({
+      forms: this.state.forms.map(
+        (form, i) => (i === index)
+          ? { ...form, text: text }
+          : form )
+    })
+
+
+  render() {
+    // const { forms } = this.props
+    const { forms } = this.state;
+    if (!forms) return null;
+    return (
+      IgorBackground(
+        <View style={styles.container}>
+          {IgorLogo(styles)}
+          <View style={styles.buttonsContainer}>
+            {/* { forms.map((form, index) => (<Input onChange={this.updateForm.apply(index)}>{form.name}</Input>)) } */}
+
+            { forms.map((form, index) =>
+              (<Input
+                title={form.name}
+                onChange={() => this.updateForm(index)}/>))
+            }
+            <MainMenuButton
+              navigate = {() => {}}
+              title = "CRIAR"
+            />
+          </View>
         </View>
-    );  
+      )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
-  forms: state.user.forms
-})
-//export default SignUp;
+  // forms: state.user.forms
+});
+
 export default connect(mapStateToProps)(SignUp);

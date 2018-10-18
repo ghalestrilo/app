@@ -8,9 +8,9 @@
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Sign Up/Objetos/Igor_Sign Up_Igor_icon.png",
+    "icon": "./images/logo/temp-logo.png",
     "splash": {
-      "image": "./assets/Sign Up/Objetos/Igor_Sign Up_Igor_icon.png",
+      "image": "./images/logo/temp-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#060606"
     },

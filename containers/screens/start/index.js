@@ -1,18 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  View,
-  ImageBackground,
-  Image,
+  View
 } from "react-native";
+
+import {
+  IgorBackground,
+  IgorLogo,
+  MainMenuButton
+} from "../../../components/Igor";
+
 import styles from "./styles";
 
-import Buttons from "../../../components/Buttons-start/Buttons-start"
-
-// Isolei essa variavel por flexibilidade
-// O plano seria migra-las para a store
-const background = require("../../../images/background/background.png");
-const igor = require("../../../images/logo/logo.png");
+// Constants
 const options = [
   {
     title: "LOGIN",
@@ -22,45 +22,35 @@ const options = [
     title: "CADASTRO",
     destination: "Signup"
   }
-]
+];
 
 class Start extends React.Component {
   static navigationOptions = {
-    header:null
+    header: null
   }
+
   render() {
+    const { navigation } = this.props;
     return (
-      <View>
-        <ImageBackground
-          source={background}
-          style={styles.background}
-          resizeMethod="resize"
-        >
-          <View style={styles.container}>
-            <View style={styles.igorLayout}>
-              <Image
-                source={igor}
-                resizeMode="contain"
-                style={styles.logo}
-              />
-            </View>
-            <View style={styles.buttonsContainer}>
-              {options.map(option =>
-                (<Buttons 
-                  navigate = {() => this.props.navigation.navigate(option.destination)}
-                  title = {option.title}
-                  key = {option.title}/>
-                ))}
-            </View>
+      IgorBackground(
+        <View style={styles.container}>
+          {IgorLogo(styles)}
+          <View style={styles.buttonsContainer}>
+            {options.map(option =>
+              (<MainMenuButton
+                key={"btn" + option.title}
+                style={styles.buttonLayout}
+                onPress={() => {
+                  console.log('destination: ', option.destination)
+                  navigation.navigate(option.destination)
+                }}
+                title={option.title}
+              />))}
           </View>
-        </ImageBackground>
-      </View>
+        </View>
+      )
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  // options: state.start.options
-})
-//export default Start;
-export default connect(null)(Start);
+export default connect()(Start);
