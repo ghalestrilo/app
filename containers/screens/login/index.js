@@ -45,7 +45,7 @@ class Login extends React.Component {
             <View style={styles.buttonsContainer}>
               <View>
                 <Buttons
-                  navigate = {()=>this.props.navigation.navigate("Home")}
+                  navigate = {()=>this.props.navigation.navigate("Drawer")}
                   title = "ENTRAR"
                 />
               </View>

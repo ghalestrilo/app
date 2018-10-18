@@ -18,9 +18,16 @@ const LoginStack = createStackNavigator(
   },
 );
 
-const HomeStack = createStackNavigator (
+
+const DrawerNavigator = createDrawerNavigator(
   {
-  Home: HomeScreen,
+    Home: HomeScreen,
+    Adventure:AdventuresScreen,
+    Books:BooksScreen,
+    Account: AccountScreen,
+    Notifications: NotificationsScreen,
+    Configurations:ConfigurationsScreen,
+
   },
   {
     initialRouteName: 'Home',
@@ -30,10 +37,10 @@ const HomeStack = createStackNavigator (
 const AppNavigator = createSwitchNavigator(
   {
     LoginStack: LoginStack ,
-    Home: HomeStack,
+    Drawer: DrawerNavigator,
   },
   {
     initialRouteName: 'LoginStack',
   },
 );
-export {AppNavigator,HomeStack,LoginStack};
+export {AppNavigator,LoginStack,DrawerNavigator};

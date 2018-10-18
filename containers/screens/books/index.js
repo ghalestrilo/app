@@ -8,9 +8,6 @@ import {
 const background = require("../../../images/background/background.png");
 
 class Books extends React.Component {
-  static navigationOptions = {
-    header:null
-  }
   render(){
     return(
         <View> 
@@ -19,7 +16,9 @@ class Books extends React.Component {
             style = {{width: '100%', height: '100%'}}
             resizeMethod="resize"
             >
-              <Text style={{fontSize = 28}}> This is BooksScreen</Text>
+              <View style={{flex:1, alignItems:'center',justifyContent:'center'}}>
+                <Text style={{fontSize : 28}}> This is BooksScreen</Text>
+              </View>
             </ImageBackground>
         </View>
     );  
