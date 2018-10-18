@@ -45,7 +45,7 @@ class Login extends React.Component {
             <View style={styles.buttonsContainer}>
               <View>
                 <Buttons
-                  navigate = {()=>{}}
+                  navigate = {()=>this.props.navigation.navigate("Home")}
                   title = "ENTRAR"
                 />
               </View>
@@ -74,5 +74,5 @@ class Login extends React.Component {
 const mapStateToProps = (state) => ({
 
 })
-
+//export default Login;
 export default connect(mapStateToProps)(Login);

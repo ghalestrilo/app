@@ -101,5 +101,5 @@ class SignUp extends React.Component {
 const mapStateToProps = (state) => ({
   forms: state.user.forms
 })
-
+//export default SignUp;
 export default connect(mapStateToProps)(SignUp);
