@@ -27,7 +27,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { adventures, onNewAdventure } = this.props;
+    const { adventures } = this.props;
     const { forms } = this.state;
     return (
       IgorBackground(

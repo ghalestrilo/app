@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import Logger from 'redux-logger'
 import { createStackNavigator } from 'react-navigation'
 
 import screens from './containers/screens';
 import reducer from './reducers/index';
 
-const store = createStore(reducer);
+const store = createStore(reducer, {}, applyMiddleware(Logger));
 const Navigator = createStackNavigator(screens);
 // const AppNavigator = () => (<Navigator/>)
 
