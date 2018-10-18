@@ -3,12 +3,11 @@ import {
   View,
   ImageBackground,
   Text,
-  Button,
 } from "react-native";
 
 const background = require("../../../images/background/background.png");
 
-class Home extends React.Component {
+class Notification extends React.Component {
   render(){
     return(
         <View> 
@@ -18,12 +17,7 @@ class Home extends React.Component {
             resizeMethod="resize"
             >
               <View style={{flex:1, alignItems:'center',justifyContent:'center'}}>
-                <Text style={{fontSize : 28}}> This is HomeScreen</Text>
-                <Button
-                  title="Drawer"
-                  onPress = {()=>{this.props.navigation.openDrawer()}}
-                
-                />
+                <Text style={{fontSize : 28}}> This is NotificationScreen</Text>
               </View>
             </ImageBackground>
         </View>
@@ -31,4 +25,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default Notification;
