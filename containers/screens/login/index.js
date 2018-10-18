@@ -10,7 +10,8 @@ import {
   IgorBackground,
   IgorLogo,
   MainMenuButton,
-  RestButton
+  RestButton,
+  Input,
 } from "../../../components/Igor";
 
 import {
@@ -99,7 +100,7 @@ class Login extends React.Component {
               {mainoptions.map(option =>
                 <MainMenuButton
                   title={option.title}
-                  navigate={() => navigation.navigate(option.destination)}/>)
+                  onPress={() => navigation.navigate(option.destination)}/>)
               }
             </View>
             <View>
@@ -120,9 +121,5 @@ class Login extends React.Component {
 const mapStateToProps = (state) => ({
 
 });
-
-// const mapStateToProps = (state) => ({
-
-// })
 
 export default connect(mapStateToProps, { requestLogin })(Login);

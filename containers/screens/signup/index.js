@@ -13,8 +13,8 @@ import {
   Input
 } from "../../../components/Igor";
 
-// User Reducer / Forms Reducer
-const forms = [
+// Constants
+const signupForms = [
   {
     name: "E-mail",
     text: "",
@@ -47,31 +47,34 @@ class SignUp extends React.Component {
     header: null
   }
   state = {
-    forms: forms || []
+    forms: signupForms
   }
 
-  updateForm(index, text){
-    const state = this.state;
-    state.forms[index].text = text;
-    this.setState(state);
-    // this.setState({
-    //   ...this.state,
-    //   forms: this.state.forms.map((f, i) =>
-    //     (i === index)
-    //       ? { ...f, text: text}
-    //       : f)
-    // })
-  }
+  updateForm = (index, text) =>
+    this.setState({
+      forms: this.state.forms.map(
+        (form, i) => (i === index)
+          ? { ...form, text: text }
+          : form )
+    })
+
 
   render() {
     // const { forms } = this.props
     const { forms } = this.state;
+    if (!forms) return null;
     return (
       IgorBackground(
         <View style={styles.container}>
           {IgorLogo(styles)}
           <View style={styles.buttonsContainer}>
-            { forms.map((form, index) => (<Input onChange={this.updateForm.apply(index)}>{form.name}</Input>)) }
+            {/* { forms.map((form, index) => (<Input onChange={this.updateForm.apply(index)}>{form.name}</Input>)) } */}
+
+            { forms.map((form, index) =>
+              (<Input
+                title={form.name}
+                onChange={() => this.updateForm(index)}/>))
+            }
             <MainMenuButton
               navigate = {() => {}}
               title = "CRIAR"

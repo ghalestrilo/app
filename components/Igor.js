@@ -2,13 +2,14 @@ import React from "react";
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
 
-import styles from "./styles.js";
+import styles from "./igorstyles.js";
 
 import {
   View,
   Text,
   ImageBackground,
   Image,
+  TextInput,
   TouchableOpacity
 } from "react-native";
 
@@ -32,7 +33,7 @@ export const IgorLogo = (overrides) => {
     <Image
       source={igor}
       resizeMode="contain"
-      style={{ ...styles.logo, ...overrides }}
+      style={styles.logo}
     />
   </View>;
 };
@@ -68,7 +69,7 @@ export const Adventure = (adventure) => {
 
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity key={adventure.title}>
       <ImageBackground
         source={adventure.image}
         style={{ width: "100%", height: "20%" }}
@@ -84,7 +85,7 @@ export const Adventure = (adventure) => {
 export const MainMenuButton = (props) => (
   <TouchableOpacity
     style={styles.buttonLayout}
-    onPress={props.navigate}
+    onPress={props.onPress}
   >
     <Text style = {styles.buttonText}>{props.title}</Text>
   </TouchableOpacity>

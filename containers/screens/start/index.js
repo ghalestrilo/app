@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  View,
-  Button
+  View
 } from "react-native";
 
 import {
@@ -13,8 +12,7 @@ import {
 
 import styles from "./styles";
 
-// Isolei essa variavel por flexibilidade
-// O plano seria migra-las para a store
+// Constants
 const options = [
   {
     title: "LOGIN",
@@ -30,6 +28,7 @@ class Start extends React.Component {
   static navigationOptions = {
     header: null
   }
+
   render() {
     const { navigation } = this.props;
     return (
@@ -41,7 +40,10 @@ class Start extends React.Component {
               (<MainMenuButton
                 key={"btn" + option.title}
                 style={styles.buttonLayout}
-                onPress={() => navigation.navigate(option.destination)}
+                onPress={() => {
+                  console.log('destination: ', option.destination)
+                  navigation.navigate(option.destination)
+                }}
                 title={option.title}
               />))}
           </View>
@@ -51,8 +53,4 @@ class Start extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  // options: state.start.options
-});
-
-export default connect(mapStateToProps)(Start);
+export default connect()(Start);
