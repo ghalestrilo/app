@@ -7,7 +7,7 @@ import {
 
 const background = require("../../../images/background/background.png");
 
-class Home extends React.Component {
+class Books extends React.Component {
   static navigationOptions = {
     header:null
   }
@@ -19,11 +19,11 @@ class Home extends React.Component {
             style = {{width: '100%', height: '100%'}}
             resizeMethod="resize"
             >
-              <Text style={{fontSize = 28}}> This is HomeScreen</Text>
+              <Text style={{fontSize = 28}}> This is BooksScreen</Text>
             </ImageBackground>
         </View>
     );  
   }
 }
 
-export default Home;
+export default Books;
