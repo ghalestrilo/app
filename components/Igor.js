@@ -5,6 +5,11 @@ const background = require("../images/background/background.png");
 import styles from "./igorstyles.js";
 
 import {
+  FormLabel,
+  FormInput
+} from "react-native-elements";
+
+import {
   View,
   Text,
   ImageBackground,
@@ -49,11 +54,10 @@ export const Input = (props) => (
   // (props.text === '')
   //   ?
   //   :
-  <TextInput
-    placeholder={props.title}
-    style={styles.inputs}
-    onChange={(e) => props.onChange(e.target.value)}
-  />
+  <View>
+    <FormLabel>{props.title}</FormLabel>
+    <FormInput secureTextEntry={props.type === "password"} onChangeText={props.onChange}/>
+  </View>
 );
 /* Aventura:
   - Background

@@ -62,7 +62,6 @@ class Login extends React.Component {
 
   render() {
     const { navigation } = this.props;
-
     // This is for the action call
     // const { username, password } = this.state;
     return (
