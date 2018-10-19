@@ -1,9 +1,10 @@
 // Carregamentos assincronos da DB virao aqui
+import { registerUser } from "../../api";
 
 export const requestLogin = (username, password) => {
   success = true;
   userdata = {};
-  console.warn("ACTION CREATED!");
+  console.warn("ACTION CREATED!", username, password);
 
   // 1. Promise login to database, dispatch pending response action.
   // 2. Dispatch resolve/reject
@@ -16,4 +17,9 @@ export const requestLogin = (username, password) => {
       payload: userdata
     }
     : { type: "LOGIN_FAILURE", payload: "" };
+};
+
+export const requestSignup = async (user) => {
+  const response = await registerUser(user);
+  console.warn("signup", response);
 };

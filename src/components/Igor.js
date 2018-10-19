@@ -51,8 +51,9 @@ export const Input = (props) => (
   //   :
   <TextInput
     placeholder={props.title}
+    secureTextEntry={props.type === "password"}
     style={styles.inputs}
-    onChange={(e) => props.onChange(e.target.value)}
+    onChangeText={(e) => props.onChange(e.target.value)}
   />
 );
 /* Aventura:

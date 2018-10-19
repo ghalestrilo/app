@@ -3,15 +3,21 @@ import { connect } from "react-redux";
 import styles from "./styles.js";
 
 import {
-  View
+  View,
+  TouchableOpacity,
+  Text
 } from "react-native";
+
+import {
+  FormInput,
+  FormLabel
+} from "react-native-elements";
 
 import {
   IgorBackground,
   IgorLogo,
   MainMenuButton,
-  RestButton,
-  Input
+  RestButton
 } from "../../../components/Igor";
 
 import {
@@ -19,16 +25,16 @@ import {
 } from "../../../actions/user";
 
 // Constants
-const mainoptions = [
-  {
-    title: "ENTRAR",
-    destination: "Login"
-  },
-  {
-    title: "DEV",
-    destination: "Home"
-  }
-];
+// const mainoptions = [
+//   {
+//     title: "ENTRAR",
+//     destination: "Login"
+//   },
+//   {
+//     title: "DEV",
+//     destination: "Home"
+//   }
+// ];
 
 const otheroptions = [
   {
@@ -46,10 +52,15 @@ class Login extends React.Component {
   static navigationOptions = {
     header: null
   }
-
-  state = {
-    username: "",
-    password: ""
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: ""
+    };
+    this.updatePassword = this.updatePassword.bind(this);
+    this.updateUserName = this.updateUserName.bind(this);
+    this.login = this.login.bind(this);
   }
 
   updateUserName(text){
@@ -66,6 +77,10 @@ class Login extends React.Component {
     });
   }
 
+  login() {
+    requestLogin(this.state.username, this.state.password);
+  }
+
   render() {
     const { navigation } = this.props;
 
@@ -76,12 +91,10 @@ class Login extends React.Component {
         <View style={styles.container}>
           {IgorLogo(styles)}
           <View style={styles.loginContainer}>
-            <Input
-              title="E-mail"
-              onChange={this.updateUserName}/>
-            <Input
-              title="Senha"
-              onChange={this.updatePassword}/>
+            <FormLabel>Usuário</FormLabel>
+            <FormInput value={this.state.username} onChangeText={this.updateUserName}/>
+            <FormLabel>Senha</FormLabel>
+            <FormInput value={this.state.password} secureTextEntry={true} onChangeText={this.updatePassword}/>
             {/* <Text style={styles.login}>E-mail:</Text>
             <TextInput
               placeholder="E-mail"
@@ -97,12 +110,12 @@ class Login extends React.Component {
           </View>
           <View style={styles.buttonsContainer}>
             <View>
-              {mainoptions.map((option, i) =>
-                <MainMenuButton
-                  key={i}
-                  title={option.title}
-                  onPress={() => navigation.navigate(option.destination)}/>)
-              }
+              <TouchableOpacity
+                style={styles.buttonLayout}
+                onPress={this.login}
+              >
+                <Text style = {styles.buttonText}>ENTRAR</Text>
+              </TouchableOpacity>
             </View>
             <View>
               {otheroptions.map((option, i) =>
