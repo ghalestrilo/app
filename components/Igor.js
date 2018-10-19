@@ -55,7 +55,7 @@ export const Input = (props) => (
   //   :
   <SafeAreaView>
     <FormLabel>{props.title}</FormLabel>
-    <FormInput secureTextEntry={props.type === "password"} onChangeText={props.onChange}/>
+    <FormInput secureTextEntry={props.type === "password"} autoCorrect={false} autoCapitalize="none" onChangeText={props.onChange}/>
   </SafeAreaView>
 );
 /* Aventura:

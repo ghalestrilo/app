@@ -23,6 +23,7 @@ const signupForms = [
   {
     name: "Senha",
     text: "",
+    type: "password",
     valid: false
   },
   {
@@ -72,8 +73,9 @@ class SignUp extends React.Component {
 
             { forms.map((form, index) =>
               (<Input
-                key = {form.name}
+                key={index}
                 title={form.name}
+                type={form.type ? form.type : null}
                 onChange={() => this.updateForm(index)}/>))
             }
             <MainMenuButton
