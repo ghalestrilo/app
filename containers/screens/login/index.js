@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import styles from "./styles";
 
 import {
-  View
+  SafeAreaView,
+  SafeAreaSafeAreaView
 } from "react-native";
 
 import {
@@ -62,14 +63,13 @@ class Login extends React.Component {
 
   render() {
     const { navigation } = this.props;
-
     // This is for the action call
     // const { username, password } = this.state;
     return (
       IgorBackground(
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <IgorLogo/>
-          <View style={styles.loginContainer}>
+          <SafeAreaView style={styles.loginContainer}>
             <Input
               title="E-mail"
               onChange={(text) => this.updateUserName(text)}/>
@@ -77,26 +77,26 @@ class Login extends React.Component {
               title="Senha"
               type="password"
               onChange={(text) => this.updatePassword(text)}/>
-          </View>
-          <View style={styles.buttonsContainer}>
-            <View>
+          </SafeAreaView>
+          <SafeAreaView style={styles.buttonsContainer}>
+            <SafeAreaView>
               {mainoptions.map((option, key) =>
                 <MainMenuButton
                   key={key}
                   title={option.title}
                   onPress={() => navigation.navigate(option.destination)}/>)
               }
-            </View>
-            <View>
+            </SafeAreaView>
+            <SafeAreaView>
               {otheroptions.map((option, key) =>
                 <RestButton
                   key={key}
                   title={option.title}
                   navigate={() => navigation.navigate(option.destination)}/>)
               }
-            </View>
-          </View>
-        </View>
+            </SafeAreaView>
+          </SafeAreaView>
+        </SafeAreaView>
       )
     );
   }

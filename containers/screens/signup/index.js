@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styles from "./styles";
 
 import {
-  View
+  SafeAreaView
 } from "react-native";
 
 import {
@@ -65,9 +65,9 @@ class SignUp extends React.Component {
     if (!forms) return null;
     return (
       IgorBackground(
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <IgorLogo/>
-          <View style={styles.buttonsContainer}>
+          <SafeAreaView style={styles.buttonsContainer}>
             {/* { forms.map((form, index) => (<Input onChange={this.updateForm.apply(index)}>{form.name}</Input>)) } */}
 
             { forms.map((form, index) =>
@@ -79,8 +79,8 @@ class SignUp extends React.Component {
               navigate = {() => {}}
               title = "CRIAR"
             />
-          </View>
-        </View>
+          </SafeAreaView>
+        </SafeAreaView>
       )
     );
   }

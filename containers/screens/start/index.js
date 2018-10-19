@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  View
+  SafeAreaView
 } from "react-native";
 
 import {
@@ -33,9 +33,9 @@ class Start extends React.Component {
     const { navigation } = this.props;
     return (
       IgorBackground(
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <IgorLogo/>
-          <View style={styles.buttonsContainer}>
+          <SafeAreaView style={styles.buttonsContainer}>
             {options.map(option =>
               (<MainMenuButton
                 key={"btn" + option.title}
@@ -43,8 +43,8 @@ class Start extends React.Component {
                 onPress={() => navigation.navigate(option.destination)}
                 title={option.title}
               />))}
-          </View>
-        </View>
+          </SafeAreaView>
+        </SafeAreaView>
       )
     );
   }
