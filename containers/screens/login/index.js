@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import styles from "./styles.js";
+import styles from "./styles";
 
 import {
   View
@@ -11,7 +11,7 @@ import {
   IgorLogo,
   MainMenuButton,
   RestButton,
-  Input,
+  Input
 } from "../../../components/Igor";
 
 import {
@@ -52,19 +52,17 @@ class Login extends React.Component {
     password: ""
   }
 
-  updateUserName(text){
+  updateUserName = (text) =>
     this.setState({
       ...this.state,
       username: text
     });
-  }
 
-  updatePassword(text){
+  updatePassword = (text) =>
     this.setState({
       ...this.state,
       password: text
     });
-  }
 
   render() {
     const { navigation } = this.props;
@@ -74,26 +72,14 @@ class Login extends React.Component {
     return (
       IgorBackground(
         <View style={styles.container}>
-          {IgorLogo(styles)}
+          <IgorLogo/>
           <View style={styles.loginContainer}>
             <Input
               title="E-mail"
-              onChange={this.updateUserName}/>
+              onChange={(text) => this.updateUserName(text)}/>
             <Input
               title="Senha"
-              onChange={this.updatePassword}/>
-            {/* <Text style={styles.login}>E-mail:</Text>
-            <TextInput
-              placeholder="E-mail"
-              style={styles.login}
-              onChange={(e) => this.updateUserName(e.target.value)}
-            />
-            <Text style={styles.senha}>Senha:</Text>
-            <TextInput
-              placeholder="Senha"
-              style={styles.senha}
-              onChange={(e) => this.updatePassword(e.target.value)}
-            /> */}
+              onChange={(text) => this.updatePassword(text)}/>
           </View>
           <View style={styles.buttonsContainer}>
             <View>

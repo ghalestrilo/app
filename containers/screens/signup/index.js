@@ -66,7 +66,7 @@ class SignUp extends React.Component {
     return (
       IgorBackground(
         <View style={styles.container}>
-          {IgorLogo(styles)}
+          <IgorLogo/>
           <View style={styles.buttonsContainer}>
             {/* { forms.map((form, index) => (<Input onChange={this.updateForm.apply(index)}>{form.name}</Input>)) } */}
 
