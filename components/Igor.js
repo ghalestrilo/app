@@ -83,6 +83,7 @@ export const Adventure = (adventure) => {
 
 export const MainMenuButton = (props) => (
   <TouchableOpacity
+    key={props.title + "Button"}
     style={styles.buttonLayout}
     onPress={props.onPress}
   >
@@ -92,6 +93,7 @@ export const MainMenuButton = (props) => (
 
 export const RestButton = (props) => (
   <TouchableOpacity
+    key={option.title + "Button"}
     style={styles.rest}
     onPress={props.navigate}
   >
