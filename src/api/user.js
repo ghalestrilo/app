@@ -2,9 +2,9 @@ import { firebaseDatabase } from "../utils/firebaseUtils";
 
 export const registerUser = (user) => {
   // console.warn(user);
-  firebaseDatabase.ref("users/" + user.username).set({
-    username: user.username,
+  return firebaseDatabase.ref("users/" + user.username).set({
     name: user.name,
+    username: user.username,
     password: user.password
   });
 };

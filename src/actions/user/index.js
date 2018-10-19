@@ -19,7 +19,9 @@ export const requestLogin = (username, password) => {
     : { type: "LOGIN_FAILURE", payload: "" };
 };
 
-export const requestSignup = async (user) => {
-  const response = await registerUser(user);
-  console.warn("signup", response);
+export const requestSignup = (user) => {
+  const response = registerUser(user).then(docRef => {
+    console.warn(docRef);
+  }).catch(e => console.warn(e));
+  console.log("signup", response);
 };

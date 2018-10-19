@@ -99,7 +99,7 @@ class Signup extends React.Component {
       password: this.state.password,
       username: this.state.username
     };
-    requestSignup(user);
+    this.state.password === this.state.passwordConfirm ? requestSignup(user) : null;
   }
 
   render() {
