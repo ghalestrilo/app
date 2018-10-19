@@ -72,6 +72,7 @@ class SignUp extends React.Component {
 
             { forms.map((form, index) =>
               (<Input
+                key = {form.name}
                 title={form.name}
                 onChange={() => this.updateForm(index)}/>))
             }

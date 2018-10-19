@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import styles from "./styles";
 
 import {
-  SafeAreaView,
-  SafeAreaSafeAreaView
+  SafeAreaView
 } from "react-native";
 
 import {
