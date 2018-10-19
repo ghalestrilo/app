@@ -5,37 +5,41 @@ const background = require("../images/background/background.png");
 import styles from "./igorstyles.js";
 
 import {
-  View,
+  FormLabel,
+  FormInput
+} from "react-native-elements";
+
+import {
+  SafeAreaView,
   Text,
   ImageBackground,
   Image,
-  TextInput,
   TouchableOpacity
 } from "react-native";
 
 /* Background: Padrao para a maioria das telas
 */
 export const IgorBackground = (content) => (
-  <View>
+  <SafeAreaView>
     <ImageBackground
       source={background}
       style={styles.background}
       resizeMethod="resize">
       {content}
     </ImageBackground>
-  </View>
+  </SafeAreaView>
 );
 
 /* Background
 */
 export const IgorLogo = (overrides) => {
-  return <View style={styles.igorLayout}>
+  return <SafeAreaView style={styles.igorLayout}>
     <Image
       source={igor}
       resizeMode="contain"
       style={styles.logo}
     />
-  </View>;
+  </SafeAreaView>;
 };
 
 /* Fab: Botaozinho que flutua na parte inferior direia da tela
@@ -49,11 +53,10 @@ export const Input = (props) => (
   // (props.text === '')
   //   ?
   //   :
-  <TextInput
-    placeholder={props.title}
-    style={styles.inputs}
-    onChange={(e) => props.onChange(e.target.value)}
-  />
+  <SafeAreaView>
+    <FormLabel>{props.title}</FormLabel>
+    <FormInput secureTextEntry={props.type === "password"} onChangeText={props.onChange}/>
+  </SafeAreaView>
 );
 
 export const TextOverlay = (text) => (<Text style={styles.overlay}>{text}</Text>);

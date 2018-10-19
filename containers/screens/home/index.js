@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  View
+  SafeAreaView
 } from "react-native";
 
 import {
@@ -31,7 +31,7 @@ class Home extends React.Component {
     // const { forms } = this.state;
     return (
       IgorBackground(
-        <View>
+        <SafeAreaView>
           {adventures.map((a, i) =>
             (Adventure(a, () => this.onClickAdventure(i))))
           }
@@ -39,7 +39,7 @@ class Home extends React.Component {
             source={newAdventureImage}
             onPress={() => this.onNewAdventure()}
           />
-        </View>
+        </SafeAreaView>
       )
     );
   }

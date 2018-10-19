@@ -1,28 +1,28 @@
 import React from "react";
 import {
-  View,
+  SafeAreaView,
   ImageBackground,
-  Text,
+  Text
 } from "react-native";
 
 const background = require("../../../images/background/background.png");
 
-class Configuration extends React.Component {
+class Books extends React.Component {
   render(){
     return(
-        <View> 
-            <ImageBackground
-            source = {background}
-            style = {{width: '100%', height: '100%'}}
-            resizeMethod="resize"
-            >
-              <View style={{flex:1, alignItems:'center',justifyContent:'center'}}>
-                <Text style={{fontSize : 28}}> This is ConfigurationScreen</Text>
-              </View>
-            </ImageBackground>
-        </View>
-    );  
+      <SafeAreaView>
+        <ImageBackground
+          source = {background}
+          style = {{ width: "100%", height: "100%" }}
+          resizeMethod="resize"
+        >
+          <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <Text style={{ fontSize: 28 }}> This is ConfigurationsScreen</Text>
+          </SafeAreaView>
+        </ImageBackground>
+      </SafeAreaView>
+    );
   }
 }
 
-export default Configuration;
+export default Books;

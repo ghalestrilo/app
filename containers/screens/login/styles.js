@@ -16,8 +16,9 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   loginContainer: {
-    flex: 2,
-    justifyContent: "flex-start",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
     marginBottom: "20%",
     marginLeft: "10%",
     marginRight: "10%"

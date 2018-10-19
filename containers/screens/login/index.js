@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import styles from "./styles.js";
+import styles from "./styles";
 
 import {
-  View
+  SafeAreaView
 } from "react-native";
 
 import {
@@ -22,10 +22,6 @@ import {
 const mainoptions = [
   {
     title: "ENTRAR",
-    destination: "Login"
-  },
-  {
-    title: "DEV",
     destination: "Home"
   }
 ];
@@ -66,44 +62,47 @@ class Login extends React.Component {
 
   render() {
     const { navigation } = this.props;
-
     // This is for the action call
     // const { username, password } = this.state;
     return (
       IgorBackground(
-        <View style={styles.container}>
-          {IgorLogo(styles)}
-          <View style={styles.loginContainer}>
+        <SafeAreaView style={styles.container}>
+          <IgorLogo/>
+          <SafeAreaView style={styles.loginContainer}>
             <Input
               title="E-mail"
               onChange={(text) => this.updateUserName(text)}/>
             <Input
               title="Senha"
+              type="password"
               onChange={(text) => this.updatePassword(text)}/>
-          </View>
-          <View style={styles.buttonsContainer}>
-            <View>
-              {mainoptions.map(option =>
+          </SafeAreaView>
+          <SafeAreaView style={styles.buttonsContainer}>
+            <SafeAreaView>
+              {mainoptions.map((option, key) =>
                 <MainMenuButton
+                  key={key}
                   title={option.title}
                   onPress={() => navigation.navigate(option.destination)}/>)
               }
-            </View>
-            <View>
-              {otheroptions.map(option =>
+            </SafeAreaView>
+            <SafeAreaView>
+              {otheroptions.map((option, key) =>
                 <RestButton
+                  key={key}
                   title={option.title}
                   navigate={() => navigation.navigate(option.destination)}/>)
               }
-            </View>
-          </View>
-        </View>
+            </SafeAreaView>
+          </SafeAreaView>
+        </SafeAreaView>
       )
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+
+const mapStateToProps = () => ({
 
 });
 
