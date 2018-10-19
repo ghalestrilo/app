@@ -1,4 +1,5 @@
 import React from "react";
+// import { ImageBackground } from "./containers/navigators";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
@@ -17,4 +18,16 @@ export default class App extends React.Component {
       </Provider>
     );
   }
+
+  // render(){
+  //   return (
+  //     <Provider store={store}>
+  //       <ImageBackground
+  //         source={background}
+  //         style={{width: "100%", height: "100%"}}
+  //         resizeMethod="resize">
+  //         <AppNavigator />
+  //       </ImageBackground>
+  //     </Provider>
+  //   );
 }

@@ -47,6 +47,14 @@ const styles = StyleSheet.create({
   },
   overlay: {
     opacity: 0
+  },
+  fab: {
+    position: "absolute",
+    width: 80,
+    height: 80,
+    right: 16,
+    bottom: 16
+    // top: 400
   }
 });
 

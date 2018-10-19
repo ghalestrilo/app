@@ -32,19 +32,30 @@ export const IgorBackground = (content) => (
 
 /* Background
 */
-export const IgorLogo = (overrides) => {
-  return <SafeAreaView style={styles.igorLayout}>
+export const IgorLogo = () => (
+  <SafeAreaView style={styles.igorLayout}>
     <Image
       source={igor}
       resizeMode="contain"
       style={styles.logo}
     />
-  </SafeAreaView>;
-};
+  </SafeAreaView>
+);
 
 /* Fab: Botaozinho que flutua na parte inferior direia da tela
 */
-export const Fab = (image, callback) => <Image classname="fab" source={image} onPress={callback}/>;
+export const Fab = (props) => (
+  <SafeAreaView>
+    <TouchableOpacity
+      classname="fab"
+      style={styles.fab}
+      onPress={() => props.onPress()}>
+      <Image
+        source={ props.source }
+        style={{ width: "100%", height: "100%" }}/>
+    </TouchableOpacity>
+  </SafeAreaView>
+);
 
 export const Progress = (props) => <Text classname="progbar">{props.progress}</Text>;
 
@@ -67,22 +78,29 @@ export const TextOverlay = (text) => (<Text style={styles.overlay}>{text}</Text>
   - Proxima sessao
   - Barra de progressao (inline)
 */
-export const Adventure = (adventure) => {
-  if (!adventure) return null;
-  const progress = (adventure.progress < 100)
-    ? adventure.progress
-    : 100;
 
+export const Adventure = ({ props }) => {
+  if (!props) return null;
+  const progress = (props.progress < 100)
+    ? props.progress
+    : 100;
   return (
-    <TouchableOpacity key={adventure.title}>
+    <TouchableOpacity
+      key={props.title}
+      onPress={() => props.onPress()}>
       <ImageBackground
-        source={adventure.image}
-        style={{ width: "100%", height: "20%" }}
+        source={props.image}
+        style={{ width: "100%", height: 128 }}
+        key={props.image}
         classname="adventure">
+        <Text>{props.title}</Text>
+
+        <Text>{"Próxima Sessão: " + props.title}</Text>
+
+        <Text>{"Progresso: " + props.progress}</Text>
       </ImageBackground>
     </TouchableOpacity>);
 };
-
 
 export const MainMenuButton = (props) => (
   <TouchableOpacity
@@ -96,7 +114,7 @@ export const MainMenuButton = (props) => (
 
 export const RestButton = (props) => (
   <TouchableOpacity
-    key={option.title + "Button"}
+    key={props.title + "Button"}
     style={styles.rest}
     onPress={props.navigate}
   >
