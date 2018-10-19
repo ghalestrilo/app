@@ -55,6 +55,9 @@ export const Input = (props) => (
     onChange={(e) => props.onChange(e.target.value)}
   />
 );
+
+export const TextOverlay = (text) => (<Text style={styles.overlay}>{text}</Text>);
+
 /* Aventura:
   - Background
   - Nome
@@ -67,16 +70,12 @@ export const Adventure = (adventure) => {
     ? adventure.progress
     : 100;
 
-
   return (
     <TouchableOpacity key={adventure.title}>
       <ImageBackground
         source={adventure.image}
         style={{ width: "100%", height: "20%" }}
         classname="adventure">
-        <Text classname="adv-title">{adventure.title}</Text>
-        <Text classname="adv-next-session">{adventure.nextSession}</Text>
-        <Progress percentage={progress}/>
       </ImageBackground>
     </TouchableOpacity>);
 };

@@ -44,6 +44,9 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 125
+  },
+  overlay: {
+    opacity: 0
   }
 });
 
