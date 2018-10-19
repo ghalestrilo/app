@@ -1,3 +1,5 @@
 node_modules/**/*
 .expo/**/*
 package-lock.json
+node_modules
+yarn.lock
