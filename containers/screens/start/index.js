@@ -34,16 +34,13 @@ class Start extends React.Component {
     return (
       IgorBackground(
         <View style={styles.container}>
-          {IgorLogo(styles)}
+          <IgorLogo/>
           <View style={styles.buttonsContainer}>
             {options.map(option =>
               (<MainMenuButton
                 key={"btn" + option.title}
                 style={styles.buttonLayout}
-                onPress={() => {
-                  console.log('destination: ', option.destination)
-                  navigation.navigate(option.destination)
-                }}
+                onPress={() => navigation.navigate(option.destination)}
                 title={option.title}
               />))}
           </View>
