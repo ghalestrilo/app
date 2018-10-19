@@ -16,6 +16,11 @@ import {
 // Constants
 const signupForms = [
   {
+    name: "Nome do Usuario",
+    text: "",
+    valid: false
+  },
+  {
     name: "E-mail",
     text: "",
     valid: false
@@ -27,17 +32,13 @@ const signupForms = [
     valid: false
   },
   {
-    name: "Nome do Usuario",
+    name: "Confirmar Senha",
     text: "",
+    type: "password",
     valid: false
   },
   {
     name: "Data de Nascimento",
-    text: "",
-    valid: false
-  },
-  {
-    name: "Sexo",
     text: "",
     valid: false
   }
@@ -51,14 +52,17 @@ class SignUp extends React.Component {
     forms: signupForms
   }
 
-  updateForm = (index, text) =>
-    this.setState({
-      forms: this.state.forms.map(
-        (form, i) => (i === index)
-          ? { ...form, text: text }
-          : form )
-    })
+  handleInputChange(event) {
+    const value = event.target.value;
+    const name = event.target.name;
 
+    this.setState({
+      [name]: value
+    });
+  }
+  register = () => {
+    console.warn(this.state);
+  }
 
   render() {
     // const { forms } = this.props
@@ -79,7 +83,7 @@ class SignUp extends React.Component {
                 onChange={() => this.updateForm(index)}/>))
             }
             <MainMenuButton
-              navigate = {() => {}}
+              onPress={this.register}
               title = "CRIAR"
             />
           </SafeAreaView>
@@ -90,7 +94,7 @@ class SignUp extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  // forms: state.user.forms
+  
 });
 
 export default connect(mapStateToProps)(SignUp);
