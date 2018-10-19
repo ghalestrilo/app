@@ -22,10 +22,6 @@ import {
 const mainoptions = [
   {
     title: "ENTRAR",
-    destination: "Login"
-  },
-  {
-    title: "DEV",
     destination: "Home"
   }
 ];
@@ -79,19 +75,22 @@ class Login extends React.Component {
               onChange={(text) => this.updateUserName(text)}/>
             <Input
               title="Senha"
+              type="password"
               onChange={(text) => this.updatePassword(text)}/>
           </View>
           <View style={styles.buttonsContainer}>
             <View>
-              {mainoptions.map(option =>
+              {mainoptions.map((option, key) =>
                 <MainMenuButton
+                  key={key}
                   title={option.title}
                   onPress={() => navigation.navigate(option.destination)}/>)
               }
             </View>
             <View>
-              {otheroptions.map(option =>
+              {otheroptions.map((option, key) =>
                 <RestButton
+                  key={key}
                   title={option.title}
                   navigate={() => navigation.navigate(option.destination)}/>)
               }
@@ -104,7 +103,7 @@ class Login extends React.Component {
 }
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = () => ({
 
 });
 
