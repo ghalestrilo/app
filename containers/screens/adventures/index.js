@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  SafeAreaView
+  SafeAreaView,
+  ScrollView
 } from "react-native";
 
 import {
@@ -20,7 +21,8 @@ class Adventures extends React.Component {
   }
 
   onClickAdventure(i){
-    console.warn("click", i);
+    // this.props.dispatch(viewAdventure(i))
+    this.props.navigation.navigate("Adventure");
   }
 
   onNewAdventure(){
@@ -33,11 +35,19 @@ class Adventures extends React.Component {
     return (
       IgorBackground(
         <SafeAreaView>
-          <TabBarNavigation
-            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-          {adventures.map((a, i) =>
-            (Adventure(a, () => this.onClickAdventure(i))))
-          }
+          <SafeAreaView>
+            <ScrollView>
+              <TabBarNavigation
+                navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+              {adventures.map((adv, i) =>
+                <Adventure
+                  props={{
+                    ...adv,
+                    onPress: () => this.onClickAdventure(i)
+                  }}/>)
+              }
+            </ScrollView>
+          </SafeAreaView>
           <Fab
             source={newAdventureImage}
             onPress={() => this.onNewAdventure()}
