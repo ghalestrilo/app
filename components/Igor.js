@@ -1,6 +1,8 @@
 import React from "react";
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
+import Icon from "react-native-vector-icons/Entypo";
+import { colors } from "../styles";
 
 import styles from "./igorstyles.js";
 
@@ -14,7 +16,8 @@ import {
   Text,
   ImageBackground,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  View
 } from "react-native";
 
 /* Background: Padrao para a maioria das telas
@@ -28,6 +31,40 @@ export const IgorBackground = (content) => (
       {content}
     </ImageBackground>
   </SafeAreaView>
+);
+
+/* Background com aba de navegação: Padrao para a maioria das telas
+*/
+export const TabBarNavigation = (props) => (
+  <View style={{ width: "100%", height: 75, backgroundColor: colors.drawerbackground  }}>
+    <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Icon.Button
+          name="menu"
+          backgroundColor= {colors.drawerbackground}
+          onPress={props.navigate}
+          style={{ width: 75, height: 75 }}
+          size= {35}/>
+      </View>
+      <View style={{
+        justifyContent: "center",
+        alignItems: "center" }}>
+        <Text style = {{
+          color: colors.yellow,
+          fontSize: 20 }}>
+                IGOR
+        </Text>
+      </View>
+      <View style={{ justifyContent: "center", alignItems: "flex-end" }}>
+        <Icon.Button
+          name="dots-three-vertical"
+          backgroundColor= {colors.drawerbackground}
+          onPress={props.navigate}
+          style={{ width: 75, height: 75 }}
+          size= {35}/>
+      </View>
+    </View>
+  </View>
 );
 
 /* Background

@@ -1,28 +1,55 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import {
-  SafeAreaView,
-  ImageBackground,
-  Text
+  SafeAreaView
 } from "react-native";
 
-const background = require("../../../images/background/background.png");
+import {
+  IgorBackground,
+  Adventure,
+  Fab,
+  TabBarNavigation
+} from "../../../components/Igor";
+
+const newAdventureImage = require("../../../images/buttons/nova-aventura.png");
 
 class Adventures extends React.Component {
-  render(){
-    return(
-      <SafeAreaView>
-        <ImageBackground
-          source = {background}
-          style = {{ width: "100%", height: "100%" }}
-          resizeMethod="resize"
-        >
-          <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-            <Text style={{ fontSize: 28 }}> This is AdventuresScreen</Text>
-          </SafeAreaView>
-        </ImageBackground>
-      </SafeAreaView>
+  state = {
+    edit: false
+  }
+
+  onClickAdventure(i){
+    console.warn("click", i);
+  }
+
+  onNewAdventure(){
+    this.props.navigation.navigate("NewAdventure");
+  }
+
+  render() {
+    const { adventures } = this.props;
+    // const { forms } = this.state;
+    return (
+      IgorBackground(
+        <SafeAreaView>
+          <TabBarNavigation
+            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+          {adventures.map((a, i) =>
+            (Adventure(a, () => this.onClickAdventure(i))))
+          }
+          <Fab
+            source={newAdventureImage}
+            onPress={() => this.onNewAdventure()}
+          />
+        </SafeAreaView>
+      )
     );
   }
 }
 
-export default Adventures;
+const mapStateToProps = (state) => ({
+  adventures: state.adventures
+});
+
+export default connect(mapStateToProps)(Adventures);

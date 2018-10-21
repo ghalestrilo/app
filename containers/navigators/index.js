@@ -1,8 +1,9 @@
 import {
-  SignUpScreen, LoginScreen, StartScreen, HomeScreen,
+  SignUpScreen, LoginScreen, StartScreen,
   AccountScreen, AdventuresScreen, BooksScreen, ConfigurationsScreen,
   NotificationsScreen
 } from "../screens";
+import { colors } from "../../styles";
 
 import {
   createStackNavigator,
@@ -17,15 +18,17 @@ const LoginStack = createStackNavigator(
     Login: LoginScreen
   },
   {
-    initialRouteName: "Start"
+    initialRouteName: "Start",
+    navigationOptions: {
+      header: null
+    }
   }
 );
 
 
 const DrawerNavigator = createDrawerNavigator(
   {
-    Home: HomeScreen,
-    Adventure: AdventuresScreen,
+    Adventures: AdventuresScreen,
     Books: BooksScreen,
     Account: AccountScreen,
     Notifications: NotificationsScreen,
@@ -33,8 +36,14 @@ const DrawerNavigator = createDrawerNavigator(
 
   },
   {
-    initialRouteName: "Home"
-  }
+    initialRouteName: "Adventures",
+    drawerLockMode: "locked-closed",
+    drawerBackgroundColor: colors.drawerbackground,
+    contentOptions: {
+      activeTintColor: colors.drawernavactive,
+      inactiveTintColor: colors.drawernavinactive
+    }
+  },
 );
 
 const AppNavigator = createSwitchNavigator(

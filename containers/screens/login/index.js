@@ -22,7 +22,7 @@ import {
 const mainoptions = [
   {
     title: "ENTRAR",
-    destination: "Home"
+    destination: "Adventures"
   }
 ];
 
@@ -39,10 +39,6 @@ const otheroptions = [
 
 // Class
 class Login extends React.Component {
-  static navigationOptions = {
-    header: null
-  }
-
   state = {
     username: "",
     password: ""

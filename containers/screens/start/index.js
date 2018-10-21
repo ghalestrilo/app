@@ -25,10 +25,6 @@ const options = [
 ];
 
 class Start extends React.Component {
-  static navigationOptions = {
-    header: null
-  }
-
   render() {
     const { navigation } = this.props;
     return (

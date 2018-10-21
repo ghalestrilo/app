@@ -1,7 +1,6 @@
 import SignUpScreen from "./signup";
 import LoginScreen from "./login";
 import StartScreen from "./start";
-import HomeScreen from "./home";
 import AccountScreen from "./account";
 import AdventuresScreen from "./adventures";
 import BooksScreen from "./books";
@@ -12,7 +11,6 @@ export {
   SignUpScreen,
   LoginScreen,
   StartScreen,
-  HomeScreen,
   AccountScreen,
   AdventuresScreen,
   BooksScreen,
