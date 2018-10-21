@@ -3,7 +3,6 @@
 export const requestLogin = (username, password) => {
   success = true;
   userdata = {};
-  console.warn("ACTION CREATED!");
 
   // 1. Promise login to database, dispatch pending response action.
   // 2. Dispatch resolve/reject

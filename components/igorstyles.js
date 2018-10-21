@@ -44,6 +44,17 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 125
+  },
+  overlay: {
+    opacity: 0
+  },
+  fab: {
+    position: "absolute",
+    width: 80,
+    height: 80,
+    right: 16,
+    bottom: 16
+    // top: 400
   }
 });
 

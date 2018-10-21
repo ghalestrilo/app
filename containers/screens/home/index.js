@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  SafeAreaView
+  SafeAreaView,
+  ScrollView
 } from "react-native";
 
 import {
@@ -19,7 +20,8 @@ class Home extends React.Component {
   }
 
   onClickAdventure(i){
-    console.warn("click", i);
+    // this.props.dispatch(viewAdventure(i))
+    this.props.navigation.navigate("Adventure");
   }
 
   onNewAdventure(){
@@ -32,9 +34,17 @@ class Home extends React.Component {
     return (
       IgorBackground(
         <SafeAreaView>
-          {adventures.map((a, i) =>
-            (Adventure(a, () => this.onClickAdventure(i))))
-          }
+          <SafeAreaView>
+            <ScrollView>
+              {adventures.map((adv, i) =>
+                <Adventure
+                  props={{
+                    ...adv,
+                    onPress: () => this.onClickAdventure(i)
+                  }}/>)
+              }
+            </ScrollView>
+          </SafeAreaView>
           <Fab
             source={newAdventureImage}
             onPress={() => this.onNewAdventure()}
