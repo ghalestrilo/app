@@ -1,27 +1,16 @@
 import React from "react";
-import firebase from "firebase";
+// import { ImageBackground } from "./containers/navigators";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import Logger from "redux-logger";
+import thunk from "redux-thunk";
 
 import { AppNavigator } from "./containers/navigators";
 import reducer from "./reducers/index";
 
-const store = createStore(reducer, {}, applyMiddleware(Logger));
+const store = createStore(reducer, {}, applyMiddleware(thunk));
 
 export default class App extends React.Component {
-  componentWillMount() {
-    const config = {
-      apiKey: "AIzaSyC5hIUffHTZc7RPXPxhU8MuB85GqWAi3_w",
-      authDomain: "igor-dev-apps.firebaseapp.com",
-      databaseURL: "https://igor-dev-apps.firebaseio.com",
-      projectId: "igor-dev-apps",
-      storageBucket: "igor-dev-apps.appspot.com",
-      messagingSenderId: "463098371234"
-    };
-    firebase.initializeApp(config);
-  }
   render(){
     return (
       <Provider store={store}>
@@ -29,4 +18,16 @@ export default class App extends React.Component {
       </Provider>
     );
   }
+
+  // render(){
+  //   return (
+  //     <Provider store={store}>
+  //       <ImageBackground
+  //         source={background}
+  //         style={{width: "100%", height: "100%"}}
+  //         resizeMethod="resize">
+  //         <AppNavigator />
+  //       </ImageBackground>
+  //     </Provider>
+  //   );
 }

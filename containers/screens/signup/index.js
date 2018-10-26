@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styles from "./styles";
+import { addUser as RegisterUser } from "../../../actions/user";
 
 import {
   SafeAreaView
@@ -17,70 +18,73 @@ import {
 const signupForms = [
   {
     name: "Nome do Usuario",
+    state: "name",
     text: "",
     valid: false
   },
   {
     name: "E-mail",
+    state: "email",
     text: "",
     valid: false
   },
   {
     name: "Senha",
+    state: "password",
     text: "",
     type: "password",
     valid: false
   },
   {
     name: "Confirmar Senha",
+    state: "confirmPassword",
     text: "",
     type: "password",
     valid: false
   },
   {
     name: "Data de Nascimento",
+    state: "birth",
     text: "",
     valid: false
   }
 ];
 
 class SignUp extends React.Component {
-  static navigationOptions = {
-    header: null
+  constructor(props){
+    super(props);
+    this.state = {
+      password: "",
+      email: "",
+      name: "",
+      confirmPassword: "",
+      birth: ""
+    };
+    this.handleFormChange = this.handleFormChange.bind(this);
   }
-  state = {
-    forms: signupForms
-  }
-
-  handleInputChange(event) {
-    const value = event.target.value;
-    const name = event.target.name;
-
+  handleFormChange(value, key) {
     this.setState({
-      [name]: value
+      [key]: value
     });
   }
   register = () => {
-    console.warn(this.state);
+    const { RegisterUser } = this.props;
+    RegisterUser(this.state);
+    console.log(this.state);
   }
 
   render() {
-    // const { forms } = this.props
-    const { forms } = this.state;
-    if (!forms) return null;
     return (
       IgorBackground(
         <SafeAreaView style={styles.container}>
           <IgorLogo/>
           <SafeAreaView style={styles.buttonsContainer}>
-            {/* { forms.map((form, index) => (<Input onChange={this.updateForm.apply(index)}>{form.name}</Input>)) } */}
-
-            { forms.map((form, index) =>
+            { signupForms.map((form, index) =>
               (<Input
                 key={index}
                 title={form.name}
                 type={form.type ? form.type : null}
-                onChange={() => this.updateForm(index)}/>))
+                onChange={(text) => this.handleFormChange(text, form.state)}/>))
             }
             <MainMenuButton
               onPress={this.register}
@@ -94,7 +98,7 @@ class SignUp extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  
+  state: state
 });
 
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps, { RegisterUser })(SignUp);

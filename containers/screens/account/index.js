@@ -1,26 +1,23 @@
 import React from "react";
 import {
-  SafeAreaView,
-  ImageBackground,
-  Text
+  Text,
+  View
 } from "react-native";
-
-const background = require("../../../images/background/background.png");
+import {
+  IgorBackground,
+  TabBarNavigation
+} from "../../../components/Igor";
 
 class Account extends React.Component {
   render(){
     return(
-      <SafeAreaView>
-        <ImageBackground
-          source = {background}
-          style = {{ width: "100%", height: "100%" }}
-          resizeMethod="resize"
-        >
-          <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-            <Text style={{ fontSize: 28 }}> This is AccountScreen</Text>
-          </SafeAreaView>
-        </ImageBackground>
-      </SafeAreaView>
+      IgorBackground(
+        <View>
+          <TabBarNavigation
+            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+          <Text>This is accountscreen</Text>
+        </View>
+      )
     );
   }
 }

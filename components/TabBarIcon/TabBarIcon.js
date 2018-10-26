@@ -3,7 +3,7 @@ import { Icon } from "expo";
 
 import Colors from "../constants/Colors";
 
-const TabBarIcon = (props) => (
+export const TabBarIcon = (props) => (
   <Icon.Ionicons
     name={props.name}
     size={26}
@@ -14,4 +14,3 @@ const TabBarIcon = (props) => (
   />
 );
 
-export default TabBarIcon;

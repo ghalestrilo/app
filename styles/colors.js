@@ -18,5 +18,8 @@ export default{
   warningBackground: "#EAEB5E",
   warningText: "#666804",
   noticeBackground: tintColor,
-  noticeText: "#fff"
+  noticeText: "#fff",
+  drawerbackground: "rgb(34,17,51)",
+  drawernavactive: "rgb(255,58,77)",
+  drawernavinactive: "rgb(255,209,132)"
 };
