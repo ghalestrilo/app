@@ -20,7 +20,7 @@ class Adventures extends React.Component {
     edit: false
   }
 
-  onClickAdventure(i){
+  onClickAdventure(){
     // this.props.dispatch(viewAdventure(i))
     this.props.navigation.navigate("Adventure");
   }
@@ -41,6 +41,7 @@ class Adventures extends React.Component {
                 navigate = {() => { this.props.navigation.openDrawer() ; }}/>
               {adventures.map((adv, i) =>
                 <Adventure
+                  key={i}
                   props={{
                     ...adv,
                     onPress: () => this.onClickAdventure(i)
