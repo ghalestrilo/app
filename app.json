@@ -8,9 +8,9 @@
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./images/logo/temp-logo.png",
+    "icon": "./src/images/logo/temp-logo.png",
     "splash": {
-      "image": "./images/logo/temp-logo.png",
+      "image": "./src/images/logo/temp-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#060606"
     },
