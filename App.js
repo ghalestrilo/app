@@ -3,12 +3,12 @@ import React from "react";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import Logger from "redux-logger";
+import thunk from "redux-thunk";
 
 import { AppNavigator } from "./containers/navigators";
 import reducer from "./reducers/index";
 
-const store = createStore(reducer, {}, applyMiddleware(Logger));
+const store = createStore(reducer, {}, applyMiddleware(thunk));
 
 export default class App extends React.Component {
   render(){

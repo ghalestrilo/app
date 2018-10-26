@@ -32,8 +32,8 @@ const DrawerNavigator = createDrawerNavigator(
     Books: BooksScreen,
     Account: AccountScreen,
     Notifications: NotificationsScreen,
-    Configurations: ConfigurationsScreen
-
+    Configurations: ConfigurationsScreen,
+    Logout: StartScreen
   },
   {
     initialRouteName: "Adventures",

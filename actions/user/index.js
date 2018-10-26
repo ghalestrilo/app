@@ -1,18 +1,25 @@
 // Carregamentos assincronos da DB virao aqui
+import { userRef as UserAPI } from "../../util";
+import { FETCH_USER, REQUEST_ADD_USER, RECEIVE_ADD_USER } from "../types";
 
-export const requestLogin = (username, password) => {
-  success = true;
-  userdata = {};
+export const addUser = newUser => dispatch => {
+  dispatch({
+    type: REQUEST_ADD_USER,
+    payload: null
+  });
+  return UserAPI.push().set(newUser).then(() =>
+    dispatch({
+      type: RECEIVE_ADD_USER,
+      payload: newUser
+    })
+  );
+};
 
-  // 1. Promise login to database, dispatch pending response action.
-  // 2. Dispatch resolve/reject
-  //  - Resolve: make another call to database, fetch user data and return
-  //  - Reject: return login failure and message.
-
-  return success
-    ? {
-      type: "LOGIN_SUCCESS",
-      payload: userdata
-    }
-    : { type: "LOGIN_FAILURE", payload: "" };
+export const getUsers = () => dispatch => {
+  return UserAPI.on("value", snapshot => {
+    dispatch({
+      type: FETCH_USER,
+      payload: snapshot.val()
+    });
+  });
 };

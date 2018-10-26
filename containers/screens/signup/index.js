@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styles from "./styles";
+import { addUser as RegisterUser } from "../../../actions/user";
 
 import {
   SafeAreaView
@@ -16,65 +17,77 @@ import {
 // Constants
 const signupForms = [
   {
+    name: "Nome do Usuario",
+    state: "name",
+    text: "",
+    valid: false
+  },
+  {
     name: "E-mail",
+    state: "email",
     text: "",
     valid: false
   },
   {
     name: "Senha",
+    state: "password",
     text: "",
+    type: "password",
     valid: false
   },
   {
-    name: "Nome do Usuario",
+    name: "Confirmar Senha",
+    state: "confirmPassword",
     text: "",
+    type: "password",
     valid: false
   },
   {
     name: "Data de Nascimento",
-    text: "",
-    valid: false
-  },
-  {
-    name: "Sexo",
+    state: "birth",
     text: "",
     valid: false
   }
 ];
 
 class SignUp extends React.Component {
-  state = {
-    forms: signupForms
+  constructor(props){
+    super(props);
+    this.state = {
+      password: "",
+      email: "",
+      name: "",
+      confirmPassword: "",
+      birth: ""
+    };
+    this.handleFormChange = this.handleFormChange.bind(this);
+  }
+  handleFormChange(value, key) {
+    this.setState({
+      [key]: value
+    });
+  }
+  register = () => {
+    const { RegisterUser } = this.props;
+    RegisterUser(this.state);
+    console.log(this.state);
   }
 
-  updateForm = (index, text) =>
-    this.setState({
-      forms: this.state.forms.map(
-        (form, i) => (i === index)
-          ? { ...form, text: text }
-          : form )
-    })
-
-
   render() {
-    // const { forms } = this.props
-    const { forms } = this.state;
-    if (!forms) return null;
     return (
       IgorBackground(
         <SafeAreaView style={styles.container}>
           <IgorLogo/>
           <SafeAreaView style={styles.buttonsContainer}>
-            {/* { forms.map((form, index) => (<Input onChange={this.updateForm.apply(index)}>{form.name}</Input>)) } */}
-
-            { forms.map((form, index) =>
+            { signupForms.map((form, index) =>
               (<Input
-                key = {form.name}
+                key={index}
                 title={form.name}
-                onChange={() => this.updateForm(index)}/>))
+                type={form.type ? form.type : null}
+                onChange={(text) => this.handleFormChange(text, form.state)}/>))
             }
             <MainMenuButton
-              navigate = {() => {}}
+              onPress={this.register}
               title = "CRIAR"
             />
           </SafeAreaView>
@@ -85,7 +98,7 @@ class SignUp extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  // forms: state.user.forms
+  state: state
 });
 
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps, { RegisterUser })(SignUp);

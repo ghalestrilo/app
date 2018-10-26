@@ -10,14 +10,18 @@ export const initialUser = {
 const user = (state = initialUser, action) => {
   switch (action.type) {
   case "LOGIN_SUCCESS":
-    console.warn("ACTION RECEIVED: #{action.type}!");
     return state;
 
   case "LOGIN_FAILURE":
     return state;
 
-  case "SIGNUP_REQUEST":
-    return state;
+  case "REQUEST_ADD_USER":
+    console.log(action.payload);
+    return action.payload ? action.payload : state;
+
+  case "RECEIVE_ADD_USER":
+    console.log(action.payload);
+    return action.payload ? action.payload : state;
 
   case "SIGNUP_FAILURE":
     return state;
