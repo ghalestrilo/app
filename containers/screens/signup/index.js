@@ -67,10 +67,23 @@ class SignUp extends React.Component {
       [key]: value
     });
   }
-  register = () => {
-    const { RegisterUser } = this.props;
-    RegisterUser(this.state);
-    console.log(this.state);
+  register = async () => {
+    const { RegisterUser, navigation } = this.props;
+    const { email, password, name, confirmPassword, birth } = this.state;
+    if (email && password && name && confirmPassword && birth) {
+      if (password === confirmPassword) {
+        try {
+          await RegisterUser(this.state);
+          navigation.navigate("Start");
+        } catch (error) {
+          console.warn(error);
+        }
+      } else {
+        console.warn("A senhas não conicidem");
+      }
+    } else {
+      console.warn("Todos os campos devem ser preenchidos");
+    }
   }
 
   render() {

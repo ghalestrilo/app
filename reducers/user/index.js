@@ -16,12 +16,13 @@ const user = (state = initialUser, action) => {
     return state;
 
   case "REQUEST_ADD_USER":
-    console.log(action.payload);
     return action.payload ? action.payload : state;
 
   case "RECEIVE_ADD_USER":
-    console.log(action.payload);
     return action.payload ? action.payload : state;
+
+  case "REQUEST_ERROR":
+    throw new Error(action.payload);
 
   case "SIGNUP_FAILURE":
     return state;

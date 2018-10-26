@@ -39,25 +39,23 @@ const otheroptions = [
 
 // Class
 class Login extends React.Component {
-  state = {
-    username: "",
-    password: ""
+  constructor(props){
+    super(props);
+    this.state = {
+      email: "",
+      password: ""
+    };
+    this.handleFormChange = this.handleFormChange.bind(this);
   }
-
-  updateUserName = (text) =>
+  handleFormChange(value, key) {
     this.setState({
-      ...this.state,
-      username: text
+      [key]: value
     });
-
-  updatePassword = (text) =>
-    this.setState({
-      ...this.state,
-      password: text
-    });
+  }
 
   render() {
     const { navigation } = this.props;
+    const { email, password } = this.state;
     // This is for the action call
     // const { username, password } = this.state;
     return (
@@ -67,11 +65,13 @@ class Login extends React.Component {
           <SafeAreaView style={styles.loginContainer}>
             <Input
               title="E-mail"
-              onChange={(text) => this.updateUserName(text)}/>
+              value={email}
+              onChange={(text) => this.handleFormChange(text, "email")}/>
             <Input
               title="Senha"
               type="password"
-              onChange={(text) => this.updatePassword(text)}/>
+              value={password}
+              onChange={(text) => this.handleFormChange(text, "password")}/>
           </SafeAreaView>
           <SafeAreaView style={styles.buttonsContainer}>
             <SafeAreaView>

@@ -1,6 +1,6 @@
 // Carregamentos assincronos da DB virao aqui
 import { userRef as UserAPI } from "../../util";
-import { FETCH_USER, REQUEST_ADD_USER, RECEIVE_ADD_USER } from "../types";
+import { FETCH_USER, REQUEST_ADD_USER, RECEIVE_ADD_USER, REQUEST_ERROR } from "../types";
 
 export const addUser = newUser => dispatch => {
   dispatch({
@@ -12,7 +12,12 @@ export const addUser = newUser => dispatch => {
       type: RECEIVE_ADD_USER,
       payload: newUser
     })
-  );
+  ).catch(err => {
+    dispatch({
+      type: REQUEST_ERROR,
+      payload: err
+    });
+  });
 };
 
 export const getUsers = () => dispatch => {

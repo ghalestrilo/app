@@ -23,7 +23,7 @@ import {
 /* Background: Padrao para a maioria das telas
 */
 export const IgorBackground = (content) => (
-  <SafeAreaView>
+  <SafeAreaView style={{ backgroundColor: "rgb(34,17,51)" }}>
     <ImageBackground
       source={background}
       style={styles.background}
@@ -119,9 +119,9 @@ export const TextOverlay = (text) => (<Text style={styles.overlay}>{text}</Text>
 
 export const Adventure = ({ props }) => {
   if (!props) return null;
-  const progress = (props.progress < 100)
-    ? props.progress
-    : 100;
+  // const progress = (props.progress < 100)
+  //   ? props.progress
+  //   : 100;
   return (
     <TouchableOpacity
       key={props.title}
