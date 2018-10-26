@@ -43,9 +43,6 @@ const signupForms = [
 ];
 
 class SignUp extends React.Component {
-  static navigationOptions = {
-    header: null
-  }
   state = {
     forms: signupForms
   }
