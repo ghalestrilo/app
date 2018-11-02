@@ -3,13 +3,13 @@ import { ImageBackground } from "./containers/navigators";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import Logger from "redux-logger";
+import thunk from "redux-thunk";
 
-import { AppNavigator } from "./containers/navigators";
-import reducer from "./reducers/index";
+import { AppNavigator } from "./src/containers/navigators";
+import reducer from "./src/reducers/index";
 
-const store = createStore(reducer, {}, applyMiddleware(Logger));
 const background = require("../images/background/background.png");
+const store = createStore(reducer, {}, applyMiddleware(thunk));
 
 
 export default class App extends React.Component {
