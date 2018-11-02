@@ -1,4 +1,5 @@
 import React from "react";
+import {  } from "react-native-elements";
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
 
@@ -30,7 +31,7 @@ export const IgorBackground = (content) => (
   </SafeAreaView>
 );
 
-/* Background
+/* Logo
 */
 export const IgorLogo = () => (
   <SafeAreaView style={styles.igorLayout}>
@@ -95,7 +96,7 @@ export const Adventure = ({ props }) => {
         classname="adventure">
         <Text>{props.title}</Text>
 
-        <Text>{"Próxima Sessão: " + props.title}</Text>
+        <Text>{"Próxima Sessão: " + props.nextSession}</Text>
 
         <Text>{"Progresso: " + props.progress}</Text>
       </ImageBackground>

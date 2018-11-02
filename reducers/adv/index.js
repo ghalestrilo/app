@@ -1,11 +1,4 @@
 export const initialAdventures = [
-  // {
-  //   title: 'A aventura eterna',
-  //   image: require(),
-  //   nextSession: '',
-  //   progress: 40
-  // }
-
   {
     title: "imagem_automática",
     image: require("../../images/adventures/miniatura_imagem_automática.png"),

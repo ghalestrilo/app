@@ -17,7 +17,11 @@ const LoginStack = createStackNavigator(
     Login: LoginScreen
   },
   {
-    initialRouteName: "Start"
+    initialRouteName: "Start",
+    cardStyle: {
+      shadowColor: "transparent",
+      bbackgroundColor: "transparent"
+    }
   }
 );
 
