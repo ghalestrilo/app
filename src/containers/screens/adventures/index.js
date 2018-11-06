@@ -55,9 +55,9 @@ class Adventures extends React.Component {
         IgorBackground(
           <SafeAreaView>
             <SafeAreaView>
-              <TabBarNavigation
-                navigate = {() => { this.props.navigation.openDrawer() ; }}/>
               <ScrollView>
+                <TabBarNavigation
+                  navigate = {() => { this.props.navigation.openDrawer() ; }}/>
                 {adventures.map((adv, i) =>
                   <Adventure
                     key={i}
