@@ -1,3 +1,5 @@
+import { PICK_ADVENTURE, ADD_ADVENTURE, DELETE_ADVENTURE } from "../../actions/types";
+
 export const initialAdventures = [
   {
     title: "imagem_automática",
@@ -33,12 +35,25 @@ export const initialAdventures = [
 
 const adv = (state = initialAdventures, action) => {
   switch (action.type) {
-  case "ADD_ADVENTURE":
-    return state + action.payload;
-  case "DELETE_ADVENTURE":
-    return state.splice(action.payload, 1);
+    case ADD_ADVENTURE:
+      return {
+        ...state,
+        list: state.list + action.payload
+      }
 
-  default: return state;
+    case DELETE_ADVENTURE:
+      return {
+        ...state,
+        list: state.list.splice(action.payload, 1)
+      }
+    
+    case PICK_ADVENTURE:
+      return {
+        ...state,
+        chosen: list[action.payload]
+      }
+
+    default: return state;
   }
 };
 

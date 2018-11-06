@@ -3,9 +3,12 @@ import { connect } from "react-redux";
 import { SafeAreaView } from "react-native-safe-area-view";
 import { Text } from "react";
 
+
+
 class Adventure extends React.Component {
   render = () => (
     <SafeAreaView>
+      
       <Text>
         ADVENTURE
       </Text>
@@ -14,7 +17,7 @@ class Adventure extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  adventures: state.adventures
+  adventure: state.adventures.chosen
 });
 
 export default connect(mapStateToProps)(Adventure);

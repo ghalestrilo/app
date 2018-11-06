@@ -13,6 +13,8 @@ import {
   TabBarNavigation
 } from "../../../components/Igor";
 
+import { pickAdventure } from "../../../actions/adventure";
+
 const newAdventureImage = require("../../../images/buttons/nova-aventura.png");
 
 class Adventures extends React.Component {
@@ -20,25 +22,22 @@ class Adventures extends React.Component {
     edit: false
   }
 
-  onClickAdventure(){
-    // this.props.dispatch(viewAdventure(i))
+  onClickAdventure = (adventureIndex) => {
+    this.dispatch(pickAdventure(index));
     this.props.navigation.navigate("Adventure");
   }
-
-  onNewAdventure(){
-    this.props.navigation.navigate("NewAdventure");
-  }
+  onNewAdventure = () => this.props.navigation.navigate("NewAdventure");
+  toggleEdit = () => this.setState({ edit: !this.getState().edit })
 
   render() {
     const { adventures } = this.props;
-    // const { forms } = this.state;
+    
     return (
       IgorBackground(
         <SafeAreaView>
           <SafeAreaView>
             <ScrollView>
-              <TabBarNavigation
-                navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+              <TabBarNavigation navigate={() => { this.props.navigation.openDrawer() ; }}/>
               {adventures.map((adv, i) =>
                 <Adventure
                   key={i}
@@ -60,7 +59,7 @@ class Adventures extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  adventures: state.adventures
+  adventures: state.adventures.list
 });
 
 export default connect(mapStateToProps)(Adventures);

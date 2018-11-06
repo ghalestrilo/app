@@ -1,14 +1,14 @@
 import React from "react";
-import { ImageBackground } from "./containers/navigators";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
+import { ImageBackground } from "react-native";
 import thunk from "redux-thunk";
 
 import { AppNavigator } from "./src/containers/navigators";
 import reducer from "./src/reducers/index";
 
-const background = require("../images/background/background.png");
+const background = require("./src/images/background/background.png");
 const store = createStore(reducer, {}, applyMiddleware(thunk));
 
 
