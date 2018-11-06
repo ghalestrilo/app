@@ -5,5 +5,6 @@ export default{
   buttonText: "rgb(34,17,51)",
   drawerbackground: "rgb(34,17,51)",
   drawernavactive: "rgb(255,58,77)",
-  drawernavinactive: "rgb(255,209,132)"
+  drawernavinactive: "rgb(255,209,132)",
+  inputbackground: "rgb(226,226,224)"
 };
