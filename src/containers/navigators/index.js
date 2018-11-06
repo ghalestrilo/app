@@ -1,7 +1,7 @@
 import {
   SignUpScreen, LoginScreen, StartScreen,
   AccountScreen, AdventuresScreen, BooksScreen, ConfigurationsScreen,
-  NotificationsScreen, NewAdventureScreen
+  NotificationsScreen, NewAdventureScreen, AdventureScreen
 } from "../screens";
 import { colors } from "../../styles";
 
@@ -28,7 +28,8 @@ const LoginStack = createStackNavigator(
 const AdventureStack = createStackNavigator(
   {
     Adventures: AdventuresScreen,
-    NewAdventure: NewAdventureScreen
+    NewAdventure: NewAdventureScreen,
+    Adventure: AdventureScreen
   },
   {
     initialRouteName: "Adventures",
