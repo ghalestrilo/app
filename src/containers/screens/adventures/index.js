@@ -28,7 +28,9 @@ class Adventures extends React.Component {
   onNewAdventure(){
     this.props.navigation.navigate("NewAdventure");
   }
-
+  bug(adv){
+    console.log(JSON.stringify(adv));
+  }
   render() {
     const { adventures } = this.props;
     // const { forms } = this.state;

@@ -5,7 +5,8 @@ import { SafeAreaView,
   TouchableOpacity,
   Text,
   ImageBackground,
-  Switch
+  Switch,
+  Alert
 } from "react-native";
 import {
   IgorBackground,
@@ -13,7 +14,9 @@ import {
   Input
 } from "../../../components/Igor";
 import styles from "./styles";
+import { addAdventure } from "../../../reducers/adv/index";
 
+let req = require("../../../images/adventures/miniatura_corvali.png");
 const corvali = {
   source: require("../../../images/adventures/miniatura_corvali.png"),
   name: "corvali"
@@ -37,11 +40,7 @@ class NewAdventureScreen extends React.Component {
     super(props);
     this.state = {
       adventure: "",
-      activeswitch: "",
-      corvali: false,
-      krevast: false,
-      coast: false,
-      heartlands: false
+      switch: "coast"
     };
     this.handleFormChange = this.handleFormChange.bind(this);
   }
@@ -52,30 +51,47 @@ class NewAdventureScreen extends React.Component {
   }
   toggleSwitch = (value) => {
     if(this.state.switch === ""){
-      //this.setState({ switch: value });
-      console.log("Switch is: " + value);
+      this.setState({ switch: value });
     }else if (this.state.switch === value){
       this.setState({ switch: "" });
-      console.log("Switch is not:" + value);
     }
   }
   isToggled = (value) => {
-    switch(value){
-    case "corvali":
-      return (this.state.corvali);
-    case "krevast":
-      return (this.state.krevast);
-    case "coast":
-      return (this.state.coast);
-    case "heartlands":
-      return (this.state.heartlands);
-
-    default: return false;
-    }
+    return(value === this.state.switch);
   }
   componentDidMount(){
     this.setState({ switch: "coast" });
   }
+  createAdventure(){
+    if((this.state.adventure.length > 0) &&(this.state.switch.length > 0)){
+      switch(this.state.switch){
+      case "coast":
+        req = require("../../../images/adventures/miniatura_coast.png");
+        break;
+      case "krevast":
+        req = require("../../../images/adventures/miniatura_krevast.png");
+        break;
+      case "corvali":
+        req = require("../../../images/adventures/miniatura_corvali.png");
+        break;
+      case "heartlands":
+        req = require("../../../images/adventures/miniatura_heartlands.png");
+        break;
+      default:
+        req = "";
+      }
+      this.props.addAdventure({
+        title: this.state.adventure,
+        image: req,
+        nextSession: "",
+        progress: 0
+      });
+      this.props.navigation.pop();
+    }else {
+      Alert.alert("You must choose one image and write the adventure name");
+    }
+  }
+
   render(){
     return(
       IgorBackground(
@@ -104,7 +120,7 @@ class NewAdventureScreen extends React.Component {
               <View style = {{ flex: 1 }}>
                 <TouchableOpacity
                   style={styles.buttonLayout}
-                  onPress={() => {}}
+                  onPress={() => { this.createAdventure() ; }}
                 >
                   <Text>Pronto</Text>
                 </TouchableOpacity>
@@ -121,4 +137,4 @@ const mapStateToProps = (state) => ({
   adventures: state.adventures
 });
 
-export default connect(mapStateToProps)(NewAdventureScreen);
+export default connect(mapStateToProps, { addAdventure: addAdventure })(NewAdventureScreen);
