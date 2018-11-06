@@ -40,7 +40,7 @@ class NewAdventureScreen extends React.Component {
     super(props);
     this.state = {
       adventure: "",
-      switch: "coast"
+      switch: "corvali"
     };
     this.handleFormChange = this.handleFormChange.bind(this);
   }
@@ -54,13 +54,16 @@ class NewAdventureScreen extends React.Component {
       this.setState({ switch: value });
     }else if (this.state.switch === value){
       this.setState({ switch: "" });
+    }else{
+      this.setState({ switch: "" });
+      this.setState({ switch: value });
     }
   }
   isToggled = (value) => {
     return(value === this.state.switch);
   }
   componentDidMount(){
-    this.setState({ switch: "coast" });
+    this.setState({ switch: "corvali" });
   }
   createAdventure(){
     if((this.state.adventure.length > 0) &&(this.state.switch.length > 0)){
