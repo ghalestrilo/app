@@ -1,7 +1,7 @@
 import {
   SignUpScreen, LoginScreen, StartScreen,
   AccountScreen, AdventuresScreen, BooksScreen, ConfigurationsScreen,
-  NotificationsScreen
+  NotificationsScreen, NewAdventureScreen
 } from "../screens";
 import { colors } from "../../styles";
 
@@ -25,10 +25,23 @@ const LoginStack = createStackNavigator(
   }
 );
 
+const AdventureStack = createStackNavigator(
+  {
+    Adventures: AdventuresScreen,
+    NewAdventure: NewAdventureScreen
+  },
+  {
+    initialRouteName: "Adventures",
+    navigationOptions: {
+      header: null
+    }
+  }
+);
+
 
 const DrawerNavigator = createDrawerNavigator(
   {
-    Adventures: AdventuresScreen,
+    Adventures: AdventureStack,
     Books: BooksScreen,
     Account: AccountScreen,
     Notifications: NotificationsScreen,
