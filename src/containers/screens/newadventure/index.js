@@ -36,7 +36,12 @@ class NewAdventureScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      adventure: ""
+      adventure: "",
+      activeswitch: "",
+      corvali: false,
+      krevast: false,
+      coast: false,
+      heartlands: false
     };
     this.handleFormChange = this.handleFormChange.bind(this);
   }
@@ -44,6 +49,32 @@ class NewAdventureScreen extends React.Component {
     this.setState({
       [key]: value
     });
+  }
+  toggleSwitch = (value) => {
+    if(this.state.switch === ""){
+      //this.setState({ switch: value });
+      console.log("Switch is: " + value);
+    }else if (this.state.switch === value){
+      this.setState({ switch: "" });
+      console.log("Switch is not:" + value);
+    }
+  }
+  isToggled = (value) => {
+    switch(value){
+    case "corvali":
+      return (this.state.corvali);
+    case "krevast":
+      return (this.state.krevast);
+    case "coast":
+      return (this.state.coast);
+    case "heartlands":
+      return (this.state.heartlands);
+
+    default: return false;
+    }
+  }
+  componentDidMount(){
+    this.setState({ switch: "coast" });
   }
   render(){
     return(
@@ -60,7 +91,9 @@ class NewAdventureScreen extends React.Component {
               <View style = {styles.images}>
                 {images.map((imagem) => (
                   <View style = {styles.image} key = {imagem.name}>
-                    <Switch/>
+                    <Switch
+                      onValueChange={() => { this.toggleSwitch(imagem.name) ; }}
+                      value={this.isToggled(imagem.name)}/>
                     <ImageBackground
                       source = {imagem.source}
                       style={{ width: "100%", height: "100%" }}
