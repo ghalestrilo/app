@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 import {
   SafeAreaView,
-  ScrollView
+  ScrollView,
+  View
 } from "react-native";
 
 import {
@@ -28,36 +29,53 @@ class Adventures extends React.Component {
   onNewAdventure(){
     this.props.navigation.navigate("NewAdventure");
   }
-  bug(adv){
-    console.log(JSON.stringify(adv));
-  }
   render() {
     const { adventures } = this.props;
     // const { forms } = this.state;
-    return (
-      IgorBackground(
-        <SafeAreaView>
+    if(adventures.length === 0){
+      return(
+        IgorBackground(
           <SafeAreaView>
-            <ScrollView>
+            <SafeAreaView>
               <TabBarNavigation
                 navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-              {adventures.map((adv, i) =>
-                <Adventure
-                  key={i}
-                  props={{
-                    ...adv,
-                    onPress: () => this.onClickAdventure(adv, i)
-                  }}/>)
-              }
-            </ScrollView>
+              <ScrollView>
+                <View style={{ width: "100%", height: 120 }}></View>
+              </ScrollView>
+            </SafeAreaView>
+            <Fab
+              source={newAdventureImage}
+              onPress={() => this.onNewAdventure()}
+            />
           </SafeAreaView>
-          <Fab
-            source={newAdventureImage}
-            onPress={() => this.onNewAdventure()}
-          />
-        </SafeAreaView>
-      )
-    );
+        )
+      );
+    }else{
+      return (
+        IgorBackground(
+          <SafeAreaView>
+            <SafeAreaView>
+              <TabBarNavigation
+                navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+              <ScrollView>
+                {adventures.map((adv, i) =>
+                  <Adventure
+                    key={i}
+                    props={{
+                      ...adv,
+                      onPress: () => this.onClickAdventure(adv, i)
+                    }}/>)
+                }
+              </ScrollView>
+            </SafeAreaView>
+            <Fab
+              source={newAdventureImage}
+              onPress={() => this.onNewAdventure()}
+            />
+          </SafeAreaView>
+        )
+      );
+    }
   }
 }
 
