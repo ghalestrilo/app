@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     alignItems: "center",
     justifyContent: "center"
+  },
+  title: {
+    alignSelf: "center",
+    fontSize: fonts.big
   }
 });
 

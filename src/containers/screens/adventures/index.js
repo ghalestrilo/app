@@ -20,9 +20,9 @@ class Adventures extends React.Component {
     edit: false
   }
 
-  onClickAdventure(){
+  onClickAdventure(adv, i){
     // this.props.dispatch(viewAdventure(i))
-    this.props.navigation.navigate("Adventure");
+    this.props.navigation.navigate("Adventure", { title: adv.title });
   }
 
   onNewAdventure(){
@@ -44,7 +44,7 @@ class Adventures extends React.Component {
                   key={i}
                   props={{
                     ...adv,
-                    onPress: () => this.onClickAdventure(i)
+                    onPress: () => this.onClickAdventure(adv, i)
                   }}/>)
               }
             </ScrollView>

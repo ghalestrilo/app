@@ -19,6 +19,16 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     alignItems: "center",
     justifyContent: "center"
+  },
+  images: {
+    flex: 2,
+    alignItems: "center",
+    width: "90%"
+  },
+  image: {
+    flex: 1,
+    flexDirection: "row",
+    width: "90%"
   }
 });
 
