@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 import {
   SafeAreaView,
-  ScrollView
+  ScrollView,
+  View
 } from "react-native";
 
 import {
@@ -30,31 +31,30 @@ class Adventures extends React.Component {
   toggleEdit = () => this.setState({ edit: !this.getState().edit })
 
   render() {
-    const { adventures } = this.props;
-    
-    return (
-      IgorBackground(
-        <SafeAreaView>
-          <SafeAreaView>
-            <ScrollView>
-              <TabBarNavigation navigate={() => { this.props.navigation.openDrawer() ; }}/>
-              {adventures.map((adv, i) =>
+    const { adventures, navigation } = this.props;
+    const empty = adventures.length === 0;
+
+    <SafeAreaView>
+      <SafeAreaView>
+        <TabBarNavigation navigate = {() => { navigation.openDrawer() ; }}/>
+        <ScrollView>
+          { empty
+            ? <View style={{ width: "100%", height: 120 }}></View>
+            : adventures.map((adv, i) =>
                 <Adventure
                   key={i}
                   props={{
                     ...adv,
                     onPress: () => this.onClickAdventure(i)
                   }}/>)
-              }
-            </ScrollView>
-          </SafeAreaView>
-          <Fab
-            source={newAdventureImage}
-            onPress={() => this.onNewAdventure()}
-          />
-        </SafeAreaView>
-      )
-    );
+          }
+        </ScrollView>
+      </SafeAreaView>
+      <Fab
+        source={newAdventureImage}
+        onPress={() => this.onNewAdventure()}
+      />
+    </SafeAreaView>
   }
 }
 

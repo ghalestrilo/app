@@ -3,7 +3,8 @@ import LoginScreen from "./login";
 import StartScreen from "./start";
 import AccountScreen from "./account";
 import AdventuresScreen from "./adventures";
-// import AdventureScreen from "./adventure";
+import NewAdventureScreen from "./newadventure";
+import AdventureScreen from "./adventure";
 import BooksScreen from "./books";
 import ConfigurationsScreen from "./configurations";
 import NotificationsScreen from "./notifications";
@@ -14,8 +15,9 @@ export {
   StartScreen,
   AccountScreen,
   AdventuresScreen,
-  // AdventureScreen,
+  NewAdventureScreen,
   BooksScreen,
   ConfigurationsScreen,
-  NotificationsScreen
+  NotificationsScreen,
+  AdventureScreen
 };

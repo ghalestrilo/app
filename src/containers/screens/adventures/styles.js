@@ -6,10 +6,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column"
   },
-  igorText: {
-    fontSize: fonts.biggest,
-    color: colors.yellow
-  },
   igorLayout: {
     flex: 3,
     justifyContent: "center",
@@ -31,14 +27,6 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flex: 4,
     alignItems: "flex-end"
-  },
-  buttonLayout: {
-    height: 50,
-    width: 175,
-    margin: 30,
-    backgroundColor: colors.greenButton,
-    alignItems: "center",
-    justifyContent: "center"
   },
   buttonText: {
     fontSize: fonts.bigger,

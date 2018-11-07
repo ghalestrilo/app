@@ -1,14 +1,14 @@
 import React from "react";
-import {
-  ImageBackground
-} from "react-native"
 import { connect } from "react-redux";
-import { SafeAreaView } from "react-native-safe-area-view";
-import { Text } from "react";
+import {
+  Text,
+  ImageBackground,
+  SafeAreaView,
+} from "react-native"
+
 import { Fab } from "../../../components/Igor"
 
 const boxWithTabs = require('../../../images/adventure/content-box.png')
-
 const andamento = 'andamento'
 const andamento = 'jogadores'
 
@@ -39,6 +39,8 @@ class Adventure extends React.Component {
 
   render = () => (
     <SafeAreaView>
+      <TabBarNavigation navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+
       <Text style={style.title}>
         {this.props.adventure.name}
       </Text>

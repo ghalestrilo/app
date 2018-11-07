@@ -1,3 +1,10 @@
+import {
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  SIGNUP_REQUEST,
+  SIGNUP_FAILURE
+} from "./actions";
+
 export const initialUser = {
   email: "",
   senha: "",
