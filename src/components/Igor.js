@@ -36,7 +36,7 @@ export const IgorBackground = (content) => (
 /* Background com aba de navegação: Padrao para a maioria das telas
 */
 export const TabBarNavigation = (props) => (
-  <View style={{ width: "100%", height: 75, backgroundColor: colors.drawerbackground  }}>
+  <View style={{ width: "100%", height: 75, backgroundColor: colors.drawerbackground }}>
     <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between" }}>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <Icon.Button

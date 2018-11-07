@@ -32,50 +32,28 @@ class Adventures extends React.Component {
   render() {
     const { adventures } = this.props;
     // const { forms } = this.state;
-    if(adventures.length === 0){
-      return(
-        IgorBackground(
-          <SafeAreaView>
-            <SafeAreaView>
-              <TabBarNavigation
-                navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-              <ScrollView>
-                <View style={{ width: "100%", height: 120 }}></View>
-              </ScrollView>
-            </SafeAreaView>
-            <Fab
-              source={newAdventureImage}
-              onPress={() => this.onNewAdventure()}
-            />
-          </SafeAreaView>
-        )
-      );
-    }else{
-      return (
-        IgorBackground(
-          <SafeAreaView>
-            <SafeAreaView>
-              <ScrollView>
-                <TabBarNavigation
-                  navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-                {adventures.map((adv, i) =>
-                  <Adventure
-                    key={i}
-                    props={{
-                      ...adv,
-                      onPress: () => this.onClickAdventure(adv, i)
-                    }}/>)
-                }
-              </ScrollView>
-            </SafeAreaView>
-            <Fab
-              source={newAdventureImage}
-              onPress={() => this.onNewAdventure()}
-            />
-          </SafeAreaView>
-        )
-      );
-    }
+    return (
+      IgorBackground(
+        <View style={{ flex: 1 }}>
+          <TabBarNavigation
+            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+          <ScrollView>
+            {adventures.map((adv, i) =>
+              <Adventure
+                key={i}
+                props={{
+                  ...adv,
+                  onPress: () => this.onClickAdventure(adv, i)
+                }}/>)
+            }
+          </ScrollView>
+          <Fab
+            source={newAdventureImage}
+            onPress={() => this.onNewAdventure()}
+          />
+        </View>
+      )
+    );
   }
 }
 
