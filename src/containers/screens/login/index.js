@@ -15,7 +15,7 @@ import {
 } from "../../../components/Igor";
 
 import {
-  requestLogin
+  login as LoginUser
 } from "../../../actions/user";
 
 // Constants
@@ -43,18 +43,29 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      loading: false
     };
     this.handleFormChange = this.handleFormChange.bind(this);
+    this.loginUser = this.loginUser.bind(this);
   }
   handleFormChange(value, key) {
     this.setState({
       [key]: value
     });
   }
+  loginUser() {
+    const { LoginUser, navigation } = this.props;
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    LoginUser(user);
+    console.log(this.props.user);
+  }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, user } = this.props;
     const { email, password } = this.state;
     // This is for the action call
     // const { username, password } = this.state;
@@ -79,7 +90,8 @@ class Login extends React.Component {
                 <MainMenuButton
                   key={key}
                   title={option.title}
-                  onPress={() => navigation.navigate(option.destination)}/>)
+                  onPress={this.loginUser}
+                  loading={user.loading}/>)
               }
             </SafeAreaView>
             <SafeAreaView>
@@ -98,8 +110,8 @@ class Login extends React.Component {
 }
 
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  user: state.user
 });
 
-export default connect(mapStateToProps, { requestLogin })(Login);
+export default connect(mapStateToProps, { LoginUser })(Login);

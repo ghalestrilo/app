@@ -3,18 +3,19 @@ export const initialUser = {
   senha: "",
   nome: "",
   datanasc: "",
-  sexo: ""
+  sexo: "",
+  loading: false
 };
 
 
 const user = (state = initialUser, action) => {
   switch (action.type) {
-  case "LOGIN_SUCCESS":
-    return state;
-
-  case "LOGIN_FAILURE":
-    return state;
-
+  case "REQUEST_LOGIN":
+    return { ...state, loading: true };
+  case "RECEIVE_LOGIN":
+    return action.payload ? action.payload : { ...state, loading: false };
+  case "RECEIVE_LOGIN_ERROR":
+    return action.payload ? action.payload : { ...state, loading: false };
   case "REQUEST_ADD_USER":
     return action.payload ? action.payload : state;
 
