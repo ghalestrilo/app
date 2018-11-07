@@ -11,10 +11,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column"
   },
-  igorText: {
-    fontSize: fonts.biggest,
-    color: colors.yellow
-  },
   igorLayout: {
     flex: 2,
     justifyContent: "center",

@@ -35,7 +35,6 @@ class Start extends React.Component {
             {options.map(option =>
               (<MainMenuButton
                 key={"btn" + option.title}
-                style={styles.buttonLayout}
                 onPress={() => navigation.navigate(option.destination)}
                 title={option.title}
               />))}
