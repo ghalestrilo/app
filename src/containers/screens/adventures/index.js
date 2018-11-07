@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  SafeAreaView,
   ScrollView,
   View
 } from "react-native";
