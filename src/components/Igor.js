@@ -1,6 +1,7 @@
 import React from "react";
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
+import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/Entypo";
 import { colors } from "../styles";
 
@@ -17,7 +18,8 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
-  View
+  View,
+  TouchableHighlight
 } from "react-native";
 
 /* Background: Padrao para a maioria das telas
@@ -38,13 +40,15 @@ export const IgorBackground = (content) => (
 export const TabBarNavigation = (props) => (
   <View style={{ width: "100%", height: 75, backgroundColor: colors.drawerbackground }}>
     <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between" }}>
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Icon.Button
-          name="menu"
-          backgroundColor= {colors.drawerbackground}
-          onPress={props.navigate}
-          style={{ width: 75, height: 75 }}
-          size= {35}/>
+      <View style={{ width: 75, height: 75, backgroundColor: colors.drawerbackground }}>
+        <TouchableHighlight
+          style={{ flex: 1, justifyContent: "center" }}
+          onPress={props.navigate}>
+          <Icon
+            name="menu"
+            size= {35}
+            color="white"/>
+        </TouchableHighlight>
       </View>
       <View style={{
         justifyContent: "center",
@@ -55,13 +59,15 @@ export const TabBarNavigation = (props) => (
                 IGOR
         </Text>
       </View>
-      <View style={{ justifyContent: "center", alignItems: "flex-end" }}>
-        <Icon.Button
-          name="dots-three-vertical"
-          backgroundColor= {colors.drawerbackground}
-          onPress={props.navigate}
-          style={{ width: 75, height: 75 }}
-          size= {35}/>
+      <View style={{ width: 75, height: 75, backgroundColor: colors.drawerbackground }}>
+        <TouchableHighlight
+          style={{ flex: 1, justifyContent: "center", alignItems: "flex-end" }}
+          onPress={props.navigate}>
+          <Icon
+            name="edit"
+            size= {35}
+            color="white"/>
+        </TouchableHighlight>
       </View>
     </View>
   </View>
