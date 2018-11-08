@@ -1,8 +1,8 @@
 import React from "react";
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
-import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/Entypo";
+import MCIIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../styles";
 
 import styles from "./igorstyles.js";
@@ -66,7 +66,7 @@ export const TabBarNavigation = (props) => (
           <Icon
             name="edit"
             size= {35}
-            color="white"/>
+            color= {(props.color== null ? "white": props.color)}/>
         </TouchableHighlight>
       </View>
     </View>
@@ -144,6 +144,31 @@ export const Adventure = ({ props }) => {
         <Text>{"Progresso: " + props.progress}</Text>
       </ImageBackground>
     </TouchableOpacity>);
+};
+
+export const EditAdventure = ({ props }) => {
+  if (!props) return null;
+  // const progress = (props.progress < 100)
+  //   ? props.progress
+  //   : 100;
+  return (
+    <ImageBackground
+      source={props.image}
+      style={{ width: "100%", height: 128 }}
+      key={props.image}
+      classname="adventure">
+      <Text>{props.title}</Text>
+
+      <Text>{"Próxima Sessão: " + props.nextSession}</Text>
+
+      <Text>{"Progresso: " + props.progress}</Text>
+      <TouchableOpacity style = {styles.delete}>
+        <MCIIcons
+          name="delete-empty"
+          size= {35}
+          color= "white"/>
+      </TouchableOpacity>
+    </ImageBackground>);
 };
 
 export const MainMenuButton = (props) => (

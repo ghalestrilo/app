@@ -11,8 +11,10 @@ import {
   IgorBackground,
   Adventure,
   Fab,
-  TabBarNavigation
+  TabBarNavigation,
+  EditAdventure
 } from "../../../components/Igor";
+import { colors } from "../../../styles";
 
 const newAdventureImage = require("../../../images/buttons/nova-aventura.png");
 
@@ -35,30 +37,53 @@ class Adventures extends React.Component {
   render() {
     const { adventures } = this.props;
     // const { forms } = this.state;
-    return (
-      IgorBackground(
-        <View style={{ flex: 1 }}>
-          <TabBarNavigation
-            navigate = {() => { this.props.navigation.openDrawer() ; }}
-            edit = {() => { this.edit() ; }}/>
-          <Text>{(this.state.edit? "true":"false")}</Text>
-          <ScrollView>
-            {adventures.map((adv, i) =>
-              <Adventure
-                key={i}
-                props={{
-                  ...adv,
-                  onPress: () => this.onClickAdventure(adv, i)
-                }}/>)
-            }
-          </ScrollView>
-          <Fab
-            source={newAdventureImage}
-            onPress={() => this.onNewAdventure()}
-          />
-        </View>
-      )
-    );
+    if (!this.state.edit){
+      return (
+        IgorBackground(
+          <View style={{ flex: 1 }}>
+            <TabBarNavigation
+              navigate = {() => { this.props.navigation.openDrawer() ; }}
+              edit = {() => { this.edit() ; }}/>
+            <ScrollView>
+              {adventures.map((adv, i) =>
+                <Adventure
+                  key={i}
+                  props={{
+                    ...adv,
+                    onPress: () => this.onClickAdventure(adv, i)
+                  }}/>)
+              }
+            </ScrollView>
+            <Fab
+              source={newAdventureImage}
+              onPress={() => this.onNewAdventure()}
+            />
+          </View>
+        )
+      );
+    }else{
+      return (
+        IgorBackground(
+          <View style={{ flex: 1 }}>
+            <TabBarNavigation
+              navigate = {() => { this.props.navigation.openDrawer() ; }}
+              edit = {() => { this.edit() ; }}
+              color = {colors.drawernavinactive}/>
+            <ScrollView>
+              {adventures.map((adv, i) =>
+                <EditAdventure
+                  key={i}
+                  props={{
+                    ...adv,
+                    onPress: () => {}
+                  }}/>)
+              }
+            </ScrollView>
+          </View>
+        )
+      );
+
+    }
   }
 }
 
