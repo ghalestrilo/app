@@ -162,7 +162,9 @@ export const EditAdventure = ({ props }) => {
       <Text>{"Próxima Sessão: " + props.nextSession}</Text>
 
       <Text>{"Progresso: " + props.progress}</Text>
-      <TouchableOpacity style = {styles.delete}>
+      <TouchableOpacity
+        style = {styles.delete}
+        onPress={() => props.onPress()}>
         <MCIIcons
           name="delete-empty"
           size= {35}

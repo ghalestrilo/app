@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 
 import {
   ScrollView,
-  View,
-  Text
+  View
 } from "react-native";
 
 import {
@@ -16,6 +15,8 @@ import {
 } from "../../../components/Igor";
 import { colors } from "../../../styles";
 
+import { delAdventure } from "../../../reducers/adv/index";
+
 const newAdventureImage = require("../../../images/buttons/nova-aventura.png");
 
 class Adventures extends React.Component {
@@ -26,6 +27,9 @@ class Adventures extends React.Component {
   onClickAdventure(adv, i){
     // this.props.dispatch(viewAdventure(i))
     this.props.navigation.navigate("Adventure", { title: adv.title });
+  }
+  deleteAdventure(adv){
+    this.props.delAdventure(adv);
   }
 
   onNewAdventure(){
@@ -50,7 +54,7 @@ class Adventures extends React.Component {
                   key={i}
                   props={{
                     ...adv,
-                    onPress: () => this.onClickAdventure(adv, i)
+                    onPress: () => this.onClickAdventure(adv)
                   }}/>)
               }
             </ScrollView>
@@ -75,7 +79,7 @@ class Adventures extends React.Component {
                   key={i}
                   props={{
                     ...adv,
-                    onPress: () => {}
+                    onPress: () => this.deleteAdventure(adv, i)
                   }}/>)
               }
             </ScrollView>
@@ -91,4 +95,4 @@ const mapStateToProps = (state) => ({
   adventures: state.adventures
 });
 
-export default connect(mapStateToProps)(Adventures);
+export default connect(mapStateToProps, { delAdventure: delAdventure })(Adventures);

@@ -12,12 +12,18 @@ export const addAdventure = newAdventure => ({
   payload: newAdventure
 });
 
+export const DEL_ADVENTURE = "DEL_ADVENTURE";
+export const delAdventure = adventure => ({
+  type: DEL_ADVENTURE,
+  payload: adventure
+});
+
 const adv = (state = initialAdventures, action) => {
   switch (action.type) {
   case ADD_ADVENTURE:
-    return [ ...state, action.payload ];
-  case "DELETE_ADVENTURE":
-    return state.splice(action.payload, 1);
+    return [ action.payload, ...state ];
+  case DEL_ADVENTURE:
+    return state.filter(element => element !== action.payload);
 
   default: return state;
   }
