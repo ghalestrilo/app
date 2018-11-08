@@ -62,7 +62,7 @@ export const TabBarNavigation = (props) => (
       <View style={{ width: 75, height: 75, backgroundColor: colors.drawerbackground }}>
         <TouchableHighlight
           style={{ flex: 1, justifyContent: "center", alignItems: "flex-end" }}
-          onPress={props.navigate}>
+          onPress={props.edit}>
           <Icon
             name="edit"
             size= {35}

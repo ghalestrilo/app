@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 import {
   ScrollView,
-  View
+  View,
+  Text
 } from "react-native";
 
 import {
@@ -28,6 +29,9 @@ class Adventures extends React.Component {
   onNewAdventure(){
     this.props.navigation.navigate("NewAdventure");
   }
+  edit(){
+    this.setState({ edit: !this.state.edit });
+  }
   render() {
     const { adventures } = this.props;
     // const { forms } = this.state;
@@ -35,7 +39,9 @@ class Adventures extends React.Component {
       IgorBackground(
         <View style={{ flex: 1 }}>
           <TabBarNavigation
-            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+            navigate = {() => { this.props.navigation.openDrawer() ; }}
+            edit = {() => { this.edit() ; }}/>
+          <Text>{(this.state.edit? "true":"false")}</Text>
           <ScrollView>
             {adventures.map((adv, i) =>
               <Adventure
