@@ -4,21 +4,18 @@ import {
   DELETE_ADVENTURE
 } from "../../actions/types";
 
-export const initialAdventures = [
-  // {
-  //   title: 'A aventura eterna',
-  //   image: require(),
-  //   nextSession: '',
-  //   progress: 40
-  // }
-]
+export const initialAdventures = {
+  loading: false,
+  list: [],
+  chosen: {},
+};
 
 const adv = (state = initialAdventures, action) => {
   switch (action.type) {
     case ADD_ADVENTURE:
       return {
         ...state,
-        list: state.list + action.payload
+        list: [ action.payload, ...state.adventures ]
       }
 
     case DELETE_ADVENTURE:
