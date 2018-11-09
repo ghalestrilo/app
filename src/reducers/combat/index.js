@@ -11,13 +11,16 @@ const combat = (state = initialState, action) => {
   switch(action.type){
 
   case NEW_EVENT:
-    return state;
+    return {
+      ...state,
+      events: [ action.payload, ...state.events ]
+    };
 
   case KILL_ENEMY:
     return {
       ...state,
       enemies: state.enemies.unshift(action.payload)
-    }
+    };
 
   default:
     return state;

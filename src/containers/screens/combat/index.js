@@ -1,7 +1,6 @@
 import React from "react";
 import {
   View,
-  ImageBackground,
   Text
 } from "react-native";
 
@@ -14,7 +13,9 @@ import { connect } from "react-redux";
 const image = 0;
 const masterOptions = [
 
-]
+];
+
+const style = {};
 
 const CombatEvent = ({ author, action, target }) =>
   <View style={style.combatEventCard}>
@@ -23,12 +24,11 @@ const CombatEvent = ({ author, action, target }) =>
     <Image style={style.circle} source={target.image}/>
   </View>;
 
-// const CombatOption = option => (
-//   <Button
-//   (typeof option === Array)
-//     ? 
-//     : )
-  
+const CombatOption = option => (
+  (typeof option === Array)
+    ? null
+    : null);
+
 
 class Combat extends React.Component {
 
