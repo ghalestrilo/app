@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  SafeAreaView,
   ScrollView,
   View
 } from "react-native";
@@ -11,8 +10,12 @@ import {
   IgorBackground,
   Adventure,
   Fab,
-  TabBarNavigation
+  TabBarNavigation,
+  EditAdventure
 } from "../../../components/Igor";
+import { colors } from "../../../styles";
+
+import { delAdventure, choseAdventure } from "../../../reducers/adv/index";
 
 const newAdventureImage = require("../../../images/buttons/nova-aventura.png");
 
@@ -21,66 +24,79 @@ class Adventures extends React.Component {
     edit: false
   }
 
-  onClickAdventure(adv, i){
+  onClickAdventure(adv){
+    this.props.choseAdventure(adv);
     // this.props.dispatch(viewAdventure(i))
-    this.props.navigation.navigate("Adventure", { title: adv.title });
+    this.props.navigation.navigate("Adventure");
+  }
+  deleteAdventure(adv){
+    this.props.delAdventure(adv);
   }
 
   onNewAdventure(){
     this.props.navigation.navigate("NewAdventure");
   }
+  edit(){
+    this.setState({ edit: !this.state.edit });
+  }
   render() {
     const { adventures } = this.props;
     // const { forms } = this.state;
-    if(adventures.length === 0){
-      return(
+    if (!this.state.edit){
+      return (
         IgorBackground(
-          <SafeAreaView>
-            <SafeAreaView>
-              <TabBarNavigation
-                navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-              <ScrollView>
-                <View style={{ width: "100%", height: 120 }}></View>
-              </ScrollView>
-            </SafeAreaView>
+          <View style={{ flex: 1 }}>
+            <TabBarNavigation
+              navigate = {() => { this.props.navigation.openDrawer() ; }}
+              edit = {() => { this.edit() ; }}/>
+            <ScrollView>
+              {adventures.map((adv, i) =>
+                <Adventure
+                  key={i}
+                  props={{
+                    ...adv,
+                    onPress: () => this.onClickAdventure(adv)
+                  }}/>)
+              }
+            </ScrollView>
             <Fab
               source={newAdventureImage}
               onPress={() => this.onNewAdventure()}
             />
-          </SafeAreaView>
+          </View>
         )
       );
     }else{
       return (
         IgorBackground(
-          <SafeAreaView>
-            <SafeAreaView>
-              <ScrollView>
-                <TabBarNavigation
-                  navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-                {adventures.map((adv, i) =>
-                  <Adventure
-                    key={i}
-                    props={{
-                      ...adv,
-                      onPress: () => this.onClickAdventure(adv, i)
-                    }}/>)
-                }
-              </ScrollView>
-            </SafeAreaView>
-            <Fab
-              source={newAdventureImage}
-              onPress={() => this.onNewAdventure()}
-            />
-          </SafeAreaView>
+          <View style={{ flex: 1 }}>
+            <TabBarNavigation
+              navigate = {() => { this.props.navigation.openDrawer() ; }}
+              edit = {() => { this.edit() ; }}
+              color = {colors.drawernavinactive}/>
+            <ScrollView>
+              {adventures.map((adv, i) =>
+                <EditAdventure
+                  key={i}
+                  props={{
+                    ...adv,
+                    onPress: () => this.deleteAdventure(adv, i)
+                  }}/>)
+              }
+            </ScrollView>
+          </View>
         )
       );
+
     }
   }
 }
 
 const mapStateToProps = (state) => ({
-  adventures: state.adventures
+  adventures: state.adventures.adventures
 });
 
-export default connect(mapStateToProps)(Adventures);
+export default connect(mapStateToProps, {
+  delAdventure: delAdventure,
+  choseAdventure: choseAdventure
+})(Adventures);

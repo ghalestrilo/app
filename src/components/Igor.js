@@ -2,6 +2,7 @@ import React from "react";
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
 import Icon from "react-native-vector-icons/Entypo";
+import MCIIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../styles";
 
 import styles from "./igorstyles.js";
@@ -18,7 +19,8 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
-  View
+  View,
+  TouchableHighlight
 } from "react-native";
 
 /* Background: Padrao para a maioria das telas
@@ -37,15 +39,17 @@ export const IgorBackground = (content) => (
 /* Background com aba de navegação: Padrao para a maioria das telas
 */
 export const TabBarNavigation = (props) => (
-  <View style={{ width: "100%", height: 75, backgroundColor: colors.drawerbackground  }}>
+  <View style={{ width: "100%", height: 75, backgroundColor: colors.drawerbackground }}>
     <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between" }}>
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Icon.Button
-          name="menu"
-          backgroundColor= {colors.drawerbackground}
-          onPress={props.navigate}
-          style={{ width: 75, height: 75 }}
-          size= {35}/>
+      <View style={{ width: 75, height: 75, backgroundColor: colors.drawerbackground }}>
+        <TouchableHighlight
+          style={{ flex: 1, justifyContent: "center" }}
+          onPress={props.navigate}>
+          <Icon
+            name="menu"
+            size= {35}
+            color="white"/>
+        </TouchableHighlight>
       </View>
       <View style={{
         justifyContent: "center",
@@ -56,13 +60,15 @@ export const TabBarNavigation = (props) => (
                 IGOR
         </Text>
       </View>
-      <View style={{ justifyContent: "center", alignItems: "flex-end" }}>
-        <Icon.Button
-          name="dots-three-vertical"
-          backgroundColor= {colors.drawerbackground}
-          onPress={props.navigate}
-          style={{ width: 75, height: 75 }}
-          size= {35}/>
+      <View style={{ width: 75, height: 75, backgroundColor: colors.drawerbackground }}>
+        <TouchableHighlight
+          style={{ flex: 1, justifyContent: "center", alignItems: "flex-end" }}
+          onPress={props.edit}>
+          <Icon
+            name="edit"
+            size= {35}
+            color= {(props.color== null ? "white": props.color)}/>
+        </TouchableHighlight>
       </View>
     </View>
   </View>
@@ -139,6 +145,33 @@ export const Adventure = ({ props }) => {
         <Text>{"Progresso: " + props.progress}</Text>
       </ImageBackground>
     </TouchableOpacity>);
+};
+
+export const EditAdventure = ({ props }) => {
+  if (!props) return null;
+  // const progress = (props.progress < 100)
+  //   ? props.progress
+  //   : 100;
+  return (
+    <ImageBackground
+      source={props.image}
+      style={{ width: "100%", height: 128 }}
+      key={props.image}
+      classname="adventure">
+      <Text>{props.title}</Text>
+
+      <Text>{"Próxima Sessão: " + props.nextSession}</Text>
+
+      <Text>{"Progresso: " + props.progress}</Text>
+      <TouchableOpacity
+        style = {styles.delete}
+        onPress={() => props.onPress()}>
+        <MCIIcons
+          name="delete-empty"
+          size= {35}
+          color= "white"/>
+      </TouchableOpacity>
+    </ImageBackground>);
 };
 
 export const MainMenuButton = (props) => (
