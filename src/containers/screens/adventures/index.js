@@ -15,7 +15,7 @@ import {
 } from "../../../components/Igor";
 import { colors } from "../../../styles";
 
-import { delAdventure } from "../../../reducers/adv/index";
+import { delAdventure, choseAdventure } from "../../../reducers/adv/index";
 
 const newAdventureImage = require("../../../images/buttons/nova-aventura.png");
 
@@ -24,9 +24,10 @@ class Adventures extends React.Component {
     edit: false
   }
 
-  onClickAdventure(adv, i){
+  onClickAdventure(adv){
+    this.props.choseAdventure(adv);
     // this.props.dispatch(viewAdventure(i))
-    this.props.navigation.navigate("Adventure", { title: adv.title });
+    this.props.navigation.navigate("Adventure");
   }
   deleteAdventure(adv){
     this.props.delAdventure(adv);
@@ -92,7 +93,10 @@ class Adventures extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  adventures: state.adventures
+  adventures: state.adventures.adventures
 });
 
-export default connect(mapStateToProps, { delAdventure: delAdventure })(Adventures);
+export default connect(mapStateToProps, {
+  delAdventure: delAdventure,
+  choseAdventure: choseAdventure
+})(Adventures);

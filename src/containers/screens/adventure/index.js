@@ -21,13 +21,14 @@ class AdventureScreen extends React.Component {
     });
   }
   render(){
-    const title = this.props.navigation.getParam("title", "NO-ID");
+    const { chosen } = this.props;
+    console.log(JSON.stringify(chosen));
     return(
       IgorBackground(
         <SafeAreaView style = {styles.container}>
           <TabBarNavigation
             navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-          <Text style = {styles.title}>{title}</Text>
+          <Text style = {styles.title}>{chosen.title}</Text>
           <View style = {styles.inputbackground}>
           </View>
         </SafeAreaView>
@@ -37,7 +38,8 @@ class AdventureScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  adventures: state.adventures
+  adventures: state.adventures.adventures,
+  chosen: state.adventures.chosen
 });
 
 export default connect(mapStateToProps)(AdventureScreen);
