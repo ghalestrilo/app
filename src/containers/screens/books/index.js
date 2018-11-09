@@ -4,7 +4,6 @@ import {
   SafeAreaView
 } from "react-native";
 import {
-  IgorBackground,
   TabBarNavigation
 } from "../../../components/Igor";
 
@@ -12,13 +11,11 @@ import {
 class Books extends React.Component {
   render(){
     return(
-      IgorBackground(
-        <SafeAreaView>
-          <TabBarNavigation
-            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-          <Text>This is BooksScreen</Text>
-        </SafeAreaView>
-      )
+      <SafeAreaView>
+        <TabBarNavigation
+          navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+        <Text>This is BooksScreen</Text>
+      </SafeAreaView>
     );
   }
 }

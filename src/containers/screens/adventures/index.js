@@ -7,7 +7,6 @@ import {
 } from "react-native";
 
 import {
-  IgorBackground,
   Adventure,
   Fab,
   TabBarNavigation,
@@ -44,50 +43,45 @@ class Adventures extends React.Component {
     // const { forms } = this.state;
     if (!this.state.edit){
       return (
-        IgorBackground(
-          <View style={{ flex: 1 }}>
-            <TabBarNavigation
-              navigate = {() => { this.props.navigation.openDrawer() ; }}
-              edit = {() => { this.edit() ; }}/>
-            <ScrollView>
-              {adventures.map((adv, i) =>
-                <Adventure
-                  key={i}
-                  props={{
-                    ...adv,
-                    onPress: () => this.onClickAdventure(adv)
-                  }}/>)
-              }
-            </ScrollView>
-            <Fab
-              source={newAdventureImage}
-              onPress={() => this.onNewAdventure()}
-            />
-          </View>
-        )
+        <View style={{ flex: 1 }}>
+          <TabBarNavigation
+            navigate = {() => { this.props.navigation.openDrawer() ; }}
+            edit = {() => { this.edit() ; }}/>
+          <ScrollView>
+            {adventures.map((adv, i) =>
+              <Adventure
+                key={i}
+                props={{
+                  ...adv,
+                  onPress: () => this.onClickAdventure(adv)
+                }}/>)
+            }
+          </ScrollView>
+          <Fab
+            source={newAdventureImage}
+            onPress={() => this.onNewAdventure()}
+          />
+        </View>
       );
     }else{
       return (
-        IgorBackground(
-          <View style={{ flex: 1 }}>
-            <TabBarNavigation
-              navigate = {() => { this.props.navigation.openDrawer() ; }}
-              edit = {() => { this.edit() ; }}
-              color = {colors.drawernavinactive}/>
-            <ScrollView>
-              {adventures.map((adv, i) =>
-                <EditAdventure
-                  key={i}
-                  props={{
-                    ...adv,
-                    onPress: () => this.deleteAdventure(adv, i)
-                  }}/>)
-              }
-            </ScrollView>
-          </View>
-        )
+        <View style={{ flex: 1 }}>
+          <TabBarNavigation
+            navigate = {() => { this.props.navigation.openDrawer() ; }}
+            edit = {() => { this.edit() ; }}
+            color = {colors.drawernavinactive}/>
+          <ScrollView>
+            {adventures.map((adv, i) =>
+              <EditAdventure
+                key={i}
+                props={{
+                  ...adv,
+                  onPress: () => this.deleteAdventure(adv, i)
+                }}/>)
+            }
+          </ScrollView>
+        </View>
       );
-
     }
   }
 }

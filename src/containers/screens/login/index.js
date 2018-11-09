@@ -7,7 +7,6 @@ import {
 } from "react-native";
 
 import {
-  IgorBackground,
   IgorLogo,
   MainMenuButton,
   RestButton,
@@ -59,40 +58,38 @@ class Login extends React.Component {
     // This is for the action call
     // const { username, password } = this.state;
     return (
-      IgorBackground(
-        <SafeAreaView style={styles.container}>
-          <IgorLogo/>
-          <SafeAreaView style={styles.loginContainer}>
-            <Input
-              title="E-mail"
-              value={email}
-              onChange={(text) => this.handleFormChange(text, "email")}/>
-            <Input
-              title="Senha"
-              type="password"
-              value={password}
-              onChange={(text) => this.handleFormChange(text, "password")}/>
+      <SafeAreaView style={styles.container}>
+        <IgorLogo/>
+        <SafeAreaView style={styles.loginContainer}>
+          <Input
+            title="E-mail"
+            value={email}
+            onChange={(text) => this.handleFormChange(text, "email")}/>
+          <Input
+            title="Senha"
+            type="password"
+            value={password}
+            onChange={(text) => this.handleFormChange(text, "password")}/>
+        </SafeAreaView>
+        <SafeAreaView style={styles.buttonsContainer}>
+          <SafeAreaView>
+            {mainoptions.map((option, key) =>
+              <MainMenuButton
+                key={key}
+                title={option.title}
+                onPress={() => navigation.navigate(option.destination)}/>)
+            }
           </SafeAreaView>
-          <SafeAreaView style={styles.buttonsContainer}>
-            <SafeAreaView>
-              {mainoptions.map((option, key) =>
-                <MainMenuButton
-                  key={key}
-                  title={option.title}
-                  onPress={() => navigation.navigate(option.destination)}/>)
-              }
-            </SafeAreaView>
-            <SafeAreaView>
-              {otheroptions.map((option, key) =>
-                <RestButton
-                  key={key}
-                  title={option.title}
-                  navigate={() => navigation.navigate(option.destination)}/>)
-              }
-            </SafeAreaView>
+          <SafeAreaView>
+            {otheroptions.map((option, key) =>
+              <RestButton
+                key={key}
+                title={option.title}
+                navigate={() => navigation.navigate(option.destination)}/>)
+            }
           </SafeAreaView>
         </SafeAreaView>
-      )
+      </SafeAreaView>
     );
   }
 }

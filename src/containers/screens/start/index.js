@@ -5,7 +5,6 @@ import {
 } from "react-native";
 
 import {
-  IgorBackground,
   IgorLogo,
   MainMenuButton
 } from "../../../components/Igor";
@@ -28,19 +27,17 @@ class Start extends React.Component {
   render() {
     const { navigation } = this.props;
     return (
-      IgorBackground(
-        <SafeAreaView style={styles.container}>
-          <IgorLogo/>
-          <SafeAreaView style={styles.buttonsContainer}>
-            {options.map(option =>
-              (<MainMenuButton
-                key={"btn" + option.title}
-                onPress={() => navigation.navigate(option.destination)}
-                title={option.title}
-              />))}
-          </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <IgorLogo/>
+        <SafeAreaView style={styles.buttonsContainer}>
+          {options.map(option =>
+            (<MainMenuButton
+              key={"btn" + option.title}
+              onPress={() => navigation.navigate(option.destination)}
+              title={option.title}
+            />))}
         </SafeAreaView>
-      )
+      </SafeAreaView>
     );
   }
 }

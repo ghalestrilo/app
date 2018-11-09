@@ -9,7 +9,6 @@ import { SafeAreaView,
   Alert
 } from "react-native";
 import {
-  IgorBackground,
   TabBarNavigation,
   Input
 } from "../../../components/Igor";
@@ -97,41 +96,39 @@ class NewAdventureScreen extends React.Component {
 
   render(){
     return(
-      IgorBackground(
-        <SafeAreaView style = {styles.container}>
-          <TabBarNavigation
-            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-          <View style = {styles.inputbackground}>
-            <Input
-              title="Criar Aventura"
-              value={this.state.adventure}
-              onChange={(text) => this.handleFormChange(text, "adventure")}/>
-            <View style ={{ flex: 1 }}>
-              <View style = {styles.images}>
-                {images.map((imagem) => (
-                  <View style = {styles.image} key = {imagem.name}>
-                    <Switch
-                      onValueChange={() => { this.toggleSwitch(imagem.name) ; }}
-                      value={this.isToggled(imagem.name)}/>
-                    <ImageBackground
-                      source = {imagem.source}
-                      style={{ width: "100%", height: "100%" }}
-                      resizeMode = "contain"/>
-                  </View>
-                ))}
-              </View>
-              <View style = {{ flex: 1 }}>
-                <TouchableOpacity
-                  style={styles.buttonLayout}
-                  onPress={() => { this.createAdventure() ; }}
-                >
-                  <Text>Pronto</Text>
-                </TouchableOpacity>
-              </View>
+      <SafeAreaView style = {styles.container}>
+        <TabBarNavigation
+          navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+        <View style = {styles.inputbackground}>
+          <Input
+            title="Criar Aventura"
+            value={this.state.adventure}
+            onChange={(text) => this.handleFormChange(text, "adventure")}/>
+          <View style ={{ flex: 1 }}>
+            <View style = {styles.images}>
+              {images.map((imagem) => (
+                <View style = {styles.image} key = {imagem.name}>
+                  <Switch
+                    onValueChange={() => { this.toggleSwitch(imagem.name) ; }}
+                    value={this.isToggled(imagem.name)}/>
+                  <ImageBackground
+                    source = {imagem.source}
+                    style={{ width: "100%", height: "100%" }}
+                    resizeMode = "contain"/>
+                </View>
+              ))}
+            </View>
+            <View style = {{ flex: 1 }}>
+              <TouchableOpacity
+                style={styles.buttonLayout}
+                onPress={() => { this.createAdventure() ; }}
+              >
+                <Text>Pronto</Text>
+              </TouchableOpacity>
             </View>
           </View>
-        </SafeAreaView>
-      )
+        </View>
+      </SafeAreaView>
     );
   }
 }
