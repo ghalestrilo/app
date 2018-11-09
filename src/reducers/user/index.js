@@ -3,7 +3,7 @@ import {
   LOGIN_FAILURE,
   SIGNUP_REQUEST,
   SIGNUP_FAILURE
-} from "./actions";
+} from "../../actions/types";
 
 export const initialUser = {
   email: "",
