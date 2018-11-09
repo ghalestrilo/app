@@ -54,20 +54,26 @@ class Login extends React.Component {
       [key]: value
     });
   }
+
   loginUser() {
-    const { LoginUser, navigation } = this.props;
+    const { LoginUser } = this.props;
     const user = {
       email: this.state.email,
       password: this.state.password
     };
     LoginUser(user);
-    console.log(this.props.user);
+  }
+  componentWillUpdate(nextProps) {
+    if (nextProps.user && nextProps.user.email && nextProps.user.password) {
+      this.props.navigation.navigate("Adventures");
+    }
   }
 
   render() {
-    const { navigation, user } = this.props;
+    const { navigation } = this.props;
     const { email, password } = this.state;
     // This is for the action call
+    console.log(this.props.user);
     // const { username, password } = this.state;
     return (
       IgorBackground(
@@ -91,7 +97,7 @@ class Login extends React.Component {
                   key={key}
                   title={option.title}
                   onPress={this.loginUser}
-                  loading={user.loading}/>)
+                  loading={this.state.loading}/>)
               }
             </SafeAreaView>
             <SafeAreaView>

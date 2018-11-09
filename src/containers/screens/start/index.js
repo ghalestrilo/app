@@ -10,6 +10,10 @@ import {
   MainMenuButton
 } from "../../../components/Igor";
 
+import {
+  logout as LogoutUser
+} from "../../../actions/user";
+
 import styles from "./styles";
 
 // Constants
@@ -25,6 +29,9 @@ const options = [
 ];
 
 class Start extends React.Component {
+  componentWillMount() {
+    this.props.LogoutUser();
+  }
   render() {
     const { navigation } = this.props;
     return (
@@ -44,5 +51,8 @@ class Start extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  user: state.user
+});
 
-export default connect()(Start);
+export default connect(mapStateToProps, { LogoutUser })(Start);

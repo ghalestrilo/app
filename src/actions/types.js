@@ -1,4 +1,5 @@
 export const FETCH_USER = "FETCH_USER";
+export const LOGOUT = "LOGOUT";
 export const REQUEST_LOGIN = "REQUEST_LOGIN";
 export const RECEIVE_LOGIN = "RECEIVE_LOGIN";
 export const RECEIVE_LOGIN_ERROR = "RECEIVE_LOGIN_ERROR";

@@ -1,5 +1,5 @@
 // Carregamentos assincronos da DB virao aqui
-import { userRef as UserAPI } from "../../util";
+import { database as API } from "../../util";
 import {
   FETCH_USER,
   REQUEST_ADD_USER,
@@ -7,7 +7,8 @@ import {
   REQUEST_ERROR,
   REQUEST_LOGIN,
   RECEIVE_LOGIN,
-  RECEIVE_LOGIN_ERROR
+  RECEIVE_LOGIN_ERROR,
+  LOGOUT
 } from "../types";
 
 export const addUser = newUser => dispatch => {
@@ -15,7 +16,7 @@ export const addUser = newUser => dispatch => {
     type: REQUEST_ADD_USER,
     payload: null
   });
-  return UserAPI.push().set(newUser).then(() =>
+  return API.ref("/users/" + newUser.email).set(newUser).then(() =>
     dispatch({
       type: RECEIVE_ADD_USER,
       payload: newUser
@@ -29,7 +30,7 @@ export const addUser = newUser => dispatch => {
 };
 
 export const getUsers = () => dispatch => {
-  return UserAPI.on("value", snapshot => {
+  return API.ref("/users").on("value", snapshot => {
     dispatch({
       type: FETCH_USER,
       payload: snapshot.val()
@@ -38,7 +39,6 @@ export const getUsers = () => dispatch => {
 };
 
 export const login = loginObject => dispatch => {
-  console.log("chamou o login na action");
   dispatch({
     type: REQUEST_LOGIN,
     payload: {
@@ -51,25 +51,27 @@ export const login = loginObject => dispatch => {
       payload: "Erro: Campos em branco"
     });
   }
-  return UserAPI.child(loginObject.email).on("value", snapshot => {
+  return API.ref("/users/" + loginObject.email).on("value", snapshot => {
     const user = snapshot.val();
     if (user && user.password && user.email) {
-      if (loginObject.password === snapshot.val().password) {
+      if (loginObject.password === user.password) {
         dispatch({
           type: RECEIVE_LOGIN,
-          payload: snapshot.val()
+          payload: user
         });
       } else {
         dispatch({
           type: RECEIVE_LOGIN_ERROR,
-          payload: "Erro: Senha Incorreta"
+          payload: { error: "Erro: Senha Incorreta" }
         });
       }
     } else {
       dispatch({
         type: RECEIVE_LOGIN_ERROR,
-        payload: "Erro: Usuário Não Encontrado"
+        payload: { error: "Erro: Usuário Não Encontrado" }
       });
     }
   });
 };
+
+export const logout = () => dispatch => (dispatch({ type: LOGOUT }));
