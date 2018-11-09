@@ -7,7 +7,6 @@ import {
 } from "react-native";
 
 import {
-  IgorBackground,
   Adventure,
   Fab,
   TabBarNavigation,
@@ -15,9 +14,10 @@ import {
 } from "../../../components/Igor";
 import { colors } from "../../../styles";
 
-import { delAdventure, choseAdventure } from "../../../reducers/adv/index";
-
-import { pickAdventure } from "../../../actions/adventure";
+import {
+  deleteAdventure,
+  pickAdventure
+} from "../../../actions/adventure";
 
 const newAdventureImage = require("../../../images/buttons/nova-aventura.png");
 
@@ -26,8 +26,8 @@ class Adventures extends React.Component {
     edit: false
   }
 
-  onClickAdventure = (adventureIndex) => {
-    this.dispatch(pickAdventure(index));
+  onClickAdventure = (index) => {
+    this.props.pickAdventure(index);
     this.props.navigation.navigate("Adventure");
   }
   onNewAdventure = () => this.props.navigation.navigate("NewAdventure");
@@ -39,22 +39,22 @@ class Adventures extends React.Component {
     const edit = (this.state.edit === true)
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: 'transparent' }}>
         { (edit)
           ? <TabBarNavigation
               navigate = {() => { navigation.openDrawer() ; }}
-              edit = {() => { this.edit() ; }}
+              edit = {() => { this.toggleEdit() ; }}
               color = {edit ? null : colors.drawernavinactive}/>
           : <TabBarNavigation
               navigate = {() => { navigation.openDrawer() ; }}
-              edit = {() => { this.edit() ; }}/>
+              edit = {() => { this.toggleEdit() ; }}/>
           }
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: 'transparent'}}>
           { adventures.map((adv, i) =>
             ((edit)
               ? <EditAdventure key={i} props={{
                     ...adv,
-                    onPress: () => this.deleteAdventure(adv, i)
+                    onPress: () => this.props.deleteAdventure(i)
                   }}/>
               : <Adventure key={i} props={{
                   ...adv,
@@ -69,13 +69,13 @@ class Adventures extends React.Component {
     )
   }
 }
-
 const mapStateToProps = state => ({
   adventures: state.adventures.list,
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatch: dispatch,
+  pickAdventure: (index) => dispatch(pickAdventure(index)),
+  deleteAdventure: (index) => dispatch(deleteAdventure(index)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Adventures);

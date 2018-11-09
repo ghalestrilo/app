@@ -1,4 +1,4 @@
-export default{
+export default {
   biggest: 44,
   bigger: 24,
   bigbig: 20,

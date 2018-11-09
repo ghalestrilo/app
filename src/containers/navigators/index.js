@@ -37,6 +37,10 @@ const AdventureStack = createStackNavigator(
   },
   {
     initialRouteName: "Adventures",
+    cardStyle: {
+      shadowColor: "transparent",
+      backgroundColor: "transparent"
+    },
     navigationOptions: {
       header: null
     }

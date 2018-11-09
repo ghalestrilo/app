@@ -13,14 +13,6 @@ const store = createStore(reducer, {}, applyMiddleware(thunk));
 
 
 export default class App extends React.Component {
-  // render(){
-  //   return (
-  //     <Provider store={store}>
-  //       <AppNavigator />
-  //     </Provider>
-  //   );
-  // }
-
   render = () => (
     <Provider store={store}>
       <ImageBackground

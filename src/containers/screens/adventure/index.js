@@ -4,15 +4,28 @@ import {
   Text,
   ImageBackground,
   SafeAreaView,
-} from "react-native"
+  TouchableOpacity,
+  View
+} from "react-native";
 
-import { Fab } from "../../../components/Igor"
+import {
+  Fab,
+  TabBarNavigation
+} from "../../../components/Igor";
 
-const boxWithTabs = require('../../../images/adventure/content-box.png')
-const andamento = 'andamento'
-const jogadores = 'jogadores'
+const boxWithTabs = require("../../../images/adventure/content-box.png");
+const newSessionImage = require("../../../images/buttons/nova-sessao.png");
 
-style = {
+const andamento = "andamento";
+const jogadores = "jogadores";
+
+const style = {
+  screen: {
+    flex: 1,
+    marginLeft: "10%",
+    marginRight: "10%"
+  },
+  
   title: {
 
   },
@@ -22,13 +35,27 @@ style = {
   },
 
   tabContainer: {
+    flex: 1,
+    flexDirecion: "row",
+    alignItems: "center",
+    justityContent: "space-between"
+  },
 
+  boxWithTabs: {
+    width: "100%",
+    height: "100%"
+  },
+
+  flipped: {
+    transform: [
+      { scaleX: -1 }
+    ]
   },
 
   boxContent: {
 
-  },
-}
+  }
+};
 
 // <SafeAreaView style = {{ flex: 1 }}>
 //   <TabBarNavigation
@@ -58,38 +85,45 @@ class Adventure extends React.Component {
     tab: andamento
   }
 
-  switch = () => this.setState({
+  switch = (tab) => this.setState({
     ...this.getState(),
-    tab: (this.getState.tab === andamento ? jogadores : andamento)
+    tab: tab
   })
 
-  render = () => (
-    <SafeAreaView>
-      <TabBarNavigation navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+  onNewSession = () => {};
+
+  render = () => {
+    const { adventure, navigation } = this.props;
+    const flipped = (this.state.tab === jogadores);
+
+    return  <SafeAreaView style={ style.screen }>
+      <TabBarNavigation navigate = {() => { navigation.openDrawer() ; }}/>
 
       <Text style={style.title}>
-        {this.props.adventure.name}
+        {adventure.title}
       </Text>
 
       <ImageBackground
         source={boxWithTabs}
-        flipped={this.state.tab === jogadores}>
+        style={[ style.boxWithTabs, flipped ? style.flipped : undefined ]}>
 
         <View style={style.tabContainer}>
-          <TouchableOpacity>
-            <Text style={style.tab}>ANDAMENTO</Text>
-          </TouchableOpacity>
+          {[ andamento, jogadores ].map((tab) =>
+            <TouchableOpacity onPress={() => this.switch(tab)}>
+              <Text style={style.tab}>{tab}</Text>
+            </TouchableOpacity>)
+          }
+
 
           <TouchableOpacity>
-            <Text style={style.tab}>ANDAMENTO</Text>
+            <Text style={style.tab}>JOGADORES</Text>
           </TouchableOpacity>
         </View>
 
         <View style={style.boxContent}>
-          <Text>{this.props.adventure}</Text>
-
-          {this.props.adventure.sessions.map(
-            ({title, date}) =>
+          <Text>{adventure.summary}</Text>
+          {adventure.sessions.map(
+            ({ title, date }) =>
               <View style={style.session}>
                 <Text>{date}</Text>
                 <Text>{title ? title : "Sessão sem título"}</Text>
@@ -98,11 +132,11 @@ class Adventure extends React.Component {
         </View>
       </ImageBackground>
 
-      <Fab 
-        source={newAdventureImage}
-        onPress={() => this.onNewAdventure()}/>
-    </SafeAreaView>
-  )
+      <Fab
+        source={newSessionImage}
+        onPress={() => this.onNewSession()}/>
+    </SafeAreaView>;
+  }
 }
 
 
@@ -110,7 +144,7 @@ class Adventure extends React.Component {
 
 const mapStateToProps = (state) => ({
   adventures: state.adventures.adventures,
-  chosen: state.adventures.chosen
+  adventure: state.adventures.chosen
 });
 
 export default connect(mapStateToProps)(Adventure);

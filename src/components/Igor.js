@@ -1,5 +1,6 @@
 import React from "react";
 import {  } from "react-native-elements";
+import { Font } from "expo"
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
 import Icon from "react-native-vector-icons/Entypo";
@@ -25,6 +26,11 @@ import {
 
 /* Background: Padrao para a maioria das telas
 */
+
+Font.loadAsync({
+  'Entypo': require('@expo/vector-icons/fonts/Entypo.ttf')
+})
+
 export const IgorBackground = (content) => (
   <SafeAreaView style={{ backgroundColor: "rgb(34,17,51)" }}>
     <ImageBackground
