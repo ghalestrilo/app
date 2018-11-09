@@ -55,6 +55,12 @@ const styles = StyleSheet.create({
     right: 16,
     bottom: 16
     // top: 400
+  },
+  delete: {
+    position: "absolute",
+    right: 10,
+    bottom: 10
+    // top: 400
   }
 });
 
