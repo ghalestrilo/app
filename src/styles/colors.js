@@ -6,5 +6,7 @@ export default{
   drawerbackground: "rgb(34,17,51)",
   drawernavactive: "rgb(255,58,77)",
   drawernavinactive: "rgb(255,209,132)",
-  inputbackground: "rgb(226,226,224)"
+  inputbackground: "rgb(226,226,224)",
+  selected: "rgb(226,226,224)",
+  unselected: "rgba(226,226,224,0.4)"
 };
