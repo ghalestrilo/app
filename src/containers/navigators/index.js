@@ -19,10 +19,6 @@ const LoginStack = createStackNavigator(
   },
   {
     initialRouteName: "Start",
-    cardStyle: {
-      shadowColor: "transparent",
-      backgroundColor: "transparent"
-    },
     navigationOptions: {
       header: null
     }
@@ -37,10 +33,6 @@ const AdventureStack = createStackNavigator(
   },
   {
     initialRouteName: "Adventures",
-    cardStyle: {
-      shadowColor: "transparent",
-      backgroundColor: "transparent"
-    },
     navigationOptions: {
       header: null
     }
@@ -75,11 +67,7 @@ const AppNavigator = createSwitchNavigator(
   },
 
   {
-    initialRouteName: "LoginStack",
-    cardStyle: {
-      shadowColor: "transparent",
-      backgroundColor: "transparent"
-    }
+    initialRouteName: "LoginStack"
   },
 );
 export { AppNavigator, LoginStack, DrawerNavigator };

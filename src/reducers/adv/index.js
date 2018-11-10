@@ -1,6 +1,6 @@
 export const initialAdventures = {
   chosen: {},
-  adventures: []
+  list: []
   // {
   //   title: 'A aventura eterna',
   //   image: require(),
@@ -31,12 +31,12 @@ const adv = (state = initialAdventures, action) => {
   case ADD_ADVENTURE:
     return {
       ...state,
-      adventures: [ action.payload, ...state.adventures ]
+      list: [ action.payload, ...state.list ]
     };
   case DEL_ADVENTURE:
     return {
       ...state,
-      adventures: state.adventures.filter(element => element !== action.payload)
+      list: state.list.filter(element => element !== action.payload)
     };
   case CHOSE_ADVENTURE:
     return{

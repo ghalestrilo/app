@@ -15,12 +15,7 @@ export default class App extends React.Component {
   render(){
     return(
       <Provider store={store}>
-        <ImageBackground
-          source={background}
-          style={{ width: "100%", height: "100%" }}
-          resizeMethod="resize">
-          <AppNavigator style={{ backgroundColor: "transparent" }}/>
-        </ImageBackground>
+        <AppNavigator/>
       </Provider>
     );
   }

@@ -4,17 +4,20 @@ import {
   SafeAreaView
 } from "react-native";
 import {
-  TabBarNavigation
+  TabBarNavigation,
+  IgorBackground
 } from "../../../components/Igor";
 
 class Notifications extends React.Component {
   render(){
     return(
-      <SafeAreaView>
-        <TabBarNavigation
-          navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-        <Text>This is NotificationsScreen</Text>
-      </SafeAreaView>
+      IgorBackground(
+        <SafeAreaView>
+          <TabBarNavigation
+            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+          <Text>This is NotificationsScreen</Text>
+        </SafeAreaView>
+      )
     );
   }
 }

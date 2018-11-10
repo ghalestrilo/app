@@ -4,18 +4,21 @@ import {
   SafeAreaView
 } from "react-native";
 import {
-  TabBarNavigation
+  TabBarNavigation,
+  IgorBackground
 } from "../../../components/Igor";
 
 
 class Books extends React.Component {
   render(){
     return(
-      <SafeAreaView>
-        <TabBarNavigation
-          navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-        <Text>This is BooksScreen</Text>
-      </SafeAreaView>
+      IgorBackground(
+        <SafeAreaView>
+          <TabBarNavigation
+            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+          <Text>This is BooksScreen</Text>
+        </SafeAreaView>
+      )
     );
   }
 }

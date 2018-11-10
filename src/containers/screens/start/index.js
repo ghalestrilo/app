@@ -6,7 +6,8 @@ import {
 
 import {
   IgorLogo,
-  MainMenuButton
+  MainMenuButton,
+  IgorBackground
 } from "../../../components/Igor";
 
 import styles from "./styles";
@@ -27,17 +28,19 @@ class Start extends React.Component {
   render() {
     const { navigation } = this.props;
     return (
-      <SafeAreaView style={styles.container}>
-        <IgorLogo/>
-        <SafeAreaView style={styles.buttonsContainer}>
-          {options.map(option =>
-            (<MainMenuButton
-              key={"btn" + option.title}
-              onPress={() => navigation.navigate(option.destination)}
-              title={option.title}
-            />))}
+      IgorBackground(
+        <SafeAreaView style={styles.container}>
+          <IgorLogo/>
+          <SafeAreaView style={styles.buttonsContainer}>
+            {options.map(option =>
+              (<MainMenuButton
+                key={"btn" + option.title}
+                onPress={() => navigation.navigate(option.destination)}
+                title={option.title}
+              />))}
+          </SafeAreaView>
         </SafeAreaView>
-      </SafeAreaView>
+      )
     );
   }
 }
