@@ -15,7 +15,7 @@ import {
 } from "../../../components/Igor";
 import { colors } from "../../../styles";
 
-import { delAdventure, choseAdventure } from "../../../reducers/adv/index";
+import { delAdventure, pickAdventure } from "../../../reducers/adv/index";
 
 const newAdventureImage = require("../../../images/buttons/nova-aventura.png");
 
@@ -25,7 +25,7 @@ class Adventures extends React.Component {
   }
 
   onClickAdventure(adv){
-    this.props.choseAdventure(adv);
+    this.props.pickAdventure(adv);
     // this.props.dispatch(viewAdventure(i))
     this.props.navigation.navigate("Adventure");
   }
@@ -97,5 +97,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   delAdventure: delAdventure,
-  choseAdventure: choseAdventure
+  pickAdventure: pickAdventure
 })(Adventures);
