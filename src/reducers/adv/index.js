@@ -24,6 +24,7 @@ export const pickAdventure = adventure => ({
   payload: adventure
 });
 
+
 const adv = (state = initialAdventures, action) => {
   switch (action.type) {
   case ADD_ADVENTURE:

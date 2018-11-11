@@ -34,16 +34,15 @@ class Adventures extends React.Component {
   }
 
   onNewAdventure(){
+    this.props.pickAdventure({});
     this.props.navigation.navigate("NewAdventure");
   }
   edit(){
     this.setState({ edit: !this.state.edit });
   }
-  componentWillUpdate(){
-    this.props.pickAdventure({});
-  }
-  editAdventure(){
-
+  editAdventure(adv){
+    this.props.pickAdventure(adv);
+    this.props.navigation.navigate("NewAdventure");
   }
   render() {
     const { adventures } = this.props;
@@ -99,7 +98,8 @@ class Adventures extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  adventures: state.adventures.list
+  adventures: state.adventures.list,
+  chosen: state.adventures.chosen
 });
 
 export default connect(mapStateToProps, {
