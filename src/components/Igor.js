@@ -4,7 +4,7 @@ const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
 import Icon from "react-native-vector-icons/Entypo";
 import MCIIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { colors } from "../styles";
+import { colors, fonts } from "../styles";
 
 import styles from "./igorstyles.js";
 
@@ -184,6 +184,8 @@ export const MainMenuButton = (props) => (
     key={props.title + "Button"}
     title={props.title}
     buttonStyle={styles.buttonLayout}
+    fontSize = {fonts.bigger}
+    color = {colors.buttonText}
     onPress={props.onPress}
     loading={props.loading === true}
   />
