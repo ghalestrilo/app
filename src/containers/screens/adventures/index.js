@@ -39,6 +39,12 @@ class Adventures extends React.Component {
   edit(){
     this.setState({ edit: !this.state.edit });
   }
+  componentWillUpdate(){
+    this.props.pickAdventure({});
+  }
+  editAdventure(){
+
+  }
   render() {
     const { adventures } = this.props;
     // const { forms } = this.state;
@@ -80,7 +86,8 @@ class Adventures extends React.Component {
                   key={i}
                   props={{
                     ...adv,
-                    onPress: () => this.deleteAdventure(adv, i)
+                    delete: () => this.deleteAdventure(adv),
+                    edit: () => this.editAdventure(adv)
                   }}/>)
               }
             </ScrollView>

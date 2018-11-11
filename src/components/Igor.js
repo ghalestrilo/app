@@ -170,10 +170,18 @@ export const EditAdventure = ({ props }) => {
       <Text>{"Progresso: " + props.progress}</Text>
       <TouchableOpacity
         style = {styles.delete}
-        onPress={() => props.onPress()}>
+        onPress={() => props.delete()}>
         <MCIIcons
           name="delete-empty"
-          size= {35}
+          size= {30}
+          color= "white"/>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style = {styles.edit}
+        onPress={() => props.edit()}>
+        <Icon
+          name="edit"
+          size= {30}
           color= "white"/>
       </TouchableOpacity>
     </ImageBackground>);

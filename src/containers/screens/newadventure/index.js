@@ -62,9 +62,6 @@ class NewAdventureScreen extends React.Component {
   isToggled = (value) => {
     return(value === this.state.switch);
   }
-  componentDidMount(){
-    this.setState({ switch: "corvali" });
-  }
   createAdventure(){
     if((this.state.adventure.length > 0) &&(this.state.switch.length > 0)){
       switch(this.state.switch){
@@ -137,7 +134,8 @@ class NewAdventureScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  adventures: state.adventures
+  adventures: state.adventures,
+  choose: state.adventures
 });
 
 export default connect(mapStateToProps, { addAdventure: addAdventure })(NewAdventureScreen);
