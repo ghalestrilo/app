@@ -15,7 +15,7 @@ import {
 } from "../../../components/Igor";
 
 import {
-  requestLogin
+  login as LoginUser
 } from "../../../actions/user";
 
 // Constants
@@ -43,9 +43,11 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      loading: false
     };
     this.handleFormChange = this.handleFormChange.bind(this);
+    this.loginUser = this.loginUser.bind(this);
   }
   handleFormChange(value, key) {
     this.setState({
@@ -53,10 +55,25 @@ class Login extends React.Component {
     });
   }
 
+  loginUser() {
+    const { LoginUser } = this.props;
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    LoginUser(user);
+  }
+  componentWillUpdate(nextProps) {
+    if (nextProps.user && nextProps.user.email && nextProps.user.password) {
+      this.props.navigation.navigate("Adventures");
+    }
+  }
+
   render() {
     const { navigation } = this.props;
     const { email, password } = this.state;
     // This is for the action call
+    console.log(this.props.user);
     // const { username, password } = this.state;
     return (
       IgorBackground(
@@ -79,7 +96,8 @@ class Login extends React.Component {
                 <MainMenuButton
                   key={key}
                   title={option.title}
-                  onPress={() => navigation.navigate(option.destination)}/>)
+                  onPress={this.loginUser}
+                  loading={this.state.loading}/>)
               }
             </SafeAreaView>
             <SafeAreaView>
@@ -98,8 +116,8 @@ class Login extends React.Component {
 }
 
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  user: state.user
 });
 
-export default connect(mapStateToProps, { requestLogin })(Login);
+export default connect(mapStateToProps, { LoginUser })(Login);
