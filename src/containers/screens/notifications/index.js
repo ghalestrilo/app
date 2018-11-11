@@ -4,8 +4,8 @@ import {
   SafeAreaView
 } from "react-native";
 import {
-  IgorBackground,
-  TabBarNavigation
+  TabBarNavigation,
+  IgorBackground
 } from "../../../components/Igor";
 
 class Notifications extends React.Component {

@@ -9,9 +9,9 @@ import { SafeAreaView,
   Alert
 } from "react-native";
 import {
-  IgorBackground,
   TabBarNavigation,
-  Input
+  Input,
+  IgorBackground
 } from "../../../components/Igor";
 import styles from "./styles";
 import { addAdventure } from "../../../reducers/adv/index";

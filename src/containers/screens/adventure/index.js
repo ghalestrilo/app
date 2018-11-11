@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import {
-  IgorBackground,
-  TabBarNavigation
+  TabBarNavigation,
+  IgorBackground
 } from "../../../components/Igor";
 import styles from "./styles";
 
@@ -82,7 +82,7 @@ class AdventureScreen extends React.Component {
 
 
 const mapStateToProps = (state) => ({
-  adventures: state.adventures.adventures,
+  adventures: state.adventures.list,
   chosen: state.adventures.chosen
 });
 

@@ -4,8 +4,8 @@ import {
   View
 } from "react-native";
 import {
-  IgorBackground,
-  TabBarNavigation
+  TabBarNavigation,
+  IgorBackground
 } from "../../../components/Igor";
 
 class Account extends React.Component {

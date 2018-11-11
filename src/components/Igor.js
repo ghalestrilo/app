@@ -1,4 +1,5 @@
 import React from "react";
+import { Font } from "expo";
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
 import Icon from "react-native-vector-icons/Entypo";
@@ -21,6 +22,10 @@ import {
   View,
   TouchableHighlight
 } from "react-native";
+
+Font.loadAsync({
+  "Entypo": require("@expo/vector-icons/fonts/Entypo.ttf")
+});
 
 /* Background: Padrao para a maioria das telas
 */
