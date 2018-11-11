@@ -5,9 +5,9 @@ import {
 } from "react-native";
 
 import {
-  IgorBackground,
   IgorLogo,
-  MainMenuButton
+  MainMenuButton,
+  IgorBackground
 } from "../../../components/Igor";
 
 import styles from "./styles";

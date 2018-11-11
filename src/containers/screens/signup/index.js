@@ -8,10 +8,10 @@ import {
 } from "react-native";
 
 import {
-  IgorBackground,
   IgorLogo,
   MainMenuButton,
-  Input
+  Input,
+  IgorBackground
 } from "../../../components/Igor";
 
 // Constants

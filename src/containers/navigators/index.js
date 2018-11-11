@@ -65,6 +65,7 @@ const AppNavigator = createSwitchNavigator(
     LoginStack: LoginStack,
     Drawer: DrawerNavigator
   },
+
   {
     initialRouteName: "LoginStack"
   },

@@ -7,11 +7,11 @@ import {
 } from "react-native";
 
 import {
-  IgorBackground,
   IgorLogo,
   MainMenuButton,
   RestButton,
-  Input
+  Input,
+  IgorBackground
 } from "../../../components/Igor";
 
 import {
