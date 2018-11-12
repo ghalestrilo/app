@@ -10,3 +10,4 @@ export const ADD_ADVENTURE = "ADD_ADVENTURE";
 export const DEL_ADVENTURE = "DEL_ADVENTURE";
 export const PICK_ADVENTURE = "PICK_ADVENTURE";
 export const EDIT_ADVENTURE = "EDIT_ADVENTURE";
+export const SET_EDIT = "SET_EDIT";

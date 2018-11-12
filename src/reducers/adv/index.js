@@ -1,7 +1,8 @@
-import { PICK_ADVENTURE, ADD_ADVENTURE, DEL_ADVENTURE } from "../../actions/types";
+import { PICK_ADVENTURE, ADD_ADVENTURE, DEL_ADVENTURE, SET_EDIT } from "../../actions/types";
 export const initialAdventures = {
   chosen: {},
-  list: []
+  list: [],
+  edit: ""
   // {
   //   title: 'A aventura eterna',
   //   image: require(),
@@ -24,6 +25,10 @@ export const pickAdventure = adventure => ({
   payload: adventure
 });
 
+export const setEdit = edit => ({
+  type: SET_EDIT,
+  payload: edit
+});
 
 const adv = (state = initialAdventures, action) => {
   switch (action.type) {
@@ -41,6 +46,11 @@ const adv = (state = initialAdventures, action) => {
     return{
       ...state,
       chosen: action.payload
+    };
+  case SET_EDIT:
+    return{
+      ...state,
+      edit: action.payload
     };
 
   default: return state;

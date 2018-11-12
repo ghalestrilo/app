@@ -84,7 +84,8 @@ class NewAdventureScreen extends React.Component {
         this.props.addAdventure({
           title: this.state.adventure,
           image: req,
-          nextSession: "",
+          nextSession: ["ainda nao marcada"],
+          sinopse: "escreva sua sinopse.",
           progress: 0
         });
       }else{

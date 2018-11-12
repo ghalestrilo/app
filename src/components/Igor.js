@@ -145,7 +145,7 @@ export const Adventure = ({ props }) => {
         classname="adventure">
         <Text>{props.title}</Text>
 
-        <Text>{"Próxima Sessão: " + props.nextSession}</Text>
+        <Text>{"Próxima Sessão: " + props.nextSession[0]}</Text>
 
         <Text>{"Progresso: " + props.progress}</Text>
       </ImageBackground>
@@ -165,7 +165,7 @@ export const EditAdventure = ({ props }) => {
       classname="adventure">
       <Text>{props.title}</Text>
 
-      <Text>{"Próxima Sessão: " + props.nextSession}</Text>
+      <Text>{"Próxima Sessão: " + props.nextSession[0]}</Text>
 
       <Text>{"Progresso: " + props.progress}</Text>
       <TouchableOpacity
