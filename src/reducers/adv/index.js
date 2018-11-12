@@ -1,4 +1,4 @@
-import { PICK_ADVENTURE, ADD_ADVENTURE, DEL_ADVENTURE, SET_EDIT } from "../../actions/types";
+import { PICK_ADVENTURE, ADD_ADVENTURE, DEL_ADVENTURE } from "../../actions/types";
 export const initialAdventures = {
   chosen: {},
   list: [],
@@ -25,11 +25,6 @@ export const pickAdventure = adventure => ({
   payload: adventure
 });
 
-export const setEdit = edit => ({
-  type: SET_EDIT,
-  payload: edit
-});
-
 const adv = (state = initialAdventures, action) => {
   switch (action.type) {
   case ADD_ADVENTURE:
@@ -46,11 +41,6 @@ const adv = (state = initialAdventures, action) => {
     return{
       ...state,
       chosen: action.payload
-    };
-  case SET_EDIT:
-    return{
-      ...state,
-      edit: action.payload
     };
 
   default: return state;

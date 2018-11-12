@@ -16,7 +16,8 @@ import {
 import { setEdit } from "../../../reducers/adv/index";
 import styles from "./styles";
 
-const newsessionimage = require("../../../images/buttons/add-sessao.png");
+const newsessionimage = require("../../../images/buttons/add-session.png");
+const newplayerimage = require("../../../images/buttons/add-player.png");
 class AdventureScreen extends React.Component {
   constructor(props){
     super(props);
@@ -30,7 +31,6 @@ class AdventureScreen extends React.Component {
     });
   }
   edit(){
-    this.props.setEdit((this.state.andamento)? "andamento":"jogadores");
     this.props.navigation.navigate("EditAdv");
   }
   render(){
@@ -87,8 +87,7 @@ class AdventureScreen extends React.Component {
         IgorBackground(
           <SafeAreaView style = {{ flex: 1 }}>
             <TabBarNavigation
-              navigate = {() => { this.props.navigation.openDrawer() ; }}
-              edit = {() => { this.edit() ; }}/>
+              navigate = {() => { this.props.navigation.openDrawer() ; }}/>
             <View style = {{ flex: 1, marginLeft: "10%", marginRight: "10%" }}>
               <Text style = {styles.title}>{chosen.title}</Text>
               <View style = {styles.container}>
@@ -106,6 +105,10 @@ class AdventureScreen extends React.Component {
               <View style = {styles.inputbackground}>
               </View>
             </View>
+            <Fab
+              source={newplayerimage}
+              onPress={() => {}}
+            />
           </SafeAreaView>
         )
       );

@@ -13,33 +13,19 @@ import {
 
 class EditAdv extends React.Component {
   render(){
-    const { edit } = this.props;
-    if(edit === "andamento"){
-      return (
-        IgorBackground(
-          <SafeAreaView style = {{ flex: 1 }}>
-            <TabBarNavigation
-              navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-            <Text>andamento</Text>
-          </SafeAreaView>
-        )
-      );
-    }else{
-      return (
-        IgorBackground(
-          <SafeAreaView style = {{ flex: 1 }}>
-            <TabBarNavigation
-              navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-            <Text>jogadores</Text>
-          </SafeAreaView>
-        )
-      );
-    }
+    return (
+      IgorBackground(
+        <SafeAreaView style = {{ flex: 1 }}>
+          <TabBarNavigation
+            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+          <Text>andamento</Text>
+        </SafeAreaView>
+      )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
-  edit: state.adventures.edit
 });
 
 export default connect(mapStateToProps)(EditAdv);
