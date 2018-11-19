@@ -8,6 +8,7 @@ import AdventureScreen from "./adventure";
 import BooksScreen from "./books";
 import ConfigurationsScreen from "./configurations";
 import NotificationsScreen from "./notifications";
+import CombatScreen from "./combat";
 
 export {
   SignUpScreen,
@@ -19,5 +20,6 @@ export {
   BooksScreen,
   ConfigurationsScreen,
   NotificationsScreen,
-  AdventureScreen
+  AdventureScreen,
+  CombatScreen
 };
