@@ -30,7 +30,8 @@ const AdventureStack = createStackNavigator(
   {
     Adventures: AdventuresScreen,
     NewAdventure: NewAdventureScreen,
-    Adventure: AdventureScreen
+    Adventure: AdventureScreen,
+    Combat: CombatScreen
   },
   {
     initialRouteName: "Adventures",

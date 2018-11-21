@@ -1,6 +1,7 @@
 export default{
   black: "rgb(40,40,40)",
   yellow: "rgb(220,220,40)",
+  red: "rgb(220,40,40)",
   greenButton: "rgb(0,226,186)",
   buttonText: "rgb(34,17,51)",
   drawerbackground: "rgb(34,17,51)",
