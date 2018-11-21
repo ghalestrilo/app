@@ -4,101 +4,13 @@ import {
   Text,
   ScrollView,
   Image,
-  TouchableOpacity,
-  StyleSheet
+  TouchableOpacity
 } from "react-native";
+import { connect } from "react-redux";
 
 import * as Progress from "react-native-progress";
-
-import { connect } from "react-redux";
 import { colors } from "../../../styles";
-
-const style = StyleSheet.create({
-  screen: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#060606"
-  },
-
-
-  // --------------------------------- EVENT
-
-  eventbox: {
-    padding: 8
-  },
-
-  event: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 16,
-
-    margin: 4,
-
-    height: 100,
-    borderRadius: 15,
-    backgroundColor: "lightgray"
-  },
-
-  eventAction: {
-    fontSize: 24,
-    color: "gray"
-  },
-
-  circle: {
-    borderRadius: 30,
-    width: 60,
-    height: 60
-  },
-
-  // --------------------------------- HUD
-  hud: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-
-    marginTop: 16
-  },
-
-  actorstack: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 8,
-
-    width: null,
-    backgroundColor: "lightgray"
-  },
-
-
-
-  portrait: {
-    flex: 1,
-    width: null,
-    height: null,
-    resizeMode: "contain"
-  },
-
-  tinyactor: {
-    borderRadius: 5,
-    width: 50,
-    height: 60
-  },
-
-  playerhud: {
-    flex: 1,
-    borderRadius: 5,
-    margin: "auto"
-  },
-
-  // --------------------------------- DRAWER
-  actionDrawer: {
-    alignSelf: "flex-end",
-    borderColor: "black"
-  }
-});
+import style from "./style";
 
 const CombatEvent = ({ author, action, target }) =>
   <View style={style.event}>
@@ -131,10 +43,25 @@ const PlayerHUD = ({ actor, onPress }) => (
       progress={(actor.maxhp / actor.maxhp)}
       width={null}
       height={4}
-      color={(actor.hero ? colors.yellow : colors.red)}
+      color={(actor.hero ? colors.green : colors.red)}
     />
+    <Text style={style.playername}>{actor.name}</Text>
   </TouchableOpacity>
 );
+
+const ActorStack = ({ title, actors, keyname, onPress = () => {}, flipped = false }) =>
+  <View style={[ style.actorstack, (flipped ? style.roundedLeft : style.roundedRight) ]}>
+    <Text style={style.playername}>{title}</Text>
+    {
+      actors.map((actor, i) =>
+        <TinyActor
+          key={`${keyname}${i}`}
+          actor={actor}
+          onPress={() => onPress(i)}
+          tiny={true}/>
+      )
+    }
+  </View>;
 
 class Combat extends React.Component {
   render = () =>
@@ -148,16 +75,13 @@ class Combat extends React.Component {
       </ScrollView>
 
       <View style={style.hud}>
-        <View style={style.actorstack}>
-          {this.props.heroes.map((actor, i) => <TinyActor key={`heroes${i}`} actor={actor} tiny={true}/>)}
-        </View>
+        <ActorStack title={"Heróis"} actors={this.props.heroes} keyname={"hero"}/>
         <PlayerHUD actor={this.props.player}/>
-        <View style={style.actorstack}>
-          {this.props.enemies.map((actor, i) => <TinyActor key={`enemies${i}`} actor={actor} tiny={true}/>)}
-        </View>
+        <ActorStack title={"Inimigos"} actors={this.props.enemies} keyname={"enemy"} flipped/>
       </View>
 
       <View style={style.actionDrawer}>
+        <Text>Ações</Text>
         {this.props.player.actions.map(CombatOption)}
       </View>
     </View>
