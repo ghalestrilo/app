@@ -10,7 +10,8 @@ import styles from "./igorstyles.js";
 
 import {
   FormLabel,
-  FormInput
+  FormInput,
+  Button
 } from "react-native-elements";
 
 import {
@@ -179,13 +180,13 @@ export const EditAdventure = ({ props }) => {
 };
 
 export const MainMenuButton = (props) => (
-  <TouchableOpacity
+  <Button
     key={props.title + "Button"}
-    style={styles.buttonLayout}
+    title={props.title}
+    buttonStyle={styles.buttonLayout}
     onPress={props.onPress}
-  >
-    <Text style = {styles.buttonText}>{props.title}</Text>
-  </TouchableOpacity>
+    loading={props.loading === true}
+  />
 );
 
 export const RestButton = (props) => (
