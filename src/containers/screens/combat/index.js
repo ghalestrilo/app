@@ -1,89 +1,55 @@
 import React from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TouchableOpacity
-} from "react-native";
 import { connect } from "react-redux";
+import { Modal, View } from "react-native";
 
-import * as Progress from "react-native-progress";
-import { colors } from "../../../styles";
-import style from "./style";
+import {
+  newEvent
+} from "../../../actions/combat";
 
-const CombatEvent = ({ author, action, target }) =>
-  <View style={style.event}>
-    <Image style={style.circle} source={author.portrait}/>
-    <Text style={style.eventAction}> {action.type} </Text>
-    <Image style={style.circle} source={target.portrait}/>
-  </View>;
-
-const CombatOption = option => (
-  (typeof option === Array)
-    ? null
-    : null);
-
-const TinyActor = ({ actor, onPress }) => (
-  <TouchableOpacity style={style.tinyactor} onPress={() => onPress()}>
-    <Image source={actor.portrait} style={style.portrait}/>
-    <Progress.Bar
-      progress={(actor.maxhp / actor.maxhp)}
-      width={null}
-      height={4}
-      color={(actor.hero ? colors.yellow : colors.red)}
-    />
-  </TouchableOpacity>
-);
-
-const PlayerHUD = ({ actor, onPress }) => (
-  <TouchableOpacity style={style.playerhud} onPress={() => onPress()}>
-    <Image source={actor.portrait} style={style.portrait}/>
-    <Progress.Bar
-      progress={(actor.maxhp / actor.maxhp)}
-      width={null}
-      height={4}
-      color={(actor.hero ? colors.green : colors.red)}
-    />
-    <Text style={style.playername}>{actor.name}</Text>
-  </TouchableOpacity>
-);
-
-const ActorStack = ({ title, actors, keyname, onPress = () => {}, flipped = false }) =>
-  <View style={[ style.actorstack, (flipped ? style.roundedLeft : style.roundedRight) ]}>
-    <Text style={style.playername}>{title}</Text>
-    {
-      actors.map((actor, i) =>
-        <TinyActor
-          key={`${keyname}${i}`}
-          actor={actor}
-          onPress={() => onPress(i)}
-          tiny={true}/>
-      )
-    }
-  </View>;
+import CombatScreen from "../../../components/combat";
+import { TargetPicker } from "../../../components/combat";
 
 class Combat extends React.Component {
+  state = {
+    pickingAction: false,
+    pickingTarget: false,
+    actions: null,
+    action: null,
+    target: null
+  }
+
+  pickAction = action => this.setState({
+    ...this.getState(),
+    action: action,
+    pickingAction: false,
+    pickingTarget: true
+  })
+
+  openActionPicker = actions => this.setState({
+    ...this.getState(),
+    actions: actions,
+    pickingAction: true
+  })
+
+  pickTarget = target => this.setState({
+    ...this.getState(),
+    actions: null,
+    target: target
+  })
+
   render = () =>
-    <View style={style.screen}>
-      <ScrollView style={style.eventbox}>
-        {this.props.events.map((event, i) =>
-          <CombatEvent key={`event${i}`}
-            author={event.author}
-            action={event.action}
-            target={event.target}/>)}
-      </ScrollView>
+    <View style={{flex: 1}}>
+      <CombatScreen
+        events={this.props.events}
+        heroes={this.props.heroes}
+        player={this.props.player}
+        enemies={this.props.enemies}
+        newEvent={this.props.newEvent}
+      />;
 
-      <View style={style.hud}>
-        <ActorStack title={"Heróis"} actors={this.props.heroes} keyname={"hero"}/>
-        <PlayerHUD actor={this.props.player}/>
-        <ActorStack title={"Inimigos"} actors={this.props.enemies} keyname={"enemy"} flipped/>
-      </View>
-
-      <View style={style.actionDrawer}>
-        <Text>Ações</Text>
-        {this.props.player.actions.map(CombatOption)}
-      </View>
+      <Modal visible={this.state.pickingTarget}>
+        <TargetPicker pickTarget={(target) => this.pickTarget(target)}/>
+      </Modal>
     </View>
 }
 
@@ -99,11 +65,11 @@ const mapStateToProps = state => ({
 
   player: state.combat.actors[state.combat.player],
   enemies: state.combat.actors.filter(x => x.hero === false),
-  heroes: state.combat.actors.filter(x => x.hero === true),
-
-  // Class Methods?
-  victory: (state.combat.actors.filter(x => x.hero === false) === []),
-  defeat: (state.combat.actors.filter(x => x.hero === true) === [])
+  heroes: state.combat.actors.filter(x => x.hero === true)
 });
 
-export default connect(mapStateToProps)(Combat);
+const mapDispatchToProps = dispatch => ({
+  newEvent: event => dispatch(newEvent(event))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Combat);

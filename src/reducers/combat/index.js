@@ -61,74 +61,41 @@ const initialState = {
     {
       portrait: portraits.robo,
       name: "robo",
+      hero: false,
+      maxhp: 10,
+      status: {
+        hp: 5,
+        effects: []
+      },
+      actions: [
+        {
+          type: flee,
+          mod: 0
+        },
+        {
+          type: attack,
+          mod: 3,
+          damage: 15
+        },
+        {
+          type: spell,
+          name: "cold blast",
+          damage: 10,
+          effects: {
+            freeze: {
+              chance: 0.5,
+              duration: 2
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      portrait: portraits.marle,
+      name: "marle",
       hero: true,
-      maxhp: 10,
-      status: {
-        hp: 10,
-        effects: []
-      },
-      actions: [
-        {
-          type: flee,
-          mod: 0
-        },
-        {
-          type: attack,
-          mod: 3,
-          damage: 15
-        },
-        {
-          type: spell,
-          name: "cold blast",
-          damage: 10,
-          effects: {
-            freeze: {
-              chance: 0.5,
-              duration: 2
-            }
-          }
-        }
-      ]
-    },
-
-    {
-      portrait: portraits.marle,
-      name: "marle",
-      hero: false,
-      maxhp: 10,
-      status: {
-        hp: 10,
-        effects: []
-      },
-      actions: [
-        {
-          type: flee,
-          mod: 0
-        },
-        {
-          type: attack,
-          mod: 3,
-          damage: 15
-        },
-        {
-          type: spell,
-          name: "cold blast",
-          damage: 10,
-          effects: {
-            freeze: {
-              chance: 0.5,
-              duration: 2
-            }
-          }
-        }
-      ]
-    },
-
-    {
-      portrait: portraits.marle,
-      name: "marle",
-      hero: false,
-      maxhp: 10,
+      maxhp: 2,
       status: {
         hp: 10,
         effects: []

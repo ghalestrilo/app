@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../../styles";
+import { colors } from "../../styles";
 
 const style = StyleSheet.create({
   screen: {
@@ -87,7 +87,9 @@ const style = StyleSheet.create({
   },
 
   playername: {
-    color: "darkgray"
+    padding: 4,
+    color: colors.darkgray,
+    fontSize: 18
   },
 
   roundedLeft: {
@@ -106,9 +108,20 @@ const style = StyleSheet.create({
   actionDrawer: {
     flex: 1,
     flexDirection: "row",
-    height: 60,
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingLeft: 16,
+    
+    maxHeight: 60,
+
+    marginTop: 60,
+
     backgroundColor: "lightgray",
     borderColor: "black"
+  },
+
+  action: {
+    padding: 8
   }
 });
 
