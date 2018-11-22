@@ -49,7 +49,7 @@ const style = StyleSheet.create({
     marginTop: 16
   },
 
-  actorstack: {
+  actorlist: {
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
@@ -59,7 +59,7 @@ const style = StyleSheet.create({
     backgroundColor: "lightgray"
   },
 
-  actorstackname: {
+  actorlistname: {
     color: "darkgray",
     fontSize: 20
   },
@@ -80,25 +80,29 @@ const style = StyleSheet.create({
 
   playerhud: {
     flex: 1,
+    flexDirection: "column",
+    alignItems: "stretch",
     borderRadius: 10,
-    padding: 16,
-    backgroundColor: "lightgray",
-    margin: "auto"
+    padding: 8,
+    backgroundColor: "lightgray"
   },
 
   playername: {
     padding: 4,
     color: colors.darkgray,
+    alignSelf: "center",
     fontSize: 18
   },
 
   roundedLeft: {
     borderBottomLeftRadius: 10,
-    borderTopLeftRadius: 10
+    borderTopLeftRadius: 10,
+    marginLeft: 50
   },
   roundedRight: {
     borderBottomRightRadius: 10,
-    borderTopRightRadius: 10
+    borderTopRightRadius: 10,
+    marginRight: 50
   },
 
 

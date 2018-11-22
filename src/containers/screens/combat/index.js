@@ -7,7 +7,6 @@ import {
 } from "../../../actions/combat";
 
 import CombatScreen from "../../../components/combat";
-import { TargetPicker } from "../../../components/combat";
 
 class Combat extends React.Component {
   state = {
@@ -18,44 +17,69 @@ class Combat extends React.Component {
     target: null
   }
 
+  openActionPicker = actions => this.setState({
+    ...this.state,
+    actions: actions,
+    pickingAction: true
+  })
+
   pickAction = action => this.setState({
-    ...this.getState(),
+    ...this.state,
     action: action,
     pickingAction: false,
     pickingTarget: true
   })
 
-  openActionPicker = actions => this.setState({
-    ...this.getState(),
-    actions: actions,
-    pickingAction: true
-  })
+  pickTarget = target => {
+    const event = {
+      author: this.props.playerID,
+      target: target,
+      action: this.state.action
+    };
 
-  pickTarget = target => this.setState({
-    ...this.getState(),
-    actions: null,
-    target: target
-  })
+    this.setState({
+      ...this.state,
+      actions: null,
+      pickingTarget: false,
+      target: target
+    });
 
-  render = () =>
-    <View style={{flex: 1}}>
-      <CombatScreen
-        events={this.props.events}
-        heroes={this.props.heroes}
-        player={this.props.player}
-        enemies={this.props.enemies}
-        newEvent={this.props.newEvent}
-      />;
+    console.log("event", event);
+    this.newEvent(event);
+  }
 
-      <Modal visible={this.state.pickingTarget}>
-        <TargetPicker pickTarget={(target) => this.pickTarget(target)}/>
-      </Modal>
-    </View>
+  newEvent = event => this.props.dispatch(newEvent({
+    ...event,
+    author: this.props.playerID
+  }))
+
+  render = () => {
+    const { player, events } = this.props;
+
+    const actors = this.props.actors.map((a, i) => ({ ...a, index: i }));
+    const enemies = actors.filter(x => x.hero === false);
+    const heroes = actors.filter(x => x.hero === true);
+
+    return <CombatScreen
+      events={events}
+      heroes={heroes}
+      player={player}
+      enemies={enemies}
+
+      showActionPicker={this.state.pickingAction}
+      showTargetPicker={this.state.pickingTarget}
+
+      onActionGroup={action => this.openActionPicker(action)}
+      onChooseAction={action => this.pickAction(action)}
+      onChooseTarget={target => this.pickTarget(target)}
+      onFinishAction={event => this.newEvent(event)}
+    />;
+  }
 }
 
 const mapStateToProps = state => ({
   events: state.combat.events
-    .slice(0, 4)
+    .slice(0, 2)
     .map(
       event => ({
         ...event,
@@ -63,13 +87,13 @@ const mapStateToProps = state => ({
         target: state.combat.actors[event.target]
       })),
 
+  actors: state.combat.actors.map((a, index) => ({ ...a, index: index })),
   player: state.combat.actors[state.combat.player],
-  enemies: state.combat.actors.filter(x => x.hero === false),
-  heroes: state.combat.actors.filter(x => x.hero === true)
+  playerID: state.combat.player
 });
 
 const mapDispatchToProps = dispatch => ({
-  newEvent: event => dispatch(newEvent(event))
+  dispatch: dispatch
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Combat);

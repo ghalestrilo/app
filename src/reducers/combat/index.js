@@ -28,7 +28,8 @@ const initialState = {
   actors: [
     {
       portrait: portraits.crono,
-      type: "hero",
+      name: "crono",
+      hero: true,
       maxhp: 10,
       status: {
         hp: 10,
