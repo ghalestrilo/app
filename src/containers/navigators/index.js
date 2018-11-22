@@ -16,7 +16,8 @@ const LoginStack = createStackNavigator(
   {
     Start: StartScreen,
     Signup: SignUpScreen,
-    Login: LoginScreen
+    Login: LoginScreen,
+    Combat: CombatScreen // @TEST
   },
   {
     initialRouteName: "Start",
@@ -31,7 +32,8 @@ const AdventureStack = createStackNavigator(
     Adventures: AdventuresScreen,
     NewAdventure: NewAdventureScreen,
     Adventure: AdventureScreen,
-    EditAdv: EditAdventureScreen
+    EditAdv: EditAdventureScreen,
+    Combat: CombatScreen
   },
   {
     initialRouteName: "Adventures",

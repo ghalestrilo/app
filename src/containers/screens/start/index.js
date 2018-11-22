@@ -25,6 +25,11 @@ const options = [
   {
     title: "CADASTRO",
     destination: "Signup"
+  },
+
+  { // @TEST
+    title: "Testar Combate",
+    destination: "Combat"
   }
 ];
 
