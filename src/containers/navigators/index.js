@@ -1,7 +1,8 @@
 import {
   SignUpScreen, LoginScreen, StartScreen,
   AccountScreen, AdventuresScreen, BooksScreen, ConfigurationsScreen,
-  NotificationsScreen, NewAdventureScreen, AdventureScreen, EditAdventureScreen
+  NotificationsScreen, NewAdventureScreen, AdventureScreen,
+  CombatScreen, EditAdventureScreen
 } from "../screens";
 import { colors } from "../../styles";
 
@@ -44,6 +45,7 @@ const AdventureStack = createStackNavigator(
 const DrawerNavigator = createDrawerNavigator(
   {
     Adventures: AdventureStack,
+    Combat: CombatScreen, // this is here just for testing
     Books: BooksScreen,
     Account: AccountScreen,
     Notifications: NotificationsScreen,
