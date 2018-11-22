@@ -4,7 +4,7 @@ const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
 import Icon from "react-native-vector-icons/Entypo";
 import MCIIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { colors } from "../styles";
+import { colors, fonts } from "../styles";
 
 import styles from "./igorstyles.js";
 
@@ -145,7 +145,7 @@ export const Adventure = ({ props }) => {
         classname="adventure">
         <Text>{props.title}</Text>
 
-        <Text>{"Próxima Sessão: " + props.nextSession}</Text>
+        <Text>{"Próxima Sessão: " + props.nextSession[0]}</Text>
 
         <Text>{"Progresso: " + props.progress}</Text>
       </ImageBackground>
@@ -165,15 +165,23 @@ export const EditAdventure = ({ props }) => {
       classname="adventure">
       <Text>{props.title}</Text>
 
-      <Text>{"Próxima Sessão: " + props.nextSession}</Text>
+      <Text>{"Próxima Sessão: " + props.nextSession[0]}</Text>
 
       <Text>{"Progresso: " + props.progress}</Text>
       <TouchableOpacity
         style = {styles.delete}
-        onPress={() => props.onPress()}>
+        onPress={() => props.delete()}>
         <MCIIcons
           name="delete-empty"
-          size= {35}
+          size= {30}
+          color= "white"/>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style = {styles.edit}
+        onPress={() => props.edit()}>
+        <Icon
+          name="edit"
+          size= {30}
           color= "white"/>
       </TouchableOpacity>
     </ImageBackground>);
@@ -184,6 +192,8 @@ export const MainMenuButton = (props) => (
     key={props.title + "Button"}
     title={props.title}
     buttonStyle={styles.buttonLayout}
+    fontSize = {fonts.bigger}
+    color = {colors.buttonText}
     onPress={props.onPress}
     loading={props.loading === true}
   />

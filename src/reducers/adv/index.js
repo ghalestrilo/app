@@ -1,7 +1,8 @@
 import { PICK_ADVENTURE, ADD_ADVENTURE, DEL_ADVENTURE } from "../../actions/types";
 export const initialAdventures = {
   chosen: {},
-  list: []
+  list: [],
+  edit: ""
   // {
   //   title: 'A aventura eterna',
   //   image: require(),
