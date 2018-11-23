@@ -44,7 +44,6 @@ class Combat extends React.Component {
       target: target
     });
 
-    console.log("event", event);
     this.newEvent(event);
   }
 

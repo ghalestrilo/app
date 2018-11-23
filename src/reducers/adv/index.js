@@ -1,4 +1,10 @@
-import { PICK_ADVENTURE, ADD_ADVENTURE, DEL_ADVENTURE } from "../../actions/types";
+import {
+  PICK_ADVENTURE,
+  DEL_ADVENTURE,
+  REQUEST_GET_ADVENTURES,
+  RECEIVE_GET_ADVENTURES
+} from "../../actions/types";
+
 export const initialAdventures = {
   chosen: {},
   list: [],
@@ -10,10 +16,6 @@ export const initialAdventures = {
   //   progress: 40
   // }
 };
-export const addAdventure = newAdventure => ({
-  type: ADD_ADVENTURE,
-  payload: newAdventure
-});
 
 export const delAdventure = adventure => ({
   type: DEL_ADVENTURE,
@@ -25,18 +27,18 @@ export const pickAdventure = adventure => ({
   payload: adventure
 });
 
+
 const adv = (state = initialAdventures, action) => {
   switch (action.type) {
-  case ADD_ADVENTURE:
+  case REQUEST_GET_ADVENTURES:
+    return state;
+  case RECEIVE_GET_ADVENTURES:
     return {
       ...state,
-      list: [ action.payload, ...state.list ]
+      list: action.payload
     };
   case DEL_ADVENTURE:
-    return {
-      ...state,
-      list: state.list.filter(element => element !== action.payload)
-    };
+    return state;
   case PICK_ADVENTURE:
     return{
       ...state,

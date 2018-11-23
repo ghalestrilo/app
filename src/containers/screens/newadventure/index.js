@@ -9,12 +9,16 @@ import { SafeAreaView,
   Alert
 } from "react-native";
 import {
+  FormLabel
+} from "react-native-elements";
+import {
   TabBarNavigation,
   Input,
   IgorBackground
 } from "../../../components/Igor";
 import styles from "./styles";
-import { addAdventure, delAdventure } from "../../../reducers/adv/index";
+import { delAdventure } from "../../../reducers/adv/index";
+import { addAdventure } from "../../../actions/adventure";
 
 let req = require("../../../images/adventures/miniatura_corvali.png");
 const corvali = {
@@ -40,6 +44,7 @@ class NewAdventureScreen extends React.Component {
     super(props);
     this.state = {
       adventure: "",
+      brief: "",
       switch: "corvali"
     };
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -62,7 +67,7 @@ class NewAdventureScreen extends React.Component {
   isToggled = (value) => {
     return(value === this.state.switch);
   }
-  createAdventure(chosen){
+  async createAdventure(chosen){
     if((this.state.adventure.length > 0) &&(this.state.switch.length > 0)){
       switch(this.state.switch){
       case "coast":
@@ -81,11 +86,11 @@ class NewAdventureScreen extends React.Component {
         req = "";
       }
       if (Object.keys(chosen).length === 0 && chosen.constructor === Object){
-        this.props.addAdventure({
+        await this.props.addAdventure({
           title: this.state.adventure,
           image: req,
           nextSession: ["ainda nao marcada"],
-          sinopse: "escreva sua sinopse.",
+          sinopse: this.state.brief,
           progress: 0
         });
       }else{
@@ -113,7 +118,13 @@ class NewAdventureScreen extends React.Component {
               title="Criar Aventura"
               value={this.state.adventure}
               onChange={(text) => this.handleFormChange(text, "adventure")}/>
-            <View style ={{ flex: 1 }}>
+            <Input
+              title="Sinopse"
+              value={this.state.brief}
+              onChange={(text) => this.handleFormChange(text, "brief")}
+            />
+            <FormLabel>Escolha uma imagem</FormLabel>
+            <View style ={{ flex: 1, marginTop: 4 }}>
               <View style = {styles.images}>
                 {images.map((imagem) => (
                   <View style = {styles.image} key = {imagem.name}>
