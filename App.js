@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground } from "react-native";
+import { ImageBackground, View } from "react-native";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
@@ -15,12 +15,12 @@ export default class App extends React.Component {
   render(){
     return(
       <Provider store={store}>
-        <ImageBackground
-          source={background}
-          style={{ width: "100%", height: "100%" }}
+        <View
+          // source={background}
+          style={{ width: "100%", height: "100%", backgroundColor: "red" }}
           resizeMethod="resize">
-          <AppNavigator style={{ backgroundColor: "transparent" }}/>
-        </ImageBackground>
+          <AppNavigator style={{ backgroundColor: "red" }}/>
+        </View>
       </Provider>
     );
   }

@@ -3,6 +3,7 @@ import {
   AccountScreen, AdventuresScreen, BooksScreen, ConfigurationsScreen,
   NotificationsScreen, NewAdventureScreen, AdventureScreen
 } from "../screens";
+import Background from "../../images/background/background.png";
 import { colors } from "../../styles";
 
 import {
@@ -21,7 +22,7 @@ const LoginStack = createStackNavigator(
     initialRouteName: "Start",
     cardStyle: {
       shadowColor: "transparent",
-      backgroundColor: "transparent"
+      backgroundImage: "url(" + { Background } + ")"
     },
     navigationOptions: {
       header: null
