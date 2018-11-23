@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import {
   newEvent,
-  finishCombat,
+  finishCombat
 } from "../../../actions/combat";
 
 import CombatScreen from "../../../components/combat";
@@ -50,19 +50,21 @@ class Combat extends React.Component {
   }))
 
   render = () => {
-    const { player, events } = this.props;
+    const { player, events, dispatch } = this.props;
     const actions = this.state.actions;
 
     const actors = this.props.actors.map((a, i) => ({ ...a, index: i }));
     const enemies = actors.filter(x => x.hero === false);
     const heroes = actors.filter(x => x.hero === true);
 
+    if (heroes.map(x => x.status.fled === true).reduce((a, b) => a && b))
+      dispatch(finishCombat("flee"));
 
-    const victory = (enemies.filter(x => x.dead === false) === undefined);
-    const defeat = (heroes.filter(x => x.dead === false) === undefined);
+    if (enemies.filter(x => x.status.dead === false) === undefined)
+      dispatch(finishCombat("victory"));
 
-    if (victory) this.props.dispatch(victory());
-    if (defeat) this.props.dispatch(defeat());
+    if (heroes.filter(x => x.status.dead === false) === undefined)
+      dispatch(finishCombat("defeat"));
 
     return <CombatScreen
       events={events}
@@ -82,19 +84,19 @@ class Combat extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  events: state.combat.events
+const mapStateToProps = ({ combat }) => ({
+  events: (combat.events || [])
     .slice(0, 2)
     .map(
       event => ({
         ...event,
-        author: state.combat.actors[event.author],
-        target: state.combat.actors[event.target]
+        author: combat.actors[event.author],
+        target: combat.actors[event.target]
       })),
 
-  actors: state.combat.actors.map((a, index) => ({ ...a, index: index })),
-  player: state.combat.actors[state.combat.player],
-  playerID: state.combat.player
+  actors: combat.actors.map((a, index) => ({ ...a, index: index })),
+  player: combat.actors[combat.player],
+  playerID: combat.player
 });
 
 const mapDispatchToProps = dispatch => ({

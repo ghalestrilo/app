@@ -1,14 +1,13 @@
 import initialState from "./state.js";
 import {
   NEW_EVENT,
-  KILL_ACTOR,
-  UNKILL_ACTOR,
+  FINISH_COMBAT
 
-  VICTORY,
-  DEFEAT
 } from "../../actions/types";
 
-const cannotPlay = actor => actor.status.hp < 0;
+const cannotPlay = actor =>
+  (actor.status.dead === true) ||
+  (actor.status.fled === true);
 
 // const success = chance =>
 
@@ -56,29 +55,30 @@ const combat = (state = initialState, action) => {
       player: nextplayer(state.player, state.actors)
     };
 
-  case KILL_ACTOR:
-    return {
-      ...state,
-      actors: state.actors.map(
-        (actor, i) => ((i === action.payload)
-          ? { ...actor, dead: true }
-          : actor))
-    };
+    // case KILL_ACTOR:
+    //   return {
+    //     ...state,
+    //     actors: state.actors.map(
+    //       (actor, i) => ((i === action.payload)
+    //         ? { ...actor, dead: true }
+    //         : actor))
+    //   };
 
-  case UNKILL_ACTOR:
-    return {
-      ...state,
-      actors: state.actors.map(
-        (actor, i) => ((i === action.payload)
-          ? { ...actor, dead: false }
-          : actor))
-    };
+    // case UNKILL_ACTOR:
+    //   return {
+    //     ...state,
+    //     actors: state.actors.map(
+    //       (actor, i) => ((i === action.payload)
+    //         ? { ...actor, dead: false }
+    //         : actor))
+    //   };
 
-  case DEFEAT:
-  case VICTORY:
+  case FINISH_COMBAT:
+    console.log("combat ended! result: ", action.payload);
     return {
       ...state,
-      ongoing: false
+      ongoing: false,
+      result: action.payload
     };
 
   default:

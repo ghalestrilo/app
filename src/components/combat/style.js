@@ -5,8 +5,7 @@ const style = StyleSheet.create({
   screen: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-between",
-    backgroundColor: "#060606"
+    justifyContent: "space-between"
   },
 
 

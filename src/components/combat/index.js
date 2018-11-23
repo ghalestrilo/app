@@ -19,6 +19,7 @@ import Modal from "react-native-modal";
 import * as Progress from "react-native-progress";
 import { colors } from "../../styles";
 import style from "./style";
+import { IgorBackground } from "../Igor";
 // const arrow = require("../../images/combat/arrow.png");
 
 const warn = value => {
@@ -142,7 +143,7 @@ const CombatScreen = ({
   events, heroes, player, enemies, actions, // Data
   showActionPicker, showTargetPicker, // Display
   onActionGroup, onChooseAction, onChooseTarget, onFinishAction // Callbacks
-}) =>
+}) => IgorBackground(
   <View style={style.screen}>
     <View style={{ flex: 1 }}>
       <ScrollView style={style.eventbox}>
@@ -194,6 +195,6 @@ const CombatScreen = ({
       visible={showActionPicker}
       options={actions || []}
     />
-  </View>;
+  </View>);
 
 export default CombatScreen;

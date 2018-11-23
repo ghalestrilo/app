@@ -18,11 +18,9 @@ const avatars = {
   frostbolt: require("../../images/spells/frost_bolt.jpg")
 };
 
-
-
-
 const initialState = {
   ongoing: true,
+  result: null,
   player: 0,
   actors: [
     {
@@ -149,38 +147,7 @@ const initialState = {
       ]
     }
   ],
-
-  events: [
-    {
-      author: 0,
-      target: 1,
-      action: {
-        type: attack,
-        mod: 3,
-        damage: 15
-      }
-    },
-
-    {
-      author: 1,
-      target: 2,
-      action: {
-        type: attack,
-        mod: 3,
-        damage: 15
-      }
-    },
-
-    {
-      author: 2,
-      target: 1,
-      action: {
-        type: attack,
-        mod: 3,
-        damage: 15
-      }
-    }
-  ]
+  events: []
 };
 
 export default initialState;
