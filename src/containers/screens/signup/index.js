@@ -10,7 +10,8 @@ import {
 import {
   IgorLogo,
   MainMenuButton,
-  Input
+  Input,
+  IgorBackground
 } from "../../../components/Igor";
 
 // Constants
@@ -87,22 +88,24 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <IgorLogo/>
-        <SafeAreaView style={styles.buttonsContainer}>
-          { signupForms.map((form, index) =>
-            (<Input
-              key={index}
-              title={form.name}
-              type={form.type ? form.type : null}
-              onChange={(text) => this.handleFormChange(text, form.state)}/>))
-          }
-          <MainMenuButton
-            onPress={this.register}
-            title = "CRIAR"
-          />
+      IgorBackground(
+        <SafeAreaView style={styles.container}>
+          <IgorLogo/>
+          <SafeAreaView style={styles.buttonsContainer}>
+            { signupForms.map((form, index) =>
+              (<Input
+                key={index}
+                title={form.name}
+                type={form.type ? form.type : null}
+                onChange={(text) => this.handleFormChange(text, form.state)}/>))
+            }
+            <MainMenuButton
+              onPress={this.register}
+              title = "CRIAR"
+            />
+          </SafeAreaView>
         </SafeAreaView>
-      </SafeAreaView>
+      )
     );
   }
 }

@@ -1,9 +1,10 @@
 import {
   SignUpScreen, LoginScreen, StartScreen,
   AccountScreen, AdventuresScreen, BooksScreen, ConfigurationsScreen,
-  NotificationsScreen, NewAdventureScreen, AdventureScreen
+  NotificationsScreen, NewAdventureScreen, AdventureScreen,
+  CombatScreen, EditAdventureScreen
 } from "../screens";
-import Background from "../../images/background/background.png";
+// import Background from "../../images/background/background.png";
 import { colors } from "../../styles";
 
 import {
@@ -16,14 +17,11 @@ const LoginStack = createStackNavigator(
   {
     Start: StartScreen,
     Signup: SignUpScreen,
-    Login: LoginScreen
+    Login: LoginScreen,
+    Combat: CombatScreen // @TEST
   },
   {
     initialRouteName: "Start",
-    cardStyle: {
-      shadowColor: "transparent",
-      backgroundImage: "url(" + { Background } + ")"
-    },
     navigationOptions: {
       header: null
     }
@@ -34,14 +32,12 @@ const AdventureStack = createStackNavigator(
   {
     Adventures: AdventuresScreen,
     NewAdventure: NewAdventureScreen,
-    Adventure: AdventureScreen
+    Adventure: AdventureScreen,
+    EditAdv: EditAdventureScreen,
+    Combat: CombatScreen
   },
   {
     initialRouteName: "Adventures",
-    cardStyle: {
-      shadowColor: "transparent",
-      backgroundColor: "transparent"
-    },
     navigationOptions: {
       header: null
     }
@@ -52,6 +48,7 @@ const AdventureStack = createStackNavigator(
 const DrawerNavigator = createDrawerNavigator(
   {
     Adventures: AdventureStack,
+    Combat: CombatScreen, // this is here just for testing
     Books: BooksScreen,
     Account: AccountScreen,
     Notifications: NotificationsScreen,
@@ -76,11 +73,7 @@ const AppNavigator = createSwitchNavigator(
   },
 
   {
-    initialRouteName: "LoginStack",
-    cardStyle: {
-      shadowColor: "transparent",
-      backgroundColor: "transparent"
-    }
+    initialRouteName: "LoginStack"
   },
 );
 export { AppNavigator, LoginStack, DrawerNavigator };

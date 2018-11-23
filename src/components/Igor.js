@@ -1,15 +1,17 @@
 import React from "react";
+import { Font } from "expo";
 const igor = require("../images/logo/logo.png");
 const background = require("../images/background/background.png");
 import Icon from "react-native-vector-icons/Entypo";
 import MCIIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { colors } from "../styles";
+import { colors, fonts } from "../styles";
 
 import styles from "./igorstyles.js";
 
 import {
   FormLabel,
-  FormInput
+  FormInput,
+  Button
 } from "react-native-elements";
 
 import {
@@ -21,6 +23,10 @@ import {
   View,
   TouchableHighlight
 } from "react-native";
+
+Font.loadAsync({
+  "Entypo": require("@expo/vector-icons/fonts/Entypo.ttf")
+});
 
 /* Background: Padrao para a maioria das telas
 */
@@ -139,7 +145,7 @@ export const Adventure = ({ props }) => {
         classname="adventure">
         <Text>{props.title}</Text>
 
-        <Text>{"Próxima Sessão: " + props.nextSession}</Text>
+        <Text>{"Próxima Sessão: " + props.nextSession[0]}</Text>
 
         <Text>{"Progresso: " + props.progress}</Text>
       </ImageBackground>
@@ -159,28 +165,38 @@ export const EditAdventure = ({ props }) => {
       classname="adventure">
       <Text>{props.title}</Text>
 
-      <Text>{"Próxima Sessão: " + props.nextSession}</Text>
+      <Text>{"Próxima Sessão: " + props.nextSession[0]}</Text>
 
       <Text>{"Progresso: " + props.progress}</Text>
       <TouchableOpacity
         style = {styles.delete}
-        onPress={() => props.onPress()}>
+        onPress={() => props.delete()}>
         <MCIIcons
           name="delete-empty"
-          size= {35}
+          size= {30}
+          color= "white"/>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style = {styles.edit}
+        onPress={() => props.edit()}>
+        <Icon
+          name="edit"
+          size= {30}
           color= "white"/>
       </TouchableOpacity>
     </ImageBackground>);
 };
 
 export const MainMenuButton = (props) => (
-  <TouchableOpacity
+  <Button
     key={props.title + "Button"}
-    style={styles.buttonLayout}
+    title={props.title}
+    buttonStyle={styles.buttonLayout}
+    fontSize = {fonts.bigger}
+    color = {colors.buttonText}
     onPress={props.onPress}
-  >
-    <Text style = {styles.buttonText}>{props.title}</Text>
-  </TouchableOpacity>
+    loading={props.loading === true}
+  />
 );
 
 export const RestButton = (props) => (

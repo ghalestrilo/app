@@ -10,10 +10,11 @@ import { SafeAreaView,
 } from "react-native";
 import {
   TabBarNavigation,
-  Input
+  Input,
+  IgorBackground
 } from "../../../components/Igor";
 import styles from "./styles";
-import { addAdventure } from "../../../reducers/adv/index";
+import { addAdventure, delAdventure } from "../../../reducers/adv/index";
 
 let req = require("../../../images/adventures/miniatura_corvali.png");
 const corvali = {
@@ -61,10 +62,7 @@ class NewAdventureScreen extends React.Component {
   isToggled = (value) => {
     return(value === this.state.switch);
   }
-  componentDidMount(){
-    this.setState({ switch: "corvali" });
-  }
-  createAdventure(){
+  createAdventure(chosen){
     if((this.state.adventure.length > 0) &&(this.state.switch.length > 0)){
       switch(this.state.switch){
       case "coast":
@@ -82,59 +80,74 @@ class NewAdventureScreen extends React.Component {
       default:
         req = "";
       }
-      this.props.addAdventure({
-        title: this.state.adventure,
-        image: req,
-        nextSession: "",
-        progress: 0
-      });
+      if (Object.keys(chosen).length === 0 && chosen.constructor === Object){
+        this.props.addAdventure({
+          title: this.state.adventure,
+          image: req,
+          nextSession: ["ainda nao marcada"],
+          sinopse: "escreva sua sinopse.",
+          progress: 0
+        });
+      }else{
+        this.props.delAdventure(chosen);
+        this.props.addAdventure({
+          ...chosen,
+          title: this.state.adventure,
+          image: req
+        });
+      }
       this.props.navigation.pop();
     }else {
       Alert.alert("You must choose one image and write the adventure name");
     }
   }
-
   render(){
+    const { chosen } = this.props;
     return(
-      <SafeAreaView style = {styles.container}>
-        <TabBarNavigation
-          navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-        <View style = {styles.inputbackground}>
-          <Input
-            title="Criar Aventura"
-            value={this.state.adventure}
-            onChange={(text) => this.handleFormChange(text, "adventure")}/>
-          <View style ={{ flex: 1 }}>
-            <View style = {styles.images}>
-              {images.map((imagem) => (
-                <View style = {styles.image} key = {imagem.name}>
-                  <Switch
-                    onValueChange={() => { this.toggleSwitch(imagem.name) ; }}
-                    value={this.isToggled(imagem.name)}/>
-                  <ImageBackground
-                    source = {imagem.source}
-                    style={{ width: "100%", height: "100%" }}
-                    resizeMode = "contain"/>
-                </View>
-              ))}
-            </View>
-            <View style = {{ flex: 1 }}>
-              <TouchableOpacity
-                style={styles.buttonLayout}
-                onPress={() => { this.createAdventure() ; }}
-              >
-                <Text>Pronto</Text>
-              </TouchableOpacity>
+      IgorBackground(
+        <SafeAreaView style = {styles.container}>
+          <TabBarNavigation
+            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+          <View style = {styles.inputbackground}>
+            <Input
+              title="Criar Aventura"
+              value={this.state.adventure}
+              onChange={(text) => this.handleFormChange(text, "adventure")}/>
+            <View style ={{ flex: 1 }}>
+              <View style = {styles.images}>
+                {images.map((imagem) => (
+                  <View style = {styles.image} key = {imagem.name}>
+                    <Switch
+                      onValueChange={() => { this.toggleSwitch(imagem.name) ; }}
+                      value={this.isToggled(imagem.name)}/>
+                    <ImageBackground
+                      source = {imagem.source}
+                      style={{ width: "100%", height: "100%" }}
+                      resizeMode = "contain"/>
+                  </View>
+                ))}
+              </View>
+              <View style = {{ flex: 1 }}>
+                <TouchableOpacity
+                  style={styles.buttonLayout}
+                  onPress={() => { this.createAdventure(chosen) ; }}
+                >
+                  <Text>Pronto</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
+      )
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  adventures: state.adventures
+  chosen: state.adventures.chosen
 });
 
-export default connect(mapStateToProps, { addAdventure: addAdventure })(NewAdventureScreen);
+export default connect(mapStateToProps, {
+  addAdventure: addAdventure,
+  delAdventure: delAdventure
+})(NewAdventureScreen);

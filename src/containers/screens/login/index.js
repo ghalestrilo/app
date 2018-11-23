@@ -10,11 +10,12 @@ import {
   IgorLogo,
   MainMenuButton,
   RestButton,
-  Input
+  Input,
+  IgorBackground
 } from "../../../components/Igor";
 
 import {
-  requestLogin
+  login as LoginUser
 } from "../../../actions/user";
 
 // Constants
@@ -42,9 +43,11 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      loading: false
     };
     this.handleFormChange = this.handleFormChange.bind(this);
+    this.loginUser = this.loginUser.bind(this);
   }
   handleFormChange(value, key) {
     this.setState({
@@ -52,51 +55,67 @@ class Login extends React.Component {
     });
   }
 
+  loginUser() {
+    const { LoginUser } = this.props;
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    console.log(user);
+    LoginUser(user);
+  }
+  componentWillUpdate(nextProps) {
+    if (nextProps.user && nextProps.user.email && nextProps.user.password) {
+      this.props.navigation.navigate("Adventures");
+    }
+  }
+
   render() {
     const { navigation } = this.props;
     const { email, password } = this.state;
-    // This is for the action call
-    // const { username, password } = this.state;
     return (
-      <SafeAreaView style={styles.container}>
-        <IgorLogo/>
-        <SafeAreaView style={styles.loginContainer}>
-          <Input
-            title="E-mail"
-            value={email}
-            onChange={(text) => this.handleFormChange(text, "email")}/>
-          <Input
-            title="Senha"
-            type="password"
-            value={password}
-            onChange={(text) => this.handleFormChange(text, "password")}/>
-        </SafeAreaView>
-        <SafeAreaView style={styles.buttonsContainer}>
-          <SafeAreaView>
-            {mainoptions.map((option, key) =>
-              <MainMenuButton
-                key={key}
-                title={option.title}
-                onPress={() => navigation.navigate(option.destination)}/>)
-            }
+      IgorBackground(
+        <SafeAreaView style={styles.container}>
+          <IgorLogo/>
+          <SafeAreaView style={styles.loginContainer}>
+            <Input
+              title="E-mail"
+              value={email}
+              onChange={(text) => this.handleFormChange(text, "email")}/>
+            <Input
+              title="Senha"
+              type="password"
+              value={password}
+              onChange={(text) => this.handleFormChange(text, "password")}/>
           </SafeAreaView>
-          <SafeAreaView>
-            {otheroptions.map((option, key) =>
-              <RestButton
-                key={key}
-                title={option.title}
-                navigate={() => navigation.navigate(option.destination)}/>)
-            }
+          <SafeAreaView style={styles.buttonsContainer}>
+            <SafeAreaView>
+              {mainoptions.map((option, key) =>
+                <MainMenuButton
+                  key={key}
+                  title={option.title}
+                  onPress={this.loginUser}
+                  loading={this.state.loading}/>)
+              }
+            </SafeAreaView>
+            <SafeAreaView>
+              {otheroptions.map((option, key) =>
+                <RestButton
+                  key={key}
+                  title={option.title}
+                  navigate={() => navigation.navigate(option.destination)}/>)
+              }
+            </SafeAreaView>
           </SafeAreaView>
         </SafeAreaView>
-      </SafeAreaView>
+      )
     );
   }
 }
 
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  user: state.user
 });
 
-export default connect(mapStateToProps, { requestLogin })(Login);
+export default connect(mapStateToProps, { LoginUser })(Login);

@@ -6,8 +6,13 @@ import {
 
 import {
   IgorLogo,
-  MainMenuButton
+  MainMenuButton,
+  IgorBackground
 } from "../../../components/Igor";
+
+import {
+  logout as LogoutUser
+} from "../../../actions/user";
 
 import styles from "./styles";
 
@@ -20,26 +25,39 @@ const options = [
   {
     title: "CADASTRO",
     destination: "Signup"
+  },
+
+  { // @TEST
+    title: "Testar Combate",
+    destination: "Combat"
   }
 ];
 
 class Start extends React.Component {
+  componentWillMount() {
+    this.props.LogoutUser();
+  }
   render() {
     const { navigation } = this.props;
     return (
-      <SafeAreaView style={styles.container}>
-        <IgorLogo/>
-        <SafeAreaView style={styles.buttonsContainer}>
-          {options.map(option =>
-            (<MainMenuButton
-              key={"btn" + option.title}
-              onPress={() => navigation.navigate(option.destination)}
-              title={option.title}
-            />))}
+      IgorBackground(
+        <SafeAreaView style={styles.container}>
+          <IgorLogo/>
+          <SafeAreaView style={styles.buttonsContainer}>
+            {options.map(option =>
+              (<MainMenuButton
+                key={"btn" + option.title}
+                onPress={() => navigation.navigate(option.destination)}
+                title={option.title}
+              />))}
+          </SafeAreaView>
         </SafeAreaView>
-      </SafeAreaView>
+      )
     );
   }
 }
+const mapStateToProps = (state) => ({
+  user: state.user
+});
 
-export default connect()(Start);
+export default connect(mapStateToProps, { LogoutUser })(Start);

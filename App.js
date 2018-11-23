@@ -15,12 +15,7 @@ export default class App extends React.Component {
   render(){
     return(
       <Provider store={store}>
-        <View
-          // source={background}
-          style={{ width: "100%", height: "100%", backgroundColor: "red" }}
-          resizeMethod="resize">
-          <AppNavigator style={{ backgroundColor: "red" }}/>
-        </View>
+        <AppNavigator/>
       </Provider>
     );
   }

@@ -4,17 +4,20 @@ import {
   View
 } from "react-native";
 import {
-  TabBarNavigation
+  TabBarNavigation,
+  IgorBackground
 } from "../../../components/Igor";
 
 class Account extends React.Component {
   render(){
     return(
-      <View>
-        <TabBarNavigation
-          navigate = {() => { this.props.navigation.openDrawer() ; }}/>
-        <Text>This is accountscreen</Text>
-      </View>
+      IgorBackground(
+        <View>
+          <TabBarNavigation
+            navigate = {() => { this.props.navigation.openDrawer() ; }}/>
+          <Text>This is accountscreen</Text>
+        </View>
+      )
     );
   }
 }
