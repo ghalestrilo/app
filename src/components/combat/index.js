@@ -5,7 +5,6 @@ import {
   ScrollView,
   Image,
   ImageBackground,
-  Modal,
   TouchableOpacity
 } from "react-native";
 
@@ -14,6 +13,8 @@ import {
   ListItem,
   Button
 } from "react-native-elements";
+
+import Modal from "react-native-modal";
 
 import * as Progress from "react-native-progress";
 import { colors } from "../../styles";
@@ -55,6 +56,8 @@ export const CombatEvent = ({ author, action, target }) =>
   <View style={style.event}>
     <Image style={style.circle} source={author.avatar}/>
     <Text style={style.eventAction}> {action.type} </Text>
+    {action.damage ? <Text style={[ style.eventAction, style.redText ]}> {action.damage} </Text> : null}
+    {action.healing ? <Text style={[ style.eventAction, style.greenText ]}> {action.healing} </Text> : null}
     <Image style={style.circle} source={target.avatar}/>
   </View>;
 
@@ -72,10 +75,11 @@ export const TinyActor = ({ actor, onPress, flipped, frozen = false }) => (
       (frozen ? style.frozen : null)
     ]}
     onPress={() => onPress()}>
-    <ListItem
+    <Image style={style.portrait} source={actor.avatar}/>
+    {/* <ListItem
       avatarRight={(flipped === true) ? actor.avatar : null }
       avatarLeft={(flipped !== true) ? actor.avatar : null }
-      title={actor.name}/>
+      title={actor.name}/> */}
     <Progress.Bar
       progress={(actor.status.hp / actor.maxhp)}
       width={null}
@@ -86,7 +90,7 @@ export const TinyActor = ({ actor, onPress, flipped, frozen = false }) => (
 );
 
 export const ActorList = ({ title, actors, keyname, onPress = () => {}, flipped = false }) =>
-  <List style={[ style.actorlist, (flipped ? style.roundedLeft : style.roundedRight) ]}>
+  <View style={[ style.actorlist, (flipped ? style.roundedLeft : style.roundedRight) ]}>
     <Text style={style.playername}>{title}</Text>
     {
       actors.map((actor, i) =>
@@ -100,7 +104,7 @@ export const ActorList = ({ title, actors, keyname, onPress = () => {}, flipped 
         />
       )
     }
-  </List>;
+  </View>;
 
 export const PlayerHUD = ({ actor, onPress }) => (
   <TouchableOpacity style={style.playerhud} onPress={() => onPress()}>
@@ -116,25 +120,22 @@ export const PlayerHUD = ({ actor, onPress }) => (
 );
 
 export const Picker = ({ visible, options, pick, title }) =>
-  <Modal style={style.picker} visible={visible}>
-    <Text style={style.pickerTitle}>{title}</Text>
-    <List>
-      {
-        options.map((option, index) =>
-          <ListItem
-            key={`${option.name}_${index}`}
-            title={option.name}
-            onPress={() => pick(option.index)}
-            avatar={(option.avatar)
-              ? {
-                source: option.avatar,
-                rounded: true
-              }
-              : null}
-          />
-        )
-      }
-    </List>
+  <Modal style={style.picker} isVisible={visible}>
+    <View style={{ flex: 1 }}>
+      <Text style={style.pickerTitle}>{title}</Text>
+      <List>
+        {
+          options.map((option, index) =>
+            <ListItem
+              key={`${option.name}_${index}`}
+              title={option.name}
+              onPress={() => pick(option.index)}
+              avatar={option.avatar}
+            />
+          )
+        }
+      </List>
+    </View>
   </Modal>;
 
 const CombatScreen = ({

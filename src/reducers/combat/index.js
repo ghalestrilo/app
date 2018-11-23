@@ -12,8 +12,8 @@ const cannotPlay = actor => actor.status.hp < 0;
 
 // const success = chance =>
 
-// const capMax = (value, max) => (value > max ? max : value);
-// const capMin = (value, min) => (value < min ? min : value);
+const capMax = max => value => (value > max ? max : value);
+const capMin = min => value => (value < min ? min : value);
 
 const modifyAt = (index, arr) =>
   callback => arr.map(

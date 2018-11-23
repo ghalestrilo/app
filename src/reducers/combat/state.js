@@ -1,7 +1,7 @@
-const ability = "ability";
-const spell = "spell";
-const attack = "attack";
-const flee = "flee";
+const ability = "habilidade";
+const spell = "magia";
+const attack = "ataque";
+const flee = "fugir";
 const item = "item";
 
 const avatars = {
@@ -27,7 +27,7 @@ const initialState = {
   actors: [
     {
       avatar: avatars.crono,
-      name: "crono",
+      name: "Crono",
       hero: true,
       maxhp: 100,
       status: {
@@ -43,24 +43,13 @@ const initialState = {
           type: attack,
           mod: 3,
           damage: 15
-        },
-        {
-          type: spell,
-          name: "cold blast",
-          damage: 10,
-          effects: {
-            freeze: {
-              chance: 0.5,
-              duration: 2
-            }
-          }
         }
       ]
     },
 
     {
       avatar: avatars.robo,
-      name: "robo",
+      name: "Robo",
       hero: false,
       maxhp: 100,
       status: {
@@ -82,7 +71,7 @@ const initialState = {
 
     {
       avatar: avatars.marle,
-      name: "marle",
+      name: "Marle",
       hero: true,
       maxhp: 60,
       status: {
@@ -121,7 +110,7 @@ const initialState = {
     },
     {
       avatar: avatars.lucca,
-      name: "lucca",
+      name: "Lucca",
       hero: true,
       maxhp: 80,
       status: {

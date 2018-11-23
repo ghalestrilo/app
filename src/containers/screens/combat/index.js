@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Modal, View } from "react-native";
 
 import {
-  newEvent
+  newEvent,
+  finishCombat,
 } from "../../../actions/combat";
 
 import CombatScreen from "../../../components/combat";
@@ -56,6 +56,13 @@ class Combat extends React.Component {
     const actors = this.props.actors.map((a, i) => ({ ...a, index: i }));
     const enemies = actors.filter(x => x.hero === false);
     const heroes = actors.filter(x => x.hero === true);
+
+
+    const victory = (enemies.filter(x => x.dead === false) === undefined);
+    const defeat = (heroes.filter(x => x.dead === false) === undefined);
+
+    if (victory) this.props.dispatch(victory());
+    if (defeat) this.props.dispatch(defeat());
 
     return <CombatScreen
       events={events}

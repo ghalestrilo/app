@@ -45,6 +45,9 @@ const style = StyleSheet.create({
     height: 60
   },
 
+  redText: { color: colors.red },
+  greenText: { color: colors.green },
+
   // --------------------------------- HUD
   hud: {
     flex: 1,
@@ -103,21 +106,21 @@ const style = StyleSheet.create({
   roundedLeft: {
     borderBottomLeftRadius: 10,
     borderTopLeftRadius: 10,
-    marginLeft: 50
+    marginLeft: 20
   },
   roundedRight: {
     borderBottomRightRadius: 10,
     borderTopRightRadius: 10,
-    marginRight: 50
+    marginRight: 20
   },
 
   picker: {
-    margin: 60,
-    borderRadius: 10
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: "lightgray"
   },
 
   pickerTitle: {
-    marginTop: 20,
     padding: 12,
     color: colors.darkgray,
     fontSize: 24
