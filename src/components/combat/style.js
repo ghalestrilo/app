@@ -5,8 +5,7 @@ const style = StyleSheet.create({
   screen: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-between",
-    backgroundColor: "#060606"
+    justifyContent: "space-between"
   },
 
 
@@ -38,6 +37,15 @@ const style = StyleSheet.create({
     width: 60,
     height: 60
   },
+
+  arrow: {
+    resizeMode: "stretch",
+    width: "60%",
+    height: 60
+  },
+
+  redText: { color: colors.red },
+  greenText: { color: colors.green },
 
   // --------------------------------- HUD
   hud: {
@@ -97,16 +105,29 @@ const style = StyleSheet.create({
   roundedLeft: {
     borderBottomLeftRadius: 10,
     borderTopLeftRadius: 10,
-    marginLeft: 50
+    marginLeft: 20
   },
   roundedRight: {
     borderBottomRightRadius: 10,
     borderTopRightRadius: 10,
-    marginRight: 50
+    marginRight: 20
   },
 
+  picker: {
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: "lightgray"
+  },
 
+  pickerTitle: {
+    padding: 12,
+    color: colors.darkgray,
+    fontSize: 24
+  },
 
+  frozen: {
+    opacity: 0.5
+  },
 
   // --------------------------------- DRAWER
   actionDrawer: {
@@ -115,7 +136,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingLeft: 16,
-    
+
     maxHeight: 60,
 
     marginTop: 60,
