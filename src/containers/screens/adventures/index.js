@@ -14,7 +14,7 @@ import {
   IgorBackground
 } from "../../../components/Igor";
 import { colors } from "../../../styles";
-import { pickAdventure } from "../../../reducers/adv/index";
+import { pickAdventure, setEditMode } from "../../../reducers/adv/index";
 import { getAdventures, delAdventure } from "../../../actions/adventure";
 
 const newAdventureImage = require("../../../images/buttons/nova-aventura.png");
@@ -41,12 +41,12 @@ class Adventures extends React.Component {
   }
   editAdventure(adv){
     this.props.pickAdventure(adv);
+    this.props.setEditMode();
     this.props.navigation.navigate("NewAdventure");
   }
 
   async componentDidMount() {
     await this.props.getAdventures();
-    console.log(this.props.adventures);
   }
 
   render() {
@@ -114,5 +114,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   delAdventure: delAdventure,
   pickAdventure: pickAdventure,
-  getAdventures: getAdventures
+  getAdventures: getAdventures,
+  setEditMode: setEditMode
 })(Adventures);

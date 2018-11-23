@@ -19,6 +19,7 @@ export const RECEIVE_EDIT_ADVENTURE = "RECEIVE_EDIT_ADVENTURE";
 export const DEL_ADVENTURE = "DEL_ADVENTURE";
 export const PICK_ADVENTURE = "PICK_ADVENTURE";
 export const SET_EDIT = "SET_EDIT";
+export const UNSET_EDIT = "UNSET_EDIT";
 
 // COMBAT
 export const NEW_EVENT = "NEW_EVENT";

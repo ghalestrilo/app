@@ -2,13 +2,16 @@ import {
   PICK_ADVENTURE,
   DEL_ADVENTURE,
   REQUEST_GET_ADVENTURES,
-  RECEIVE_GET_ADVENTURES
+  RECEIVE_GET_ADVENTURES,
+  SET_EDIT,
+  UNSET_EDIT
 } from "../../actions/types";
 
 export const initialAdventures = {
   chosen: {},
   list: [],
-  edit: ""
+  edit: "",
+  editMode: false
   // {
   //   title: 'A aventura eterna',
   //   image: require(),
@@ -16,6 +19,13 @@ export const initialAdventures = {
   //   progress: 40
   // }
 };
+
+export const setEditMode = () => ({
+  type: SET_EDIT
+});
+export const unsetEditMode = () => ({
+  type: UNSET_EDIT
+});
 
 export const delAdventure = adventure => ({
   type: DEL_ADVENTURE,
@@ -44,7 +54,16 @@ const adv = (state = initialAdventures, action) => {
       ...state,
       chosen: action.payload
     };
-
+  case SET_EDIT:
+    return {
+      ...state,
+      editMode: true
+    };
+  case UNSET_EDIT:
+    return {
+      ...state,
+      editMode: false
+    };
   default: return state;
   }
 };
