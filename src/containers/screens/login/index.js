@@ -58,10 +58,9 @@ class Login extends React.Component {
   loginUser() {
     const { LoginUser } = this.props;
     const user = {
-      email: this.state.email,
+      email: this.state.email.replace(/[`~!#$%^&*()|+\-=?;:'",.<>{}[\]\\/]/gi, ""),
       password: this.state.password
     };
-    console.log(user);
     LoginUser(user);
   }
   componentWillUpdate(nextProps) {
@@ -79,7 +78,7 @@ class Login extends React.Component {
           <IgorLogo/>
           <SafeAreaView style={styles.loginContainer}>
             <Input
-              title="E-mail"
+              title="Username"
               value={email}
               onChange={(text) => this.handleFormChange(text, "email")}/>
             <Input

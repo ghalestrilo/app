@@ -23,7 +23,7 @@ const signupForms = [
     valid: false
   },
   {
-    name: "E-mail",
+    name: "Username",
     state: "email",
     text: "",
     valid: false
@@ -69,6 +69,7 @@ class SignUp extends React.Component {
   }
   register = async () => {
     const { RegisterUser, navigation } = this.props;
+    this.state.email = this.state.email.replace(/[`~!#$@%^&*()|+\-=?;:'",.<>{}[\]\\/]/gi, "");
     const { email, password, name, confirmPassword, birth } = this.state;
     if (email && password && name && confirmPassword && birth) {
       if (password === confirmPassword) {

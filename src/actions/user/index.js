@@ -45,7 +45,6 @@ export const login = loginObject => dispatch => {
       loading: false
     }
   });
-  console.log(loginObject);
   if (!loginObject.email || !loginObject.password) {
     return dispatch({
       type: RECEIVE_LOGIN_ERROR,
