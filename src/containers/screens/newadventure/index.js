@@ -9,14 +9,17 @@ import { SafeAreaView,
   Alert
 } from "react-native";
 import {
+  FormLabel
+} from "react-native-elements";
+import {
   TabBarNavigation,
   Input,
   IgorBackground
 } from "../../../components/Igor";
 import styles from "./styles";
-import { addAdventure, delAdventure } from "../../../reducers/adv/index";
+import { delAdventure, unsetEditMode } from "../../../reducers/adv/index";
+import { addAdventure, updateAdventure } from "../../../actions/adventure";
 
-let req = require("../../../images/adventures/miniatura_corvali.png");
 const corvali = {
   source: require("../../../images/adventures/miniatura_corvali.png"),
   name: "corvali"
@@ -33,13 +36,16 @@ const heartlands = {
   source: require("../../../images/adventures/miniatura_heartlands.png"),
   name: "heartlands"
 };
-const images = [ corvali, krevast, coast, heartlands ];
+const images = [
+  corvali, krevast, coast, heartlands
+];
 
 class NewAdventureScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       adventure: "",
+      brief: "",
       switch: "corvali"
     };
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -62,30 +68,14 @@ class NewAdventureScreen extends React.Component {
   isToggled = (value) => {
     return(value === this.state.switch);
   }
-  createAdventure(chosen){
+  async createAdventure(chosen){
     if((this.state.adventure.length > 0) &&(this.state.switch.length > 0)){
-      switch(this.state.switch){
-      case "coast":
-        req = require("../../../images/adventures/miniatura_coast.png");
-        break;
-      case "krevast":
-        req = require("../../../images/adventures/miniatura_krevast.png");
-        break;
-      case "corvali":
-        req = require("../../../images/adventures/miniatura_corvali.png");
-        break;
-      case "heartlands":
-        req = require("../../../images/adventures/miniatura_heartlands.png");
-        break;
-      default:
-        req = "";
-      }
       if (Object.keys(chosen).length === 0 && chosen.constructor === Object){
-        this.props.addAdventure({
+        await this.props.addAdventure({
           title: this.state.adventure,
-          image: req,
+          image: this.state.switch,
           nextSession: ["ainda nao marcada"],
-          sinopse: "escreva sua sinopse.",
+          brief: this.state.brief,
           progress: 0
         });
       }else{
@@ -93,7 +83,7 @@ class NewAdventureScreen extends React.Component {
         this.props.addAdventure({
           ...chosen,
           title: this.state.adventure,
-          image: req
+          image: this.state.switch
         });
       }
       this.props.navigation.pop();
@@ -101,22 +91,61 @@ class NewAdventureScreen extends React.Component {
       Alert.alert("You must choose one image and write the adventure name");
     }
   }
+
+  async editAdventure(chosen){
+    if((this.state.adventure.length > 0) &&(this.state.switch.length > 0)){
+      if (Object.keys(chosen).length === 0 && chosen.constructor === Object){
+        await this.props.updateAdventure({
+          title: this.state.adventure,
+          image: this.state.switch,
+          nextSession: ["ainda nao marcada"],
+          brief: this.state.brief,
+          progress: chosen.progress
+        });
+      }else{
+        this.props.delAdventure(chosen);
+        this.props.updateAdventure({
+          ...chosen,
+          title: this.state.adventure,
+          image: this.state.switch
+        });
+      }
+      this.props.unsetEditMode();
+      this.props.navigation.pop();
+    }else {
+      Alert.alert("You must choose one image and write the adventure name");
+    }
+  }
+
+  componentDidMount() {
+    this.state.adventure = this.props.isEditMode ? this.props.chosen.title : "";
+    this.state.switch = this.props.isEditMode ? this.props.chosen.image : this.state.switch;
+  }
   render(){
-    const { chosen } = this.props;
+    const { chosen, isEditMode } = this.props;
     return(
       IgorBackground(
         <SafeAreaView style = {styles.container}>
           <TabBarNavigation
             navigate = {() => { this.props.navigation.openDrawer() ; }}/>
           <View style = {styles.inputbackground}>
+            <FormLabel containerStyle={{ alignItems: "center" }}>
+              {isEditMode ? "Editar Aventura" : "Criar Aventura"}
+            </FormLabel>
             <Input
-              title="Criar Aventura"
-              value={this.state.adventure}
+              title="Nome da Aventura"
+              value={isEditMode ? chosen.title : this.state.adventure}
               onChange={(text) => this.handleFormChange(text, "adventure")}/>
-            <View style ={{ flex: 1 }}>
+            <Input
+              title="Sinopse"
+              value={isEditMode ? chosen.brief : this.state.brief}
+              onChange={(text) => this.handleFormChange(text, "brief")}
+            />
+            <FormLabel>Escolha uma imagem</FormLabel>
+            <View style ={{ flex: 1, marginTop: 4 }}>
               <View style = {styles.images}>
-                {images.map((imagem) => (
-                  <View style = {styles.image} key = {imagem.name}>
+                {images.map((imagem, key) => (
+                  <View key={key} style={styles.image}>
                     <Switch
                       onValueChange={() => { this.toggleSwitch(imagem.name) ; }}
                       value={this.isToggled(imagem.name)}/>
@@ -130,7 +159,7 @@ class NewAdventureScreen extends React.Component {
               <View style = {{ flex: 1 }}>
                 <TouchableOpacity
                   style={styles.buttonLayout}
-                  onPress={() => { this.createAdventure(chosen) ; }}
+                  onPress={() => { isEditMode ? this.editAdventure(chosen) : this.createAdventure(chosen) ; }}
                 >
                   <Text>Pronto</Text>
                 </TouchableOpacity>
@@ -144,10 +173,13 @@ class NewAdventureScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  chosen: state.adventures.chosen
+  chosen: state.adventures.chosen,
+  isEditMode: state.adventures.editMode
 });
 
 export default connect(mapStateToProps, {
   addAdventure: addAdventure,
-  delAdventure: delAdventure
+  delAdventure: delAdventure,
+  updateAdventure: updateAdventure,
+  unsetEditMode: unsetEditMode
 })(NewAdventureScreen);

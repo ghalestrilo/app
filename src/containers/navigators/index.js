@@ -4,6 +4,7 @@ import {
   NotificationsScreen, NewAdventureScreen, AdventureScreen,
   CombatScreen, EditAdventureScreen
 } from "../screens";
+// import Background from "../../images/background/background.png";
 import { colors } from "../../styles";
 
 import {

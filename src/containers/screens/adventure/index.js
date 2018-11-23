@@ -61,7 +61,7 @@ class AdventureScreen extends React.Component {
                 <View style={{ flex: 1 }}>
                   <View style = {{ flex: 3 }}>
                     <ScrollView style= {{ marginTop: "5%", marginLeft: "5%" }}>
-                      <Text>{chosen.sinopse}</Text>
+                      <Text>{chosen.brief}</Text>
                     </ScrollView>
                   </View>
                   <View style = {{ width: "100%", height: 2, backgroundColor: "rgb(200,200,200)" }}/>

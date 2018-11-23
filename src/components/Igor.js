@@ -122,6 +122,25 @@ export const Input = (props) => (
 
 export const TextOverlay = (text) => (<Text style={styles.overlay}>{text}</Text>);
 
+export const getImageFromString = imageName => {
+  let image = {};
+  switch(imageName){
+  case "coast":
+    image = require("../images/adventures/miniatura_coast.png");
+    break;
+  case "krevast":
+    image = require("../images/adventures/miniatura_krevast.png");
+    break;
+  case "corvali":
+    image = require("../images/adventures/miniatura_corvali.png");
+    break;
+  case "heartlands":
+    image = require("../images/adventures/miniatura_heartlands.png");
+    break;
+  }
+  return image;
+};
+
 /* Aventura:
   - Background
   - Nome
@@ -139,9 +158,8 @@ export const Adventure = ({ props }) => {
       key={props.title}
       onPress={() => props.onPress()}>
       <ImageBackground
-        source={props.image}
+        source={getImageFromString(props.image)}
         style={{ width: "100%", height: 128 }}
-        key={props.image}
         classname="adventure">
         <Text>{props.title}</Text>
 
@@ -159,9 +177,8 @@ export const EditAdventure = ({ props }) => {
   //   : 100;
   return (
     <ImageBackground
-      source={props.image}
+      source={getImageFromString(props.image)}
       style={{ width: "100%", height: 128 }}
-      key={props.image}
       classname="adventure">
       <Text>{props.title}</Text>
 

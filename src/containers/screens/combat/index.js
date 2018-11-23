@@ -39,6 +39,16 @@ class Combat extends React.Component {
       action: { ...this.state.action }
     };
 
+<<<<<<< HEAD
+    this.setState({
+      ...this.state,
+      actions: null,
+      pickingTarget: false,
+      target: target
+    });
+
+=======
+>>>>>>> 48181aa59870b472be773ea000c8dcd9bf09c9fa
     this.newEvent(event);
 
     this.setState(initialState);

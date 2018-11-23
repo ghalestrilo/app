@@ -58,7 +58,7 @@ class Login extends React.Component {
   loginUser() {
     const { LoginUser } = this.props;
     const user = {
-      email: this.state.email,
+      email: this.state.email.replace(/[`~!#$%^&*()|+\-=?;:'",.<>{}[\]\\/]/gi, ""),
       password: this.state.password
     };
     LoginUser(user);
@@ -72,16 +72,13 @@ class Login extends React.Component {
   render() {
     const { navigation } = this.props;
     const { email, password } = this.state;
-    // This is for the action call
-    console.log(this.props.user);
-    // const { username, password } = this.state;
     return (
       IgorBackground(
         <SafeAreaView style={styles.container}>
           <IgorLogo/>
           <SafeAreaView style={styles.loginContainer}>
             <Input
-              title="E-mail"
+              title="Username"
               value={email}
               onChange={(text) => this.handleFormChange(text, "email")}/>
             <Input

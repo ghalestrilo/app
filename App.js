@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground } from "react-native";
+import { ImageBackground, View } from "react-native";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";

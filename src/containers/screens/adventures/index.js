@@ -14,8 +14,8 @@ import {
   IgorBackground
 } from "../../../components/Igor";
 import { colors } from "../../../styles";
-
-import { delAdventure, pickAdventure } from "../../../reducers/adv/index";
+import { pickAdventure, setEditMode } from "../../../reducers/adv/index";
+import { getAdventures, delAdventure } from "../../../actions/adventure";
 
 const newAdventureImage = require("../../../images/buttons/nova-aventura.png");
 
@@ -34,7 +34,6 @@ class Adventures extends React.Component {
   }
 
   onNewAdventure(){
-    this.props.pickAdventure({});
     this.props.navigation.navigate("NewAdventure");
   }
   edit(){
@@ -42,10 +41,20 @@ class Adventures extends React.Component {
   }
   editAdventure(adv){
     this.props.pickAdventure(adv);
+    this.props.setEditMode();
     this.props.navigation.navigate("NewAdventure");
   }
+
+  async componentDidMount() {
+    await this.props.getAdventures();
+  }
+
   render() {
     const { adventures } = this.props;
+    const newadv = [];
+    for (const index in adventures) {
+      newadv.push(adventures[index]);
+    }
     // const { forms } = this.state;
     if (!this.state.edit){
       return (
@@ -55,14 +64,14 @@ class Adventures extends React.Component {
               navigate = {() => { this.props.navigation.openDrawer() ; }}
               edit = {() => { this.edit() ; }}/>
             <ScrollView>
-              {adventures.map((adv, i) =>
+              {newadv ? newadv.map((adv, i) =>
                 <Adventure
                   key={i}
                   props={{
                     ...adv,
                     onPress: () => this.onClickAdventure(adv)
                   }}/>)
-              }
+                : null }
             </ScrollView>
             <Fab
               source={newAdventureImage}
@@ -80,7 +89,7 @@ class Adventures extends React.Component {
               edit = {() => { this.edit() ; }}
               color = {colors.drawernavinactive}/>
             <ScrollView>
-              {adventures.map((adv, i) =>
+              {newadv ? newadv.map((adv, i) =>
                 <EditAdventure
                   key={i}
                   props={{
@@ -88,7 +97,7 @@ class Adventures extends React.Component {
                     delete: () => this.deleteAdventure(adv),
                     edit: () => this.editAdventure(adv)
                   }}/>)
-              }
+                : null}
             </ScrollView>
           </View>
         )
@@ -104,5 +113,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   delAdventure: delAdventure,
-  pickAdventure: pickAdventure
+  pickAdventure: pickAdventure,
+  getAdventures: getAdventures,
+  setEditMode: setEditMode
 })(Adventures);
