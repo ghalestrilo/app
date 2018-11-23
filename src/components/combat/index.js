@@ -4,6 +4,7 @@ import {
   Text,
   ScrollView,
   Image,
+  ImageBackground,
   Modal,
   TouchableOpacity
 } from "react-native";
@@ -17,6 +18,17 @@ import {
 import * as Progress from "react-native-progress";
 import { colors } from "../../styles";
 import style from "./style";
+// const arrow = require("../../images/combat/arrow.png");
+
+const warn = value => {
+  console.warn(value);
+  return value;
+};
+
+const log = value => {
+  console.log(value);
+  return value;
+};
 
 const groupBy = function(xs, key) {
   return xs.reduce(function(rv, x) {
@@ -29,18 +41,21 @@ const groupByType = actions =>
   Object.entries(groupBy(actions, "type"))
     .map(([ type, arr ]) =>
       (arr.length < 2
-        ? arr[0]
+        ? {
+          ...arr[0],
+          type: (arr[0].name || arr[0].type)
+        }
         : {
           group: true,
           type: type,
-          actions: arr
+          options: arr
         }));
 
 export const CombatEvent = ({ author, action, target }) =>
   <View style={style.event}>
-    <Image style={style.circle} source={author.portrait}/>
+    <Image style={style.circle} source={author.avatar}/>
     <Text style={style.eventAction}> {action.type} </Text>
-    <Image style={style.circle} source={target.portrait}/>
+    <Image style={style.circle} source={target.avatar}/>
   </View>;
 
 export const CombatAction = ({ action, onPress }) =>
@@ -50,9 +65,17 @@ export const CombatAction = ({ action, onPress }) =>
   />;
 
 // Flipped for names on left, right-justified
-export const TinyActor = ({ actor, onPress, flipped }) => (
-  <TouchableOpacity style={style.tinyactor} onPress={() => onPress()}>
-    <Image source={actor.portrait} style={style.portrait}/>
+export const TinyActor = ({ actor, onPress, flipped, frozen = false }) => (
+  <TouchableOpacity
+    style={[
+      style.tinyactor,
+      (frozen ? style.frozen : null)
+    ]}
+    onPress={() => onPress()}>
+    <ListItem
+      avatarRight={(flipped === true) ? actor.avatar : null }
+      avatarLeft={(flipped !== true) ? actor.avatar : null }
+      title={actor.name}/>
     <Progress.Bar
       progress={(actor.status.hp / actor.maxhp)}
       width={null}
@@ -62,21 +85,8 @@ export const TinyActor = ({ actor, onPress, flipped }) => (
   </TouchableOpacity>
 );
 
-export const PlayerHUD = ({ actor, onPress }) => (
-  <TouchableOpacity style={style.playerhud} onPress={() => onPress()}>
-    <Text style={style.playername}>{actor.name}</Text>
-    <Image source={actor.portrait} style={style.portrait}/>
-    <Progress.Bar
-      progress={(actor.status.hp / actor.maxhp)}
-      width={null}
-      height={4}
-      color={(actor.hero ? colors.green : colors.red)}
-    />
-  </TouchableOpacity>
-);
-
 export const ActorList = ({ title, actors, keyname, onPress = () => {}, flipped = false }) =>
-  <View style={[ style.actorlist, (flipped ? style.roundedLeft : style.roundedRight) ]}>
+  <List style={[ style.actorlist, (flipped ? style.roundedLeft : style.roundedRight) ]}>
     <Text style={style.playername}>{title}</Text>
     {
       actors.map((actor, i) =>
@@ -85,26 +95,53 @@ export const ActorList = ({ title, actors, keyname, onPress = () => {}, flipped 
           key={`${keyname}${i}`}
           actor={actor}
           onPress={() => onPress(i)}
-          tiny={true}/>
-      )
-    }
-  </View>;
-
-export const TargetPicker = ({ targets, pick }) =>
-  <List>
-    {
-      targets.map(target =>
-        <ListItem
-          key={target.name}
-          avatar={target.portrait}
-          title={target.name}
-          onPress={() => pick(target.index)}
+          tiny={true}
+          frozen={(actor.effects || []).filter(x => x.type === "freeze") !== []}
         />
       )
     }
   </List>;
 
-const CombatScreen = ({ events, heroes, player, enemies, showActionPicker, showTargetPicker, onActionGroup, onChooseAction, onChooseTarget, onFinishAction }) =>
+export const PlayerHUD = ({ actor, onPress }) => (
+  <TouchableOpacity style={style.playerhud} onPress={() => onPress()}>
+    <Text style={style.playername}>{actor.name}</Text>
+    <Image source={actor.avatar} style={style.portrait}/>
+    <Progress.Bar
+      progress={(actor.status.hp / actor.maxhp)}
+      width={null}
+      height={8}
+      color={(actor.hero ? colors.green : colors.red)}
+    />
+  </TouchableOpacity>
+);
+
+export const Picker = ({ visible, options, pick, title }) =>
+  <Modal style={style.picker} visible={visible}>
+    <Text style={style.pickerTitle}>{title}</Text>
+    <List>
+      {
+        options.map((option, index) =>
+          <ListItem
+            key={`${option.name}_${index}`}
+            title={option.name}
+            onPress={() => pick(option.index)}
+            avatar={(option.avatar)
+              ? {
+                source: option.avatar,
+                rounded: true
+              }
+              : null}
+          />
+        )
+      }
+    </List>
+  </Modal>;
+
+const CombatScreen = ({
+  events, heroes, player, enemies, actions, // Data
+  showActionPicker, showTargetPicker, // Display
+  onActionGroup, onChooseAction, onChooseTarget, onFinishAction // Callbacks
+}) =>
   <View style={style.screen}>
     <View style={{ flex: 1 }}>
       <ScrollView style={style.eventbox}>
@@ -130,28 +167,32 @@ const CombatScreen = ({ events, heroes, player, enemies, showActionPicker, showT
     <View style={style.actionDrawer}>
       <Text style={style.playername}>Ações</Text>
       {
-        groupByType(player.actions)
+        log(groupByType(player.actions))
           .map((action, i) =>
             <CombatAction
               key={`action${i}`}
               action={action}
               onPress={() =>
                 (action.group === true
-                  ? onActionGroup(action)
+                  ? onActionGroup(action.options)
                   : onChooseAction(action))}
             />
           )
       }
     </View>
 
-
-    <Modal transparent visible={showTargetPicker}>
-      <TargetPicker targets={player.hero ? enemies : heroes} pick={onChooseTarget}/>
-    </Modal>
-
-    {/* <Modal visible={showActionPicker}>
-      <ActionPicker pick={onChooseAction}/>
-    </Modal> */}
+    <Picker
+      title={"Alvo"}
+      pick={onChooseTarget}
+      visible={showTargetPicker}
+      options={player.hero ? enemies : heroes}
+    />
+    <Picker
+      title={"Ação"}
+      pick={onChooseAction}
+      visible={showActionPicker}
+      options={actions || []}
+    />
   </View>;
 
 export default CombatScreen;

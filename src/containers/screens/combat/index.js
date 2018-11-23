@@ -8,14 +8,16 @@ import {
 
 import CombatScreen from "../../../components/combat";
 
+const initialState = {
+  pickingAction: false,
+  pickingTarget: false,
+  actions: null,
+  action: null,
+  target: null
+};
+
 class Combat extends React.Component {
-  state = {
-    pickingAction: false,
-    pickingTarget: false,
-    actions: null,
-    action: null,
-    target: null
-  }
+  state = initialState;
 
   openActionPicker = actions => this.setState({
     ...this.state,
@@ -34,18 +36,12 @@ class Combat extends React.Component {
     const event = {
       author: this.props.playerID,
       target: target,
-      action: this.state.action
+      action: { ...this.state.action }
     };
 
-    this.setState({
-      ...this.state,
-      actions: null,
-      pickingTarget: false,
-      target: target
-    });
-
-    console.log("event", event);
     this.newEvent(event);
+
+    this.setState(initialState);
   }
 
   newEvent = event => this.props.dispatch(newEvent({
@@ -55,6 +51,7 @@ class Combat extends React.Component {
 
   render = () => {
     const { player, events } = this.props;
+    const actions = this.state.actions;
 
     const actors = this.props.actors.map((a, i) => ({ ...a, index: i }));
     const enemies = actors.filter(x => x.hero === false);
@@ -65,6 +62,7 @@ class Combat extends React.Component {
       heroes={heroes}
       player={player}
       enemies={enemies}
+      actions={actions}
 
       showActionPicker={this.state.pickingAction}
       showTargetPicker={this.state.pickingTarget}

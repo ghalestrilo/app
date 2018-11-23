@@ -39,6 +39,12 @@ const style = StyleSheet.create({
     height: 60
   },
 
+  arrow: {
+    resizeMode: "stretch",
+    width: "60%",
+    height: 60
+  },
+
   // --------------------------------- HUD
   hud: {
     flex: 1,
@@ -105,8 +111,21 @@ const style = StyleSheet.create({
     marginRight: 50
   },
 
+  picker: {
+    margin: 60,
+    borderRadius: 10
+  },
 
+  pickerTitle: {
+    marginTop: 20,
+    padding: 12,
+    color: colors.darkgray,
+    fontSize: 24
+  },
 
+  frozen: {
+    opacity: 0.5
+  },
 
   // --------------------------------- DRAWER
   actionDrawer: {
@@ -115,7 +134,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingLeft: 16,
-    
+
     maxHeight: 60,
 
     marginTop: 60,
