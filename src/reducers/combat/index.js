@@ -1,164 +1,48 @@
+import initialState from "./state.js";
 import {
   NEW_EVENT,
-  KILL_ACTOR,
-  UNKILL_ACTOR,
+  FINISH_COMBAT
 
-  VICTORY,
-  DEFEAT
 } from "../../actions/types";
 
-const ability = "ability";
-const spell = "spell";
-const attack = "attack";
-const flee = "flee";
-const item = "item";
+const cannotPlay = actor =>
+  (actor.status.dead === true) ||
+  (actor.status.fled === true);
 
-const portraits = {
-  crono: require("../../images/temp/portraits/crono.png"),
-  ayla: require("../../images/temp/portraits/ayla.png"),
-  lucca: require("../../images/temp/portraits/lucca.png"),
-  marle: require("../../images/temp/portraits/marle.png"),
-  robo: require("../../images/temp/portraits/robo.png")
-};
+// const success = chance =>
 
+const capMax = max => value => (value > max ? max : value);
+const capMin = min => value => (value < min ? min : value);
 
-const initialState = {
-  ongoing: true,
-  player: 0,
-  actors: [
-    {
-      portrait: portraits.crono,
-      name: "crono",
-      hero: true,
-      maxhp: 10,
-      status: {
-        hp: 10,
-        effects: []
-      },
-      actions: [
-        {
-          type: flee,
-          mod: 0
-        },
-        {
-          type: attack,
-          mod: 3,
-          damage: 15
-        },
-        {
-          type: spell,
-          name: "cold blast",
-          damage: 10,
-          effects: {
-            freeze: {
-              chance: 0.5,
-              duration: 2
-            }
-          }
-        }
-      ]
-    },
+const modifyAt = (index, arr) =>
+  callback => arr.map(
+    (element, i) => ((i === index)
+      ? callback(element)
+      : element));
 
-    {
-      portrait: portraits.robo,
-      name: "robo",
-      hero: false,
-      maxhp: 10,
-      status: {
-        hp: 5,
-        effects: []
-      },
-      actions: [
-        {
-          type: flee,
-          mod: 0
-        },
-        {
-          type: attack,
-          mod: 3,
-          damage: 15
-        },
-        {
-          type: spell,
-          name: "cold blast",
-          damage: 10,
-          effects: {
-            freeze: {
-              chance: 0.5,
-              duration: 2
-            }
-          }
-        }
-      ]
-    },
-
-    {
-      portrait: portraits.marle,
-      name: "marle",
-      hero: true,
-      maxhp: 2,
-      status: {
-        hp: 10,
-        effects: []
-      },
-      actions: [
-        {
-          type: flee,
-          mod: 0
-        },
-        {
-          type: attack,
-          mod: 3,
-          damage: 15
-        },
-        {
-          type: spell,
-          name: "cold blast",
-          damage: 10,
-          effects: {
-            freeze: {
-              chance: 0.5,
-              duration: 2
-            }
-          }
-        }
-      ]
+const applyAction = action =>
+  actor => ({
+    ...actor,
+    status: {
+      ...actor.status,
+      hp: actor.status.hp
+        - (action.damage || 0)
+        + (action.healing || 0),
+      effects: (actor.effects || [])
+        .map(eff => ({ ...eff, duration: eff.duration - 1 }))
+        .filter(eff => eff.duration > 0)
+        + (action.effects || [])
     }
-  ],
+  });
 
-  events: [
-    {
-      author: 0,
-      target: 1,
-      action: {
-        type: attack,
-        mod: 3,
-        damage: 15
-      }
-    },
-
-    {
-      author: 1,
-      target: 2,
-      action: {
-        type: attack,
-        mod: 3,
-        damage: 15
-      }
-    },
-
-    {
-      author: 2,
-      target: 1,
-      action: {
-        type: attack,
-        mod: 3,
-        damage: 15
-      }
-    }
-  ]
-};
-
+const nextplayer = (player, actors) =>
+  ((player + 1 < actors.length)
+    ? (cannotPlay(actors[player + 1])
+      ? nextplayer(player + 1, actors)
+      : player + 1)
+    : (cannotPlay(actors[0])
+      ? nextplayer(0, actors)
+      : 0));
 
 const combat = (state = initialState, action) => {
   switch(action.type){
@@ -167,34 +51,34 @@ const combat = (state = initialState, action) => {
     return {
       ...state,
       events: [ action.payload, ...state.events ],
-      player: (state.player + 1 > state.actors.length)
-        ? 0
-        : (state.player + 1)
+      actors: modifyAt(action.payload.target, state.actors)(applyAction(action.payload.action)),
+      player: nextplayer(state.player, state.actors)
     };
 
-  case KILL_ACTOR:
-    return {
-      ...state,
-      actors: state.actors.map(
-        (actor, i) => ((i === action.payload)
-          ? { ...actor, dead: true }
-          : actor))
-    };
+    // case KILL_ACTOR:
+    //   return {
+    //     ...state,
+    //     actors: state.actors.map(
+    //       (actor, i) => ((i === action.payload)
+    //         ? { ...actor, dead: true }
+    //         : actor))
+    //   };
 
-  case UNKILL_ACTOR:
-    return {
-      ...state,
-      actors: state.actors.map(
-        (actor, i) => ((i === action.payload)
-          ? { ...actor, dead: false }
-          : actor))
-    };
+    // case UNKILL_ACTOR:
+    //   return {
+    //     ...state,
+    //     actors: state.actors.map(
+    //       (actor, i) => ((i === action.payload)
+    //         ? { ...actor, dead: false }
+    //         : actor))
+    //   };
 
-  case DEFEAT:
-  case VICTORY:
+  case FINISH_COMBAT:
+    console.log("combat ended! result: ", action.payload);
     return {
       ...state,
-      ongoing: false
+      ongoing: false,
+      result: action.payload
     };
 
   default:

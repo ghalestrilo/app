@@ -23,7 +23,7 @@ export const UNSET_EDIT = "UNSET_EDIT";
 
 // COMBAT
 export const NEW_EVENT = "NEW_EVENT";
+export const FINISH_COMBAT = "FINISH_COMBAT";
+
 export const KILL_ACTOR = "KILL_ACTOR";
 export const UNKILL_ACTOR = "UNKILL_ACTOR";
-export const VICTORY = "VICTORY";
-export const DEFEAT = "DEFEAT";
