@@ -10,6 +10,7 @@ import ConfigurationsScreen from "./configurations";
 import NotificationsScreen from "./notifications";
 import EditAdventureScreen from "./editingadv";
 import CombatScreen from "./combat";
+import SessionScreen from "./session";
 
 export {
   SignUpScreen,
@@ -23,5 +24,6 @@ export {
   NotificationsScreen,
   AdventureScreen,
   EditAdventureScreen,
-  CombatScreen
+  CombatScreen,
+  SessionScreen
 };

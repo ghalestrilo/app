@@ -86,7 +86,7 @@ class Combat extends React.Component {
 
 const mapStateToProps = ({ combat }) => ({
   events: (combat.events || [])
-    .slice(0, 2)
+    .slice(0, 3)
     .map(
       event => ({
         ...event,

@@ -23,7 +23,13 @@ export const UNSET_EDIT = "UNSET_EDIT";
 
 // COMBAT
 export const NEW_EVENT = "NEW_EVENT";
+export const BEGIN_COMBAT = "BEGIN_COMBAT";
 export const FINISH_COMBAT = "FINISH_COMBAT";
 
-export const KILL_ACTOR = "KILL_ACTOR";
-export const UNKILL_ACTOR = "UNKILL_ACTOR";
+// SESSION
+export const TOGGLE_HERO = "TOGGLE_HERO";
+export const CONFIGURE_COMBAT = "CONFIGURE_COMBAT";
+export const ADD_ENEMY = "ADD_ENEMY";
+export const PICK_ENEMY = "PICK_ENEMY";
+export const REMOVE_ENEMY = "REMOVE_ENEMY";
+export const CANCEL = "CANCEL";

@@ -2,7 +2,7 @@ import {
   SignUpScreen, LoginScreen, StartScreen,
   AccountScreen, AdventuresScreen, BooksScreen, ConfigurationsScreen,
   NotificationsScreen, NewAdventureScreen, AdventureScreen,
-  CombatScreen, EditAdventureScreen
+  CombatScreen, SessionScreen, EditAdventureScreen
 } from "../screens";
 // import Background from "../../images/background/background.png";
 import { colors } from "../../styles";
@@ -49,6 +49,7 @@ const DrawerNavigator = createDrawerNavigator(
   {
     Adventures: AdventureStack,
     Combat: CombatScreen, // this is here just for testing
+    Session: SessionScreen, // this is here just for testing
     Books: BooksScreen,
     Account: AccountScreen,
     Notifications: NotificationsScreen,
