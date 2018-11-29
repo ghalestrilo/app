@@ -119,25 +119,6 @@ export const PlayerHUD = ({ actor, onPress }) => (
   </TouchableOpacity>
 );
 
-export const Picker = ({ visible, options, pick, title }) =>
-  <Modal style={style.picker} isVisible={visible}>
-    <View style={{ flex: 1 }}>
-      <Text style={style.pickerTitle}>{title}</Text>
-      <List>
-        {
-          options.map((option, index) =>
-            <ListItem
-              key={`${option.name}_${index}`}
-              title={option.name}
-              onPress={() => pick(option.index)}
-              avatar={option.avatar}
-            />
-          )
-        }
-      </List>
-    </View>
-  </Modal>;
-
 const CombatScreen = ({
   events, heroes, player, enemies, actions, // Data
   showActionPicker, showTargetPicker, // Display

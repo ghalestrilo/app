@@ -8,6 +8,12 @@ const style = StyleSheet.create({
     justifyContent: "space-between"
   },
 
+  screenHeader: {
+    backgroundColor: colors.lightgray,
+    color: colors.darkgray,
+    fontSize: 40
+  },
+
   actionDrawer: {
     flex: 1,
     flexDirection: "row",
@@ -41,9 +47,10 @@ const style = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    maxHeight: 80,
+    maxHeight: 60,
     padding: 12,
-    borderRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     backgroundColor: colors.white
   },
   combatEditorHeaderText: {

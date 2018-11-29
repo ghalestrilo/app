@@ -55,24 +55,6 @@ const combat = (state = initialState, action) => {
       player: nextplayer(state.player, state.actors)
     };
 
-    // case KILL_ACTOR:
-    //   return {
-    //     ...state,
-    //     actors: state.actors.map(
-    //       (actor, i) => ((i === action.payload)
-    //         ? { ...actor, dead: true }
-    //         : actor))
-    //   };
-
-    // case UNKILL_ACTOR:
-    //   return {
-    //     ...state,
-    //     actors: state.actors.map(
-    //       (actor, i) => ((i === action.payload)
-    //         ? { ...actor, dead: false }
-    //         : actor))
-    //   };
-
   case FINISH_COMBAT:
     console.log("combat ended! result: ", action.payload);
     return {

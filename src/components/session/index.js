@@ -24,11 +24,10 @@ const CombatEditor = ({
   heroes,
   enemies,
 
-
-  configureCombat,
   addEnemy,
   removeEnemy,
-  toggleHero
+  toggleHero,
+  onPressCharacter
 }) =>
   <Modal style={style.combatEditor} visible={visible}>
     <View style={style.combatEditorHeader}>
@@ -37,13 +36,14 @@ const CombatEditor = ({
         style={style.combatEditorHeaderIcon}
         name="circle-with-plus"
         size={32}
-        onPress={addEnemy}/>
+        onPress={() => addEnemy()}/>
     </View>
     <ScrollView style={style.combatEditorScroll}>
       <Text style={style.combatEditorSectionTitle}>Heróis</Text>
       <List style={{ marginBottom: 12 }}>
         { heroes.map((hero, i) =>
           <ListItem
+            key={`heroes_${i}`}
             title={hero.name}
             avatar={hero.avatar}
             disabled={hero.dead}
@@ -51,15 +51,19 @@ const CombatEditor = ({
             switchButton={!hero.dead}
             switched={hero.picked}
             onSwitch={() => toggleHero(i)}
-            onPress={() => {}}/>)
+            onPress={() => onPressCharacter(hero)}/>)
         }
       </List>
       <Text style={style.combatEditorSectionTitle}>Inimigos</Text>
       <List>
         { enemies.map((enemy, i) =>
-          <ListItem avatar={enemy.avatar} title={enemy.name} onPress={() => {}}>
-            <Button title={"remove"} onPress={() => removeEnemy(i)}/>
-          </ListItem>)
+          <ListItem
+            key={`enemies_${i}`}
+            avatar={enemy.avatar}
+            title={enemy.name}
+            rightIcon={{ name: "clear" }}
+            onPressRightIcon={() => removeEnemy(i)}
+            onPress={() => onPressCharacter(enemy)}/>)
         }
       </List>
     </ScrollView>
@@ -68,9 +72,10 @@ const CombatEditor = ({
 const SessionScreen = ({
   configuringCombat,
   pickingEnemy,
-  enemyCatalog = [],
+  availableEnemies,
 
   event,
+  history,
 
   configureCombat,
   addEnemy,
@@ -84,24 +89,33 @@ const SessionScreen = ({
       <CombatEditor
         enemies={event.enemies || []}
         heroes={event.heroes || []}
-        visible={configuringCombat && !pickingEnemy}
+        visible={(configuringCombat === true) && (pickingEnemy === false)}
 
         toggleHero={toggleHero}
         addEnemy={addEnemy}
         removeEnemy={removeEnemy}
+        onPressCharacter={() => {}}
       />
 
       <Picker
         title={"Adicionar Inimigo"}
-        options={enemyCatalog}
+        options={availableEnemies || []}
         pick={i => pickEnemy(i)}
-        visible={pickingEnemy}/>
+        hold={() => {}} // more info
+        visible={(pickingEnemy === true)}/>
 
-      {/* ------------------ CLEANUP ------------------ */}
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 40 }}> Hello </Text>
+        <Text style={style.screenHeader}> Histórico </Text>
+        <List>
+          { history.map((event, i) =>
+            <ListItem
+              key={`heroes_${i}`}
+              title={event.type}
+            />)
+
+          }
+        </List>
       </View>
-      {/* --------------------------------------------- */}
 
       <View style={style.actionDrawer}>
         <Text style={style.combatEditorHeaderText}>Ações</Text>

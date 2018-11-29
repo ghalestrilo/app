@@ -43,28 +43,6 @@ const state = {
     },
 
     {
-      avatar: avatars.robo,
-      name: "Robo",
-      hero: false,
-      maxhp: 100,
-      status: {
-        hp: 100,
-        effects: []
-      },
-      actions: [
-        {
-          type: flee,
-          mod: 0
-        },
-        {
-          type: attack,
-          mod: 3,
-          damage: 15
-        }
-      ]
-    },
-
-    {
       avatar: avatars.marle,
       name: "Marle",
       hero: true,
@@ -140,6 +118,30 @@ const state = {
           name: "frost bolt",
           damage: 5,
           avatar: avatars.frostbolt
+        }
+      ]
+    }
+  ],
+
+  availableEnemies: [
+    {
+      avatar: avatars.robo,
+      name: "Robo",
+      hero: false,
+      maxhp: 100,
+      status: {
+        hp: 100,
+        effects: []
+      },
+      actions: [
+        {
+          type: flee,
+          mod: 0
+        },
+        {
+          type: attack,
+          mod: 3,
+          damage: 15
         }
       ]
     }

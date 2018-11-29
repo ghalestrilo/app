@@ -27,7 +27,7 @@ const style = StyleSheet.create({
   }
 });
 
-export const Picker = ({ visible, options, pick, title }) =>
+export const SkillPicker = ({ visible, options, pick, title }) =>
   <Modal style={style.picker} isVisible={visible}>
     <View style={{ flex: 1 }}>
       <Text style={style.pickerTitle}>{title}</Text>
@@ -38,6 +38,25 @@ export const Picker = ({ visible, options, pick, title }) =>
               key={`${option.name}_${index}`}
               title={option.name}
               onPress={() => pick(option.index)}
+              avatar={option.avatar}
+            />
+          )
+        }
+      </List>
+    </View>
+  </Modal>;
+
+export const Picker = ({ visible, options, pick, title }) =>
+  <Modal style={style.picker} isVisible={visible}>
+    <View style={{ flex: 1 }}>
+      <Text style={style.pickerTitle}>{title}</Text>
+      <List>
+        {
+          options.map((option, index) =>
+            <ListItem
+              key={`${option.name}_${index}`}
+              title={option.name}
+              onPress={() => pick(index)}
               avatar={option.avatar}
             />
           )

@@ -9,7 +9,9 @@ const initialState = {
   enemies: [],
   history: [],
 
-  heroes: state.heroes // remove, this should be in adventures
+  // These belong to the adventure reducer. Please remove once properly integrated
+  heroes: state.heroes,
+  availableEnemies: state.availableEnemies
 };
 
 import {
@@ -17,29 +19,50 @@ import {
   CONFIGURE_COMBAT,
   TOGGLE_HERO,
   ADD_ENEMY,
-  PICK_ENEMY
+  PICK_ENEMY,
+  REMOVE_ENEMY
 } from "../../actions/types";
 
 const session = (state = initialState, action) => {
   switch(action.type){
-
-  case PICK_ENEMY: return state;
-
   case CONFIGURE_COMBAT:
     return {
       ...state,
       configuringCombat: true,
       event: {
+        type: "combat",
         heroes: action.payload.heroes.map(hero => ({ ...hero, picked: true })),
         enemies: []
       }
     };
 
-
   case ADD_ENEMY:
     return {
       ...state,
       pickingEnemy: true
+    };
+
+  case PICK_ENEMY:
+    return {
+      ...state,
+      pickingEnemy: false,
+      event: {
+        ...state.event,
+        enemies: [
+          state.availableEnemies[action.payload],
+          ...(state.event.enemies || [])
+        ]
+      }
+    };
+
+  case REMOVE_ENEMY:
+    return {
+      ...state,
+      event: {
+        ...state.event,
+        enemies: state.event.enemies.filter(
+          (e, i) => i !== action.payload)
+      }
     };
 
   case TOGGLE_HERO:
