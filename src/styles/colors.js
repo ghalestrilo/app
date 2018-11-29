@@ -1,9 +1,12 @@
 export default{
-  black: "rgb(40,40,40)",
   yellow: "rgb(40,220,40)",
   red: "rgb(220,40,40)",
   green: "rgb(40,220,40)",
+
+  black: "rgb(40,40,40)",
   darkgray: "rgb(80,80,80)",
+  lightgray: "lightgray",
+  white: "white",
 
   darkred: "rgb(160,40,40)",
   darkgreen: "rgb(40,160,40)",

@@ -24,7 +24,7 @@ const style = StyleSheet.create({
 
     margin: 4,
     borderRadius: 15,
-    backgroundColor: "lightgray"
+    backgroundColor: colors.lightgray
   },
 
   eventAction: {
@@ -64,7 +64,7 @@ const style = StyleSheet.create({
     padding: 8,
 
     width: 80,
-    backgroundColor: "lightgray"
+    backgroundColor: colors.lightgray
   },
 
   actorlistname: {
@@ -92,7 +92,7 @@ const style = StyleSheet.create({
     alignItems: "stretch",
     borderRadius: 10,
     padding: 8,
-    backgroundColor: "lightgray"
+    backgroundColor: colors.lightgray
   },
 
   playername: {
@@ -116,7 +116,7 @@ const style = StyleSheet.create({
   picker: {
     flex: 1,
     borderRadius: 10,
-    backgroundColor: "lightgray"
+    backgroundColor: colors.lightgray
   },
 
   pickerTitle: {
@@ -141,7 +141,7 @@ const style = StyleSheet.create({
 
     marginTop: 60,
 
-    backgroundColor: "lightgray",
+    backgroundColor: colors.lightgray,
     borderColor: "black"
   },
 
