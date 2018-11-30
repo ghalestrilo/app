@@ -17,6 +17,7 @@ import Modal from "react-native-modal";
 import { Picker } from "../Picker";
 import { IgorBackground } from "../Igor";
 import style from "./style";
+import forAll from "../../util/forAll";
 
 const CombatEditor = ({
   heroes,
@@ -68,7 +69,14 @@ const CombatEditor = ({
       </List>
     </ScrollView>
     <View style={style.combatEditorStartButton}>
-      <Button title="INICIAR!" onPress={beginCombat}/>
+      <Button
+        title="INICIAR!"
+        onPress={beginCombat}
+        disabled={
+          forAll(heroes, x => x.picked === false)
+          || enemies.length === 0
+        }
+      />
     </View>
   </View>;
 
@@ -129,7 +137,7 @@ const SessionScreen = ({
     </View>
 
     <View style={style.actionDrawer}>
-      <Text style={style.combatEditorHeaderText}>Ações</Text>
+      <Text style={style.combatEditorHeaderText}>Eventos</Text>
       <Button title="COMBATE" onPress={configureCombat}/>
     </View>
   </View>

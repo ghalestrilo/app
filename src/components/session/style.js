@@ -76,8 +76,7 @@ const style = StyleSheet.create({
     maxHeight: 60,
     margin: 8,
 
-    borderRadius: 10,
-    color: colors.green
+    borderRadius: 10
   },
 
 

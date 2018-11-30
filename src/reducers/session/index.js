@@ -88,7 +88,7 @@ const session = (state = initialState, action) => {
   case FINISH_COMBAT:
     return {
       ...state,
-      combats: [ ...state.combats, action.payload ]
+      history: [ ...state.history, action.payload ]
     };
 
   default: return state;

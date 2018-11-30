@@ -6,7 +6,10 @@ import {
   finishCombat
 } from "../../../actions/combat";
 
+import { Alert } from "react-native";
+
 import CombatScreen from "../../../components/combat";
+import forAll from "../../../util/forAll";
 
 const initialState = {
   pickingAction: false,
@@ -16,8 +19,33 @@ const initialState = {
   target: null
 };
 
+const endgameMessages = {
+  flee: "Todos fugiram! Covardes!!",
+  defeat: "Os heróis morreram. Tentem novamente!",
+  victory: "Os heróis venceram!!"
+};
+
 class Combat extends React.Component {
   state = initialState;
+
+  componentWillUpdate = nextProps => {
+    const actors = nextProps.actors.map((a, i) => ({ ...a, index: i }));
+    const enemies = actors.filter(x => x.hero === false);
+    const heroes = actors.filter(x => x.hero === true);
+
+    if (forAll(heroes, x => x.status.fled === true))  this.finishCombat("flee");
+    if (forAll(heroes, x => x.status.dead === true))  this.finishCombat("defeat");
+    if (forAll(enemies, x => x.status.dead === true)) this.finishCombat("victory");
+
+    if (nextProps.ongoing === false){
+      this.setState({
+        ...this.state,
+        pickingAction: false,
+        pickingTarget: false
+      });
+      this.props.navigation.navigate("Session");
+    }
+  }
 
   openActionPicker = actions => this.setState({
     ...this.state,
@@ -49,23 +77,19 @@ class Combat extends React.Component {
     author: this.props.playerID
   }))
 
+  finishCombat = result => {
+    this.props.dispatch(finishCombat(result));
+    Alert.alert(endgameMessages[result]);
+  }
+
   render = () => {
 
-    const { player, events, dispatch } = this.props;
+    const { player, events } = this.props;
     const actions = this.state.actions;
 
     const actors = this.props.actors.map((a, i) => ({ ...a, index: i }));
     const enemies = actors.filter(x => x.hero === false);
     const heroes = actors.filter(x => x.hero === true);
-
-    if (heroes.map(x => x.status.fled === true).reduce((a, b) => a && b))
-      dispatch(finishCombat("flee"));
-
-    if (enemies.filter(x => x.status.dead === false) === undefined)
-      dispatch(finishCombat("victory"));
-
-    if (heroes.filter(x => x.status.dead === false) === undefined)
-      dispatch(finishCombat("defeat"));
 
     return <CombatScreen
       events={events}
