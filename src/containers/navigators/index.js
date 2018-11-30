@@ -47,7 +47,6 @@ const AdventureStack = createStackNavigator(
 const DrawerNavigator = createDrawerNavigator(
   {
     Adventures: AdventureStack,
-    Session: SessionScreen, // this is here just for testing
     Books: BooksScreen,
     Account: AccountScreen,
     Notifications: NotificationsScreen,
