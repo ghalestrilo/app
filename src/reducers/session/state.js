@@ -177,7 +177,7 @@ const state = {
     },
     {
       avatar: avatars.urso,
-      name: "Robo",
+      name: "Urso",
       hero: false,
       maxhp: 200,
       status: {
@@ -198,7 +198,7 @@ const state = {
     },
     {
       avatar: avatars.ogro,
-      name: "Robo",
+      name: "Ogro",
       hero: false,
       maxhp: 1000,
       status: {

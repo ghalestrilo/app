@@ -32,7 +32,20 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     alignItems: "center",
     backgroundColor: colors.unselected
+  },
+  sessionCreate: {
+    flex: 1,
+    backgroundColor: colors.inputbackground,
+    borderRadius: 10
+  },
+  textsession: {
+    fontSize: fonts.bigger
+  },
+  textinput: {
+    height: 40,
+    alignSelf: "center"
   }
+
 });
 
 export default styles;

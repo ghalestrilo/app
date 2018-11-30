@@ -6,24 +6,26 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  TextInput,
   Modal,
   Alert,
   Picker
 } from "react-native";
-
-import { heroes } from "../../../images";
-
+import Modal_2 from "react-native-modal";
 import {
   TabBarNavigation,
   IgorBackground,
+  Fab,
   Input,
-  Fab
+  MainMenuButton
 } from "../../../components/Igor";
 import { setEdit } from "../../../reducers/adv/index";
 import styles from "./styles";
 import Colors from "../../../styles/colors";
 import { Avatar, FormLabel, Button, Slider, List, ListItem } from "react-native-elements";
-import { addPlayer, getPlayers } from "../../../actions/adventure";
+import { addPlayer, getPlayers, setNextSession } from "../../../actions/adventure";
+import { heroes } from "../../../images";
+
 
 const newsessionimage = require("../../../images/buttons/add-session.png");
 const newplayerimage = require("../../../images/buttons/add-player.png");
@@ -32,6 +34,9 @@ class AdventureScreen extends React.Component {
     super(props);
     this.state = {
       andamento: true,
+      createSession: false,
+      dia: "00",
+      mes: "00",
       modalVisible: false,
       name: "",
       avatar: "crono",
@@ -46,6 +51,16 @@ class AdventureScreen extends React.Component {
   }
   edit(){
     this.props.navigation.navigate("EditAdv");
+  }
+  dia(dia){
+    this.setState({ dia });
+  }
+  mes(mes){
+    this.setState({ mes });
+  }
+  async createsession(){
+    this.setState({ createSession: false });
+    await this.props.setNextSession( this.props.chosen.id, `${this.state.dia}/${this.state.mes}`);
   }
 
   setModalVisible(visible) {
@@ -67,53 +82,82 @@ class AdventureScreen extends React.Component {
     };
     await this.props.addPlayer(this.props.chosen.id, player);
   }
-
   render(){
     const { chosen } = this.props;
     if(this.state.andamento){
       return(
         IgorBackground(
           <SafeAreaView style = {{ flex: 1 }}>
-            <TabBarNavigation
-              navigate = {() => { this.props.navigation.openDrawer() ; }}
-            />
-            <View style = {{ flex: 1, marginLeft: "10%", marginRight: "10%" }}>
-              <Text style = {styles.title}>{chosen.title}</Text>
-              <View style = {styles.container}>
-                <TouchableOpacity
-                  style = {styles.selected}
-                  onPress = {() => {}}>
-                  <Text style = {{ fontWeight: "bold" }}>ANDAMENTO</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style = {styles.unselected}
-                  onPress = {() => this.setState({ andamento: !this.state.andamento })}
-                >
-                  <Text style = {{ fontWeight: "bold" }}>JOGADORES</Text>
-                </TouchableOpacity>
+            <Modal_2
+              visible={this.state.createSession}
+              style = {styles.sessionCreate}>
+              <View style={{ margin: "5%" }}>
+                <Text style = {styles.textsession}>
+                  Insira a data da Proxima Sessao:
+                </Text>
+                <View style = {{ flexDirection: "row", justifyContent: "center" }}>
+                  <TextInput
+                    style = {styles.textinput}
+                    onChangeText={(dia) => { this.dia(dia) ; }}
+                    value={this.state.dia}
+                    maxLength = {2}
+                    keyboardType = {"numeric"}
+                  />
+                  <Text>/</Text>
+                  <TextInput
+                    style = {styles.textinput}
+                    onChangeText={(mes) => { this.mes(mes) ; }}
+                    value={this.state.mes}
+                    maxLength = {2}
+                    keyboardType = {"numeric"}
+                  />
+                </View>
+                <MainMenuButton
+                  onPress={() => { this.createsession(); }}
+                  title = "CRIAR"
+                />
               </View>
-              <View style = {styles.inputbackground}>
-                <View style={{ flex: 1 }}>
-                  <View style = {{ flex: 3 }}>
-                    <ScrollView style= {{ marginTop: "5%", marginLeft: "5%" }}>
-                      <Text>{chosen.brief}</Text>
-                    </ScrollView>
-                  </View>
-                  <View style = {{ width: "100%", height: 2, backgroundColor: "rgb(200,200,200)" }}/>
-                  <View style = {{ flex: 1 }}>
-                    <ScrollView style= {{ flex: 1, marginTop: "5%", marginLeft: "5%" }}>
-                      {chosen.nextSession.map((session, i) =>
-                        <Text key = {i}>{session}</Text>)
-                      }
-                    </ScrollView>
+            </Modal_2>
+            <View style = {{ flex: 1 }}>
+              <TabBarNavigation
+                navigate = {() => { this.props.navigation.openDrawer() ; }}
+                edit = {() => { this.edit() ; }}/>
+              <View style = {{ flex: 1, marginLeft: "10%", marginRight: "10%" }}>
+                <Text style = {styles.title}>{chosen.title}</Text>
+                <View style = {styles.container}>
+                  <TouchableOpacity
+                    style = {styles.selected}
+                    onPress = {() => {}}>
+                    <Text style = {{ fontWeight: "bold" }}>ANDAMENTO</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style = {styles.unselected}
+                    onPress = {() => this.setState({ andamento: !this.state.andamento })}
+                  >
+                    <Text style = {{ fontWeight: "bold" }}>JOGADORES</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style = {styles.inputbackground}>
+                  <View style={{ flex: 1 }}>
+                    <View style = {{ flex: 3 }}>
+                      <ScrollView style= {{ marginTop: "5%", marginLeft: "5%" }}>
+                        <Text>{chosen.brief}</Text>
+                      </ScrollView>
+                    </View>
+                    <View style = {{ width: "100%", height: 2, backgroundColor: "rgb(200,200,200)" }}/>
+                    <View style = {{ flex: 1 }}>
+                      <View style= {{ flex: 1, marginTop: "5%", marginLeft: "5%" }}>
+                        <Text>{chosen.nextSession}</Text>
+                      </View>
+                    </View>
                   </View>
                 </View>
               </View>
+              <Fab
+                source={newsessionimage}
+                onPress={() => (this.setState({ createSession: true }))}
+              />
             </View>
-            <Fab
-              source={newsessionimage}
-              onPress={() => {}}
-            />
           </SafeAreaView>
         )
       );
@@ -260,10 +304,12 @@ const mapStateToProps = (state) => ({
   chosen: state.adventures.chosen,
   players: state.adventures.players
 });
+
 const mapActionsToProps = {
   setEdit: setEdit,
   addPlayer: addPlayer,
-  getPlayers: getPlayers
+  getPlayers: getPlayers,
+  setNextSession: setNextSession
 };
-
 export default connect(mapStateToProps, mapActionsToProps)(AdventureScreen);
+

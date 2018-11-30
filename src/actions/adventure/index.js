@@ -5,7 +5,8 @@ import {
   RECEIVE_GET_ADVENTURES,
   DEL_ADVENTURE,
   RECEIVE_GET_PLAYERS,
-  REQUEST_GET_PLAYERS
+  REQUEST_GET_PLAYERS,
+  SET_SESSION
 } from "../types";
 
 export const addAdventure = newAdventure => dispatch => {
@@ -53,6 +54,22 @@ export const updateAdventure = adventure => dispatch => (
   })
 );
 
+export const setNextSession = (id, nextSession) => dispatch => (
+  API.ref(`/adventures/${id}/nextSession`).set(nextSession, error => {
+    if (error) {
+      dispatch({
+        type: REQUEST_ERROR,
+        payload: error
+      });
+    } else {
+      dispatch({
+        type: SET_SESSION,
+        payload: nextSession
+      });
+    }
+  })
+);
+
 export const addPlayer = (adventureID, newPlayer) => dispatch => (
   API.ref(`/adventures/${adventureID}/players/${newPlayer.name}`).set(newPlayer).then(() => {
     getPlayers(adventureID);
@@ -75,3 +92,4 @@ export const getPlayers = adventureID => dispatch => {
     });
   });
 };
+

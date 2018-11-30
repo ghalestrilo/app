@@ -5,6 +5,7 @@ import {
   RECEIVE_GET_ADVENTURES,
   SET_EDIT,
   UNSET_EDIT,
+  SET_SESSION,
   RECEIVE_GET_PLAYERS,
   REQUEST_GET_PLAYERS
 } from "../../actions/types";
@@ -40,6 +41,11 @@ export const pickAdventure = adventure => ({
   payload: adventure
 });
 
+export const setsession = session => ({
+  type: SET_SESSION,
+  payload: session
+});
+
 
 const adv = (state = initialAdventures, action) => {
   switch (action.type) {
@@ -63,6 +69,14 @@ const adv = (state = initialAdventures, action) => {
     return{
       ...state,
       chosen: action.payload
+    };
+  case SET_SESSION:
+    return{
+      ...state,
+      chosen: {
+        ...state.chosen,
+        nextSession: action.payload
+      }
     };
   case SET_EDIT:
     return {
