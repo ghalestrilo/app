@@ -1,22 +1,10 @@
+import avatars from"../../images";
 const ability = "habilidade";
 const spell = "magia";
 const attack = "ataque";
 const flee = "fugir";
 const item = "item";
 
-const avatars = {
-  crono: require("../../images/temp/portraits/crono.png"),
-  ayla: require("../../images/temp/portraits/ayla.png"),
-  lucca: require("../../images/temp/portraits/lucca.png"),
-  marle: require("../../images/temp/portraits/marle.png"),
-  robo: require("../../images/temp/portraits/robo.png"),
-
-  fireball: require("../../images/spells/fire_ball.jpg"),
-  firebolt: require("../../images/spells/fire_bolt.jpg"),
-  immolation: require("../../images/spells/immolation.jpg"),
-  icespear: require("../../images/spells/ice_spear.jpg"),
-  frostbolt: require("../../images/spells/frost_bolt.jpg")
-};
 
 const initialState = {
   ongoing: true,
