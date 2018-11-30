@@ -33,6 +33,21 @@ const style = StyleSheet.create({
     padding: 8
   },
 
+  // ---------------------------------------- Events
+
+  eventbox: {
+    padding: 8
+  },
+
+  event: {
+    flex: 1,
+    padding: 16,
+
+    margin: 4,
+    borderRadius: 15,
+    backgroundColor: colors.lightgray
+  },
+
 
   // ---------------------------------------- Combat Editor
 

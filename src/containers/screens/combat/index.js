@@ -6,7 +6,6 @@ import {
   finishCombat
 } from "../../../actions/combat";
 
-import { Alert } from "react-native";
 
 import CombatScreen from "../../../components/combat";
 import forAll from "../../../util/forAll";
@@ -19,16 +18,13 @@ const initialState = {
   target: null
 };
 
-const endgameMessages = {
-  flee: "Todos fugiram! Covardes!!",
-  defeat: "Os heróis morreram. Tentem novamente!",
-  victory: "Os heróis venceram!!"
-};
+
 
 class Combat extends React.Component {
   state = initialState;
 
   componentWillUpdate = nextProps => {
+    if (!nextProps.ongoing) return;
     const actors = nextProps.actors.map((a, i) => ({ ...a, index: i }));
     const enemies = actors.filter(x => x.hero === false);
     const heroes = actors.filter(x => x.hero === true);
@@ -36,15 +32,6 @@ class Combat extends React.Component {
     if (forAll(heroes, x => x.status.fled === true))  this.finishCombat("flee");
     if (forAll(heroes, x => x.status.dead === true))  this.finishCombat("defeat");
     if (forAll(enemies, x => x.status.dead === true)) this.finishCombat("victory");
-
-    if (nextProps.ongoing === false){
-      this.setState({
-        ...this.state,
-        pickingAction: false,
-        pickingTarget: false
-      });
-      this.props.navigation.navigate("Session");
-    }
   }
 
   openActionPicker = actions => this.setState({
@@ -78,8 +65,14 @@ class Combat extends React.Component {
   }))
 
   finishCombat = result => {
+    // this.setState({
+    //   ...this.state,
+    //   pickingAction: false,
+    //   pickingTarget: false
+    // });
+
     this.props.dispatch(finishCombat(result));
-    Alert.alert(endgameMessages[result]);
+    this.props.navigation.navigate("Session");
   }
 
   render = () => {
@@ -119,6 +112,7 @@ const mapStateToProps = ({ combat }) => ({
         target: combat.actors[event.target]
       })),
 
+  ongoing: combat.ongoing,
   actors: combat.actors.map((a, index) => ({ ...a, index: index })),
   player: combat.actors[combat.player],
   playerID: combat.player

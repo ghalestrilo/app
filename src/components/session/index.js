@@ -8,7 +8,9 @@ import {
 import {
   ListItem,
   Button,
-  List
+  List,
+  Avatar,
+  Divider
 } from "react-native-elements";
 
 import Icon from "react-native-vector-icons/Entypo";
@@ -72,10 +74,7 @@ const CombatEditor = ({
       <Button
         title="INICIAR!"
         onPress={beginCombat}
-        disabled={
-          forAll(heroes, x => x.picked === false)
-          || enemies.length === 0
-        }
+        disabled={ forAll(heroes, x => x.picked === false) || enemies.length === 0 }
       />
     </View>
   </View>;
@@ -125,15 +124,30 @@ const SessionScreen = ({
 
     <View style={{ flex: 1 }}>
       <Text style={style.screenHeader}> Histórico </Text>
-      <List>
+      <View style={style.eventbox}>
         { history.map((event, i) =>
-          <ListItem
-            key={`heroes_${i}`}
-            title={event.type}
-          />)
-
+          <View style={style.event} key={`heroes_${i}`}>
+            { (event.type === "combat")
+              ? <View style={{ flex: 1 }}>
+                <Text>Combate</Text>
+                <Divider/>
+                <View style={{ margin: 20, padding: 20, flex: 1, justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+                  { event.enemies.map((enemy, j) =>
+                    <Avatar
+                      key={`avatar-${i}-${j}`}
+                      medium
+                      rounded
+                      source={enemy.avatar}
+                      onPress={() => this.handleFormChange("crono", "avatar")}
+                      activeOpacity={0.7}/>)
+                  }
+                </View>
+              </View>
+              : null
+            }
+          </View>)
         }
-      </List>
+      </View>
     </View>
 
     <View style={style.actionDrawer}>

@@ -5,6 +5,7 @@ const initialState = {
   pickingEnemy: false,
 
   event: null,
+  newevent: false,
 
   enemies: [],
   history: [],
@@ -21,7 +22,8 @@ import {
   ADD_ENEMY,
   PICK_ENEMY,
   REMOVE_ENEMY,
-  BEGIN_COMBAT
+  BEGIN_COMBAT,
+  CLEAR_NEWS
 } from "../../actions/types";
 
 const session = (state = initialState, action) => {
@@ -88,7 +90,20 @@ const session = (state = initialState, action) => {
   case FINISH_COMBAT:
     return {
       ...state,
-      history: [ ...state.history, action.payload ]
+      newevent: true,
+      history: [
+        ...state.history,
+        {
+          ...state.event,
+          result: action.payload
+        }
+      ]
+    };
+
+  case CLEAR_NEWS:
+    return {
+      ...state,
+      newevent: false
     };
 
   default: return state;

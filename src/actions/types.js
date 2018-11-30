@@ -29,6 +29,7 @@ export const BEGIN_COMBAT = "BEGIN_COMBAT";
 export const FINISH_COMBAT = "FINISH_COMBAT";
 
 // SESSION
+export const CLEAR_NEWS = "CLEAR_NEWS";
 export const TOGGLE_HERO = "TOGGLE_HERO";
 export const CONFIGURE_COMBAT = "CONFIGURE_COMBAT";
 export const ADD_ENEMY = "ADD_ENEMY";

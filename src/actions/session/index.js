@@ -2,6 +2,7 @@ import {
   CONFIGURE_COMBAT,
   BEGIN_COMBAT,
   TOGGLE_HERO,
+  CLEAR_NEWS,
   CANCEL,
 
   ADD_ENEMY,
@@ -10,6 +11,11 @@ import {
 
   NEW_EVENT
 } from "../types";
+
+export const clearNews = () => ({
+  type: CLEAR_NEWS,
+  payload: null
+});
 
 export const newEvent = event => ({
   type: NEW_EVENT,

@@ -21,7 +21,6 @@ const combat = (state = initialState, action) => {
     };
 
   case FINISH_COMBAT:
-    console.log("combat ended! result: ", action.payload);
     return {
       ...state,
       ongoing: false,
@@ -83,7 +82,7 @@ const checkDeath = actor => ({
   ...actor,
   status: {
     ...actor.status,
-    dead: actor.status.hp <= 0
+    dead: (actor.status.hp <= 0)
   }
 });
 

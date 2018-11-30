@@ -20,8 +20,8 @@ export const CombatEvent = ({ author, action, target }) =>
   <View style={style.event}>
     <Image style={style.circle} source={author.avatar}/>
     <Text style={style.eventAction}> {action.type} </Text>
-    {action.damage ? <Badge style={[ style.eventAction, style.redText ]} value={action.damage}/> : null}
-    {action.healing ? <Badge style={[ style.eventAction, style.greenText ]} value={action.healing}/> : null}
+    {action.damage ? <Badge style={style.eventAction} containerStyle={style.redText} value={action.damage}/> : null}
+    {action.healing ? <Badge style={style.eventAction} containerStyle={style.greenText} value={action.healing}/> : null}
     <Image style={style.circle} source={target.avatar}/>
   </View>;
 

@@ -44,8 +44,8 @@ const style = StyleSheet.create({
     height: 60
   },
 
-  redText: { color: colors.red },
-  greenText: { color: colors.green },
+  redText: { backgroundColor: colors.red },
+  greenText: { backgroundColor: colors.green },
 
   // --------------------------------- HUD
   hud: {
