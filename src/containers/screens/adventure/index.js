@@ -147,7 +147,9 @@ class AdventureScreen extends React.Component {
                     <View style = {{ width: "100%", height: 2, backgroundColor: "rgb(200,200,200)" }}/>
                     <View style = {{ flex: 1 }}>
                       <View style= {{ flex: 1, marginTop: "5%", marginLeft: "5%" }}>
-                        <Text>{chosen.nextSession}</Text>
+                        <ListItem
+                          title={chosen.nextSession}
+                          onPress={() => {}}/>
                       </View>
                     </View>
                   </View>
