@@ -21,6 +21,7 @@ export const PICK_ADVENTURE = "PICK_ADVENTURE";
 export const SET_EDIT = "SET_EDIT";
 export const UNSET_EDIT = "UNSET_EDIT";
 export const SET_SESSION = "SET_SESSION";
+export const BEGIN_SESSION = "BEGIN_SESSION";
 export const RECEIVE_GET_PLAYERS = "RECEIVE_GET_PLAYERS";
 export const REQUEST_GET_PLAYERS = "REQUEST_GET_PLAYERS";
 

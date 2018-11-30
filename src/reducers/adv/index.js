@@ -16,12 +16,6 @@ export const initialAdventures = {
   edit: "",
   heroes: {},
   editMode: false
-  // {
-  //   title: 'A aventura eterna',
-  //   image: require(),
-  //   nextSession: '',
-  //   progress: 40
-  // }
 };
 
 export const setEditMode = () => ({

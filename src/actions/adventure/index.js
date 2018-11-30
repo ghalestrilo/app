@@ -6,7 +6,8 @@ import {
   DEL_ADVENTURE,
   RECEIVE_GET_PLAYERS,
   REQUEST_GET_PLAYERS,
-  SET_SESSION
+  SET_SESSION,
+  BEGIN_SESSION
 } from "../types";
 
 export const addAdventure = newAdventure => dispatch => {
@@ -93,3 +94,9 @@ export const getPlayers = adventureID => dispatch => {
   });
 };
 
+export const beginSession = adventureData => dispatch => {
+  dispatch({
+    type: BEGIN_SESSION,
+    payload: adventureData
+  });
+};
