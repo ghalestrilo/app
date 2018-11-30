@@ -25,6 +25,8 @@ import Colors from "../../../styles/colors";
 import { Avatar, FormLabel, Button, Slider, List, ListItem } from "react-native-elements";
 import { addPlayer, getPlayers, setNextSession, beginSession } from "../../../actions/adventure";
 import { heroes, avatars } from "../../../images";
+const attack = "ataque";
+const flee = "fugir";
 
 
 const newsessionimage = require("../../../images/buttons/add-session.png");
@@ -41,7 +43,8 @@ class AdventureScreen extends React.Component {
       name: "",
       avatar: "crono",
       class: "Mago",
-      maxhp: 200
+      maxhp: 200,
+      attack: 10
     };
   }
   handleFormChange(value, key) {
@@ -83,7 +86,18 @@ class AdventureScreen extends React.Component {
       name: this.state.name,
       avatar: this.state.avatar,
       class: this.state.class,
-      maxhp: this.state.maxhp
+      maxhp: this.state.maxhp,
+      actions: [
+        {
+          type: flee,
+          mod: 0
+        },
+        {
+          type: attack,
+          mod: 3,
+          damage: this.state.attack
+        }
+      ]
     };
     await this.props.addPlayer(this.props.chosen.id, heroe);
   }
@@ -183,7 +197,7 @@ class AdventureScreen extends React.Component {
                   Alert.alert("Modal has been closed.");
                 }}>
                 <View style={{ marginTop: 22 }}>
-                  <View style={{ padding: 40 }}>
+                  <View style={{ padding: 20 }}>
                     <Text style={styles.title}>Cadastrar Novo Personagem</Text>
                     <Input
                       title="Nome do Personagem"
@@ -227,14 +241,25 @@ class AdventureScreen extends React.Component {
                         source={heroes[this.state.avatar]}
                       />
                     </View>
-                    <View>
-                      <FormLabel>Vida Inicial: {this.state.maxhp}</FormLabel>
-                      <Slider
-                        value={this.state.maxhp}
-                        maximumValue={500}
-                        step={10}
-                        minimumValue={100}
-                        onValueChange={(itemValue) => this.handleFormChange(itemValue, "maxhp")} />
+                    <View style = {{ flexDirection: "row", justifyContent: "space-between" }}>
+                      <View style = {{ flexDirection: "column" }}>
+                        <FormLabel>Vida Inicial: {this.state.maxhp}</FormLabel>
+                        <Slider
+                          value={this.state.maxhp}
+                          maximumValue={500}
+                          step={10}
+                          minimumValue={100}
+                          onValueChange={(itemValue) => this.handleFormChange(itemValue, "maxhp")} />
+                      </View>
+                      <View style = {{ flexDirection: "column" }}>
+                        <FormLabel>Ataque: {this.state.attack}</FormLabel>
+                        <Slider
+                          value={this.state.attack}
+                          maximumValue={60}
+                          step={1}
+                          minimumValue={0}
+                          onValueChange={(itemValue) => this.handleFormChange(itemValue, "attack")} />
+                      </View>
                     </View>
                     <View>
                       <FormLabel>Classe: {this.state.class}</FormLabel>
@@ -247,21 +272,23 @@ class AdventureScreen extends React.Component {
                         <Picker.Item label="Guerreiro" value="Guerreiro"/>
                       </Picker>
                     </View>
-                    <Button
-                      style={{ marginTop: 30 }}
-                      title="Cadastrar"
-                      backgroundColor={Colors.greenButton}
-                      onPress={() => {
-                        this.newPlayer();
-                        this.setModalVisible(false);
-                      }}>
-                    </Button>
-                    <Button
-                      title="Fechar"
-                      onPress={() => {
-                        this.setModalVisible(false);
-                      }}>
-                    </Button>
+                    <View style = {{ flexDirection: "row", justifyContent: "center", alignItems: "flex-start" }}>
+                      <Button
+                        style={{ marginTop: 30 }}
+                        title="Cadastrar"
+                        backgroundColor={Colors.greenButton}
+                        onPress={() => {
+                          this.newPlayer();
+                          this.setModalVisible(false);
+                        }}>
+                      </Button>
+                      <Button
+                        title="Fechar"
+                        onPress={() => {
+                          this.setModalVisible(false);
+                        }}>
+                      </Button>
+                    </View>
                   </View>
                 </View>
               </Modal>
