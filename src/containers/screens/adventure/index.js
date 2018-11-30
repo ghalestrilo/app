@@ -24,7 +24,7 @@ import styles from "./styles";
 import Colors from "../../../styles/colors";
 import { Avatar, FormLabel, Button, Slider, List, ListItem } from "react-native-elements";
 import { addPlayer, getPlayers, setNextSession } from "../../../actions/adventure";
-import { heroes } from "../../../images";
+import { heroes, avatars } from "../../../images";
 
 
 const newsessionimage = require("../../../images/buttons/add-session.png");
@@ -273,13 +273,13 @@ class AdventureScreen extends React.Component {
               </View>
               <View style = {styles.inputbackground}>
                 <List containerStyle={{ marginBottom: 20 }}>
-                  {Object.keys(this.props.heroes || []).map(index => (
+                  { Object.entries(this.props.heroes || {}).map(([ name, hero ]) => (
                     <ListItem
                       roundAvatar
-                      avatar={heroes[(this.props.heroes || [])[index].avatar]}
+                      avatar={avatars.heroes[hero.avatar]}
                       hideChevron
-                      key={index}
-                      title={index}
+                      title={name}
+                      subtitle={hero.class}
                     />
                   ))}
                 </List>
