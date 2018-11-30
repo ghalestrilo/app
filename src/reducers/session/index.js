@@ -98,7 +98,7 @@ const session = (state = initialState, action) => {
               name: name
             }))
         })),
-      availableEnemies: Object.values(action.payload.availableEnemies)
+      availableEnemies: Object.values(action.payload.availableEnemies || [])
     };
 
   case FINISH_COMBAT:
