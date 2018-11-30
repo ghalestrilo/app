@@ -7,50 +7,14 @@ import {
   TouchableOpacity
 } from "react-native";
 
-import {
-  List,
-  ListItem,
-  Button
-} from "react-native-elements";
-
-import Modal from "react-native-modal";
+import { Button } from "react-native-elements";
 
 import * as Progress from "react-native-progress";
 import { colors } from "../../styles";
 import style from "./style";
 import { IgorBackground } from "../Igor";
-// const arrow = require("../../images/combat/arrow.png");
-
-const warn = value => {
-  console.warn(value);
-  return value;
-};
-
-const log = value => {
-  console.log(value);
-  return value;
-};
-
-const groupBy = function(xs, key) {
-  return xs.reduce(function(rv, x) {
-    (rv[x[key]] = rv[x[key]] || []).push(x);
-    return rv;
-  }, {});
-};
-
-const groupByType = actions =>
-  Object.entries(groupBy(actions, "type"))
-    .map(([ type, arr ]) =>
-      (arr.length < 2
-        ? {
-          ...arr[0],
-          type: (arr[0].name || arr[0].type)
-        }
-        : {
-          group: true,
-          type: type,
-          options: arr
-        }));
+import { PickerModal } from "../Picker";
+import { groupByType } from "../../util/groupBy";
 
 export const CombatEvent = ({ author, action, target }) =>
   <View style={style.event}>
@@ -149,7 +113,7 @@ const CombatScreen = ({
     <View style={style.actionDrawer}>
       <Text style={style.playername}>Ações</Text>
       {
-        log(groupByType(player.actions))
+        groupByType(player.actions)
           .map((action, i) =>
             <CombatAction
               key={`action${i}`}
@@ -163,17 +127,18 @@ const CombatScreen = ({
       }
     </View>
 
-    <Picker
+    <PickerModal
       title={"Alvo"}
       pick={onChooseTarget}
       visible={showTargetPicker}
       options={player.hero ? enemies : heroes}
     />
-    <Picker
+    <PickerModal
       title={"Ação"}
       pick={onChooseAction}
       visible={showActionPicker}
       options={actions || []}
+      reindexed={true}
     />
   </View>);
 

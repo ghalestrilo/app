@@ -50,6 +50,7 @@ class Combat extends React.Component {
   }))
 
   render = () => {
+
     const { player, events, dispatch } = this.props;
     const actions = this.state.actions;
 
