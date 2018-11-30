@@ -98,6 +98,17 @@ const session = (state = initialState, action) => {
               name: name
             }))
         })),
+      enemies: Object.values(action.payload.enemies || {})
+        .map(enemy => ({
+          ...enemy,
+          avatar: avatars.enemies[enemy.avatar],
+          actions: Object.entries(enemy.actions)
+            .map(([ name, action ]) => ({
+              ...action,
+              avatar: avatars.actions[action.avatar],
+              name: name
+            }))
+        })),
       availableEnemies: Object.values(action.payload.availableEnemies || {})
     };
 
