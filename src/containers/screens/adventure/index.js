@@ -5,16 +5,25 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Modal,
+  Alert,
+  Picker
 } from "react-native";
+
+import { heroes } from "../../../images";
 
 import {
   TabBarNavigation,
   IgorBackground,
+  Input,
   Fab
 } from "../../../components/Igor";
 import { setEdit } from "../../../reducers/adv/index";
 import styles from "./styles";
+import Colors from "../../../styles/colors";
+import { Avatar, FormLabel, Button, Slider, List, ListItem } from "react-native-elements";
+import { addPlayer, getPlayers } from "../../../actions/adventure";
 
 const newsessionimage = require("../../../images/buttons/add-session.png");
 const newplayerimage = require("../../../images/buttons/add-player.png");
@@ -22,7 +31,12 @@ class AdventureScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      andamento: true
+      andamento: true,
+      modalVisible: false,
+      name: "",
+      avatar: "crono",
+      class: "",
+      maxhp: 200
     };
   }
   handleFormChange(value, key) {
@@ -33,6 +47,27 @@ class AdventureScreen extends React.Component {
   edit(){
     this.props.navigation.navigate("EditAdv");
   }
+
+  setModalVisible(visible) {
+    this.setState({
+      modalVisible: visible
+    });
+  }
+
+  async componentDidMount() {
+    await this.props.getPlayers(this.props.chosen.id);
+  }
+
+  async newPlayer() {
+    const player = {
+      name: this.state.name,
+      avatar: this.state.avatar,
+      class: this.state.class,
+      maxhp: this.state.maxhp
+    };
+    await this.props.addPlayer(this.props.chosen.id, player);
+  }
+
   render(){
     const { chosen } = this.props;
     if(this.state.andamento){
@@ -41,7 +76,7 @@ class AdventureScreen extends React.Component {
           <SafeAreaView style = {{ flex: 1 }}>
             <TabBarNavigation
               navigate = {() => { this.props.navigation.openDrawer() ; }}
-              edit = {() => { this.edit() ; }}/>
+            />
             <View style = {{ flex: 1, marginLeft: "10%", marginRight: "10%" }}>
               <Text style = {styles.title}>{chosen.title}</Text>
               <View style = {styles.container}>
@@ -89,6 +124,96 @@ class AdventureScreen extends React.Component {
             <TabBarNavigation
               navigate = {() => { this.props.navigation.openDrawer() ; }}/>
             <View style = {{ flex: 1, marginLeft: "10%", marginRight: "10%" }}>
+              <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                }}>
+                <View style={{ marginTop: 22 }}>
+                  <View style={{ padding: 40 }}>
+                    <Text style={styles.title}>Cadastrar Novo Personagem</Text>
+                    <Input
+                      title="Nome do Personagem"
+                      value={this.state.name}
+                      onChange={(text) => this.handleFormChange(text, "name")}/>
+                    <FormLabel>Avatar</FormLabel>
+                    <View style={{ margin: 20, padding: 20, flex: 1, justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+                      <Avatar
+                        medium
+                        rounded
+                        source={heroes.crono}
+                        onPress={() => this.handleFormChange("crono", "avatar")}
+                        activeOpacity={0.7}
+                      />
+                      <Avatar
+                        medium
+                        rounded
+                        source={heroes.ayla}
+                        onPress={() => this.handleFormChange("ayla", "avatar")}
+                        activeOpacity={0.7}
+                      />
+                      <Avatar
+                        rounded
+                        medium
+                        source={heroes.lucca}
+                        onPress={() => this.handleFormChange("lucca", "avatar")}
+                        activeOpacity={0.7}
+                      />
+                      <Avatar
+                        rounded
+                        medium
+                        source={heroes.marle}
+                        onPress={() => this.handleFormChange("marle", "avatar")}
+                        activeOpacity={0.7}
+                      />
+                    </View>
+                    <View style={{ alignItems: "center" }}>
+                      <Avatar
+                        large
+                        rounded
+                        source={heroes[this.state.avatar]}
+                      />
+                    </View>
+                    <View>
+                      <FormLabel>Vida Inicial: {this.state.maxhp}</FormLabel>
+                      <Slider
+                        value={this.state.maxhp}
+                        maximumValue={500}
+                        step={10}
+                        minimumValue={100}
+                        onValueChange={(itemValue) => this.handleFormChange(itemValue, "maxhp")} />
+                    </View>
+                    <View>
+                      <FormLabel>Classe: {this.state.class}</FormLabel>
+                      <Picker
+                        selectedValue={this.state.class}
+                        onValueChange={(itemValue) => this.handleFormChange(itemValue, "class")}>
+                        <Picker.Item label="Mago" value="Mago"/>
+                        <Picker.Item label="Arqueiro" value="Arqueiro"/>
+                        <Picker.Item label="Clérigo" value="Clérigo"/>
+                        <Picker.Item label="Guerreiro" value="Guerreiro"/>
+                      </Picker>
+                    </View>
+                    <Button
+                      style={{ marginTop: 30 }}
+                      title="Cadastrar"
+                      backgroundColor={Colors.greenButton}
+                      onPress={() => {
+                        this.newPlayer();
+                        this.setModalVisible(false);
+                      }}>
+                    </Button>
+                    <Button
+                      title="Fechar"
+                      onPress={() => {
+                        this.setModalVisible(false);
+                      }}>
+                    </Button>
+                  </View>
+                </View>
+              </Modal>
               <Text style = {styles.title}>{chosen.title}</Text>
               <View style = {styles.container}>
                 <TouchableOpacity
@@ -103,11 +228,22 @@ class AdventureScreen extends React.Component {
                 </TouchableOpacity>
               </View>
               <View style = {styles.inputbackground}>
+                <List containerStyle={{ marginBottom: 20 }}>
+                  {Object.keys(this.props.players).map(index => (
+                    <ListItem
+                      roundAvatar
+                      avatar={heroes[this.props.players[index].avatar]}
+                      hideChevron
+                      key={index}
+                      title={index}
+                    />
+                  ))}
+                </List>
               </View>
             </View>
             <Fab
               source={newplayerimage}
-              onPress={() => {}}
+              onPress={() => { this.setModalVisible(); }}
             />
           </SafeAreaView>
         )
@@ -121,7 +257,13 @@ class AdventureScreen extends React.Component {
 
 const mapStateToProps = (state) => ({
   adventures: state.adventures.list,
-  chosen: state.adventures.chosen
+  chosen: state.adventures.chosen,
+  players: state.adventures.players
 });
+const mapActionsToProps = {
+  setEdit: setEdit,
+  addPlayer: addPlayer,
+  getPlayers: getPlayers
+};
 
-export default connect(mapStateToProps, { setEdit: setEdit })(AdventureScreen);
+export default connect(mapStateToProps, mapActionsToProps)(AdventureScreen);

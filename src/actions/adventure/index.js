@@ -3,7 +3,9 @@ import {
   REQUEST_ERROR,
   REQUEST_GET_ADVENTURES,
   RECEIVE_GET_ADVENTURES,
-  DEL_ADVENTURE
+  DEL_ADVENTURE,
+  RECEIVE_GET_PLAYERS,
+  REQUEST_GET_PLAYERS
 } from "../types";
 
 export const addAdventure = newAdventure => dispatch => {
@@ -50,3 +52,26 @@ export const updateAdventure = adventure => dispatch => (
     }
   })
 );
+
+export const addPlayer = (adventureID, newPlayer) => dispatch => (
+  API.ref(`/adventures/${adventureID}/players/${newPlayer.name}`).set(newPlayer).then(() => {
+    getPlayers(adventureID);
+  }).catch(err => {
+    dispatch({
+      type: REQUEST_ERROR,
+      payload: err
+    });
+  })
+);
+
+export const getPlayers = adventureID => dispatch => {
+  dispatch({
+    type: REQUEST_GET_PLAYERS
+  });
+  return API.ref(`/adventures/${adventureID}/players`).on("value", snapshot => {
+    dispatch({
+      type: RECEIVE_GET_PLAYERS,
+      payload: snapshot.val()
+    });
+  });
+};
