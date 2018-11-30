@@ -40,7 +40,7 @@ class AdventureScreen extends React.Component {
       modalVisible: false,
       name: "",
       avatar: "crono",
-      class: "",
+      class: "Mago",
       maxhp: 200
     };
   }

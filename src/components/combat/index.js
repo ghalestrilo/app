@@ -115,7 +115,7 @@ const CombatScreen = ({
     <View style={style.actionDrawer}>
       <Text style={style.playername}>Ações</Text>
       {
-        groupByType(player.actions)
+        groupByType(player.actions|| [])
           .map((action, i) =>
             <CombatAction
               key={`action${i}`}
