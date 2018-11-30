@@ -30,7 +30,16 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     alignItems: "center",
     backgroundColor: colors.unselected
+  },
+  sessionCreate: {
+    flex: 1,
+    backgroundColor: colors.inputbackground,
+    borderRadius: 10
+  },
+  textsession: {
+    fontSize: fonts.biggest
   }
+
 });
 
 export default styles;

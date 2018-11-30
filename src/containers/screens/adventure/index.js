@@ -5,9 +5,10 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  TextInput
 } from "react-native";
-
+import Modal from "react-native-modal";
 import {
   TabBarNavigation,
   IgorBackground,
@@ -22,7 +23,9 @@ class AdventureScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      andamento: true
+      andamento: true,
+      createSession: false,
+      text: ""
     };
   }
   handleFormChange(value, key) {
@@ -39,46 +42,63 @@ class AdventureScreen extends React.Component {
       return(
         IgorBackground(
           <SafeAreaView style = {{ flex: 1 }}>
-            <TabBarNavigation
-              navigate = {() => { this.props.navigation.openDrawer() ; }}
-              edit = {() => { this.edit() ; }}/>
-            <View style = {{ flex: 1, marginLeft: "10%", marginRight: "10%" }}>
-              <Text style = {styles.title}>{chosen.title}</Text>
-              <View style = {styles.container}>
-                <TouchableOpacity
-                  style = {styles.selected}
-                  onPress = {() => {}}>
-                  <Text style = {{ fontWeight: "bold" }}>ANDAMENTO</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style = {styles.unselected}
-                  onPress = {() => this.setState({ andamento: !this.state.andamento })}
-                >
-                  <Text style = {{ fontWeight: "bold" }}>JOGADORES</Text>
-                </TouchableOpacity>
+            <Modal
+              visible={this.state.createSession}
+              style = {styles.sessionCreate}>
+              <View style={{ margin: "5%" }}>
+                <Text style = {styles.textsession}>
+                  Insira a data da Proxima Sessao:
+                </Text>
+                <TextInput
+                  onChangeText={(text) => this.setState({ text })}
+                  value={this.state.text}
+                  maxLength = {5}
+                  keyboardType = {"numeric"}
+                />
               </View>
-              <View style = {styles.inputbackground}>
-                <View style={{ flex: 1 }}>
-                  <View style = {{ flex: 3 }}>
-                    <ScrollView style= {{ marginTop: "5%", marginLeft: "5%" }}>
-                      <Text>{chosen.brief}</Text>
-                    </ScrollView>
-                  </View>
-                  <View style = {{ width: "100%", height: 2, backgroundColor: "rgb(200,200,200)" }}/>
-                  <View style = {{ flex: 1 }}>
-                    <ScrollView style= {{ flex: 1, marginTop: "5%", marginLeft: "5%" }}>
-                      {chosen.nextSession.map((session, i) =>
-                        <Text key = {i}>{session}</Text>)
-                      }
-                    </ScrollView>
+            </Modal>
+            <View style = {{ flex: 1 }}>
+              <TabBarNavigation
+                navigate = {() => { this.props.navigation.openDrawer() ; }}
+                edit = {() => { this.edit() ; }}/>
+              <View style = {{ flex: 1, marginLeft: "10%", marginRight: "10%" }}>
+                <Text style = {styles.title}>{chosen.title}</Text>
+                <View style = {styles.container}>
+                  <TouchableOpacity
+                    style = {styles.selected}
+                    onPress = {() => {}}>
+                    <Text style = {{ fontWeight: "bold" }}>ANDAMENTO</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style = {styles.unselected}
+                    onPress = {() => this.setState({ andamento: !this.state.andamento })}
+                  >
+                    <Text style = {{ fontWeight: "bold" }}>JOGADORES</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style = {styles.inputbackground}>
+                  <View style={{ flex: 1 }}>
+                    <View style = {{ flex: 3 }}>
+                      <ScrollView style= {{ marginTop: "5%", marginLeft: "5%" }}>
+                        <Text>{chosen.brief}</Text>
+                      </ScrollView>
+                    </View>
+                    <View style = {{ width: "100%", height: 2, backgroundColor: "rgb(200,200,200)" }}/>
+                    <View style = {{ flex: 1 }}>
+                      <ScrollView style= {{ flex: 1, marginTop: "5%", marginLeft: "5%" }}>
+                        {chosen.nextSession.map((session, i) =>
+                          <Text key = {i}>{session}</Text>)
+                        }
+                      </ScrollView>
+                    </View>
                   </View>
                 </View>
               </View>
+              <Fab
+                source={newsessionimage}
+                onPress={() => (this.setState({ createSession: true }))}
+              />
             </View>
-            <Fab
-              source={newsessionimage}
-              onPress={() => {}}
-            />
           </SafeAreaView>
         )
       );
