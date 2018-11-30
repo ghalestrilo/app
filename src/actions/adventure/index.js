@@ -7,7 +7,8 @@ import {
   RECEIVE_GET_PLAYERS,
   REQUEST_GET_PLAYERS,
   SET_SESSION,
-  BEGIN_SESSION
+  BEGIN_SESSION,
+  SET_CHOSEN
 } from "../types";
 
 export const addAdventure = newAdventure => dispatch => {
@@ -29,6 +30,18 @@ export const getAdventures = () => dispatch => {
   return API.ref("/adventures").on("value", snapshot => {
     dispatch({
       type: RECEIVE_GET_ADVENTURES,
+      payload: snapshot.val()
+    });
+  });
+};
+
+export const setChosenAdventure = (adventure) => dispatch => {
+  dispatch({
+    type: REQUEST_GET_ADVENTURES
+  });
+  return API.ref(`/adventures/${adventure.id}`).on("value", snapshot => {
+    dispatch({
+      type: SET_CHOSEN,
       payload: snapshot.val()
     });
   });

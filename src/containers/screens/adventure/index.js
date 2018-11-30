@@ -23,7 +23,7 @@ import { setEdit } from "../../../reducers/adv/index";
 import styles from "./styles";
 import Colors from "../../../styles/colors";
 import { Avatar, FormLabel, Button, Slider, List, ListItem } from "react-native-elements";
-import { addPlayer, getPlayers, setNextSession, beginSession } from "../../../actions/adventure";
+import { addPlayer, getPlayers, setNextSession, beginSession, setChosenAdventure } from "../../../actions/adventure";
 import { heroes, avatars } from "../../../images";
 const attack = "ataque";
 const flee = "fugir";
@@ -100,6 +100,7 @@ class AdventureScreen extends React.Component {
       }
     };
     await this.props.addPlayer(this.props.chosen.id, heroe);
+    this.props.setChosenAdventure(this.props.chosen);
   }
   render(){
     const { chosen } = this.props;
@@ -344,7 +345,8 @@ const mapActionsToProps = {
   addPlayer: addPlayer,
   getPlayers: getPlayers,
   setNextSession: setNextSession,
-  beginSession: beginSession
+  beginSession: beginSession,
+  setChosenAdventure: setChosenAdventure
 };
 export default connect(mapStateToProps, mapActionsToProps)(AdventureScreen);
 

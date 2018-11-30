@@ -100,7 +100,7 @@ const SessionScreen = ({
         ? <Picker
           style={style.combatEditor}
           title={"Adicionar Inimigo"}
-          options={availableEnemies || []}
+          options={availableEnemies || {}}
           pick={i => pickEnemy(i)}
           hold={() => {}} // more info
         />
