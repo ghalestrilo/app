@@ -1,4 +1,4 @@
-import avatars from"../../images";
+import { avatars } from"../../images";
 const ability = "habilidade";
 const spell = "magia";
 const attack = "ataque";
@@ -12,7 +12,7 @@ const initialState = {
   player: 0,
   actors: [
     {
-      avatar: avatars.crono,
+      avatar: avatars.heroes.crono,
       name: "Crono",
       hero: true,
       maxhp: 100,

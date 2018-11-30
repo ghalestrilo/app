@@ -225,3 +225,4 @@ export const RestButton = (props) => (
     <Text style = {styles.restText}>{props.title}</Text>
   </TouchableOpacity>
 );
+

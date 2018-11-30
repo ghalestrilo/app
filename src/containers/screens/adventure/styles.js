@@ -22,12 +22,14 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     alignItems: "center",
+    paddingTop: 20,
     backgroundColor: colors.selected
   },
   unselected: {
     width: "50%",
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
+    paddingTop: 20,
     alignItems: "center",
     backgroundColor: colors.unselected
   }
