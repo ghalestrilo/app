@@ -20,6 +20,7 @@ export const DEL_ADVENTURE = "DEL_ADVENTURE";
 export const PICK_ADVENTURE = "PICK_ADVENTURE";
 export const SET_EDIT = "SET_EDIT";
 export const UNSET_EDIT = "UNSET_EDIT";
+export const SET_SESSION = "SET_SESSION";
 
 // COMBAT
 export const NEW_EVENT = "NEW_EVENT";

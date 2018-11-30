@@ -4,14 +4,16 @@ import {
   REQUEST_GET_ADVENTURES,
   RECEIVE_GET_ADVENTURES,
   SET_EDIT,
-  UNSET_EDIT
+  UNSET_EDIT,
+  SET_SESSION
 } from "../../actions/types";
 
 export const initialAdventures = {
   chosen: {},
   list: [],
   edit: "",
-  editMode: false
+  editMode: false,
+  nextSession: ""
   // {
   //   title: 'A aventura eterna',
   //   image: require(),
@@ -53,6 +55,11 @@ const adv = (state = initialAdventures, action) => {
     return{
       ...state,
       chosen: action.payload
+    };
+  case SET_SESSION:
+    return{
+      ...state,
+      nextSession: action.payload
     };
   case SET_EDIT:
     return {

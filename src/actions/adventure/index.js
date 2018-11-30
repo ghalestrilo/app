@@ -51,15 +51,15 @@ export const updateAdventure = adventure => dispatch => (
   })
 );
 
-// export const setNextSession = (id, nextSession) => dispatch => (
-//   API.ref(`/adventures/${id}/nextSession`).set(nextSession, error => {
-//     if (error) {
-//       dispatch({
-//         type: REQUEST_ERROR,
-//         payload: error
-//       });
-//     } else {
-//       getAdventures();
-//     }
-//   })
-// );
+export const setNextSession = (id, nextSession) => dispatch => (
+  API.ref(`/adventures/${id}/nextSession`).set(nextSession, error => {
+    if (error) {
+      dispatch({
+        type: REQUEST_ERROR,
+        payload: error
+      });
+    } else {
+      getAdventures();
+    }
+  })
+);

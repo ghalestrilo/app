@@ -45,10 +45,10 @@ class AdventureScreen extends React.Component {
   mes(mes){
     this.setState({ mes });
   }
-  createsession(){
+  async createsession(){
     console.log(`${this.state.dia}/${this.state.mes}`);
     this.setState({ createSession: false });
-    // await this.props.setNextSession( this.props.chosen.id, `${this.state.dia}/${this.state.mes}`);
+    await this.props.setNextSession( this.props.chosen.id, `${this.state.dia}/${this.state.mes}`);
   }
   render(){
     const { chosen } = this.props;
