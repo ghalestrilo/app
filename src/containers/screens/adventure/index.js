@@ -76,7 +76,7 @@ class AdventureScreen extends React.Component {
           <SafeAreaView style = {{ flex: 1 }}>
             <TabBarNavigation
               navigate = {() => { this.props.navigation.openDrawer() ; }}
-              edit = {() => { this.edit() ; }}/>
+            />
             <View style = {{ flex: 1, marginLeft: "10%", marginRight: "10%" }}>
               <Text style = {styles.title}>{chosen.title}</Text>
               <View style = {styles.container}>

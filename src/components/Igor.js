@@ -47,14 +47,14 @@ export const TabBarNavigation = (props) => (
   <View style={{ width: "100%", height: 75, backgroundColor: colors.drawerbackground }}>
     <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between" }}>
       <View style={{ width: 75, height: 75, backgroundColor: colors.drawerbackground }}>
-        <TouchableHighlight
+        {props.navigate ? <TouchableHighlight
           style={{ flex: 1, justifyContent: "center" }}
           onPress={props.navigate}>
           <Icon
             name="menu"
             size= {35}
             color="white"/>
-        </TouchableHighlight>
+        </TouchableHighlight>: null}
       </View>
       <View style={{
         justifyContent: "center",
@@ -66,14 +66,14 @@ export const TabBarNavigation = (props) => (
         </Text>
       </View>
       <View style={{ width: 75, height: 75, backgroundColor: colors.drawerbackground }}>
-        <TouchableHighlight
+        {props.edit ? <TouchableHighlight
           style={{ flex: 1, justifyContent: "center", alignItems: "flex-end" }}
           onPress={props.edit}>
           <Icon
             name="edit"
             size= {35}
             color= {(props.color== null ? "white": props.color)}/>
-        </TouchableHighlight>
+        </TouchableHighlight> : null}
       </View>
     </View>
   </View>
