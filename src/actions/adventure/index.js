@@ -5,7 +5,8 @@ import {
   RECEIVE_GET_ADVENTURES,
   DEL_ADVENTURE,
   RECEIVE_GET_PLAYERS,
-  REQUEST_GET_PLAYERS
+  REQUEST_GET_PLAYERS,
+  SET_SESSION
 } from "../types";
 
 export const addAdventure = newAdventure => dispatch => {
@@ -61,7 +62,10 @@ export const setNextSession = (id, nextSession) => dispatch => (
         payload: error
       });
     } else {
-      getAdventures();
+      dispatch({
+        type: SET_SESSION,
+        payload: nextSession
+      });
     }
   })
 );

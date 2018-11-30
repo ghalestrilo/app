@@ -25,7 +25,6 @@ import Colors from "../../../styles/colors";
 import { Avatar, FormLabel, Button, Slider, List, ListItem } from "react-native-elements";
 import { addPlayer, getPlayers, setNextSession } from "../../../actions/adventure";
 import { heroes } from "../../../images";
-import { setsession } from "../../../reducers/adv/index";
 
 
 const newsessionimage = require("../../../images/buttons/add-session.png");
@@ -61,7 +60,6 @@ class AdventureScreen extends React.Component {
   }
   async createsession(){
     this.setState({ createSession: false });
-    this.props.setsession(`${this.state.dia}/${this.state.mes}`);
     await this.props.setNextSession( this.props.chosen.id, `${this.state.dia}/${this.state.mes}`);
   }
 
@@ -304,15 +302,14 @@ class AdventureScreen extends React.Component {
 const mapStateToProps = (state) => ({
   adventures: state.adventures.list,
   chosen: state.adventures.chosen,
-  nextSession: state.adventures.nextSession,
   players: state.adventures.players
 });
+
 const mapActionsToProps = {
   setEdit: setEdit,
   addPlayer: addPlayer,
   getPlayers: getPlayers,
-  setNextSession: setNextSession,
-  setsession: setsession
+  setNextSession: setNextSession
 };
 export default connect(mapStateToProps, mapActionsToProps)(AdventureScreen);
 
