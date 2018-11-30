@@ -1,9 +1,11 @@
-export const groupBy = function(xs, key) {
-  return xs.reduce(function(rv, x) {
-    (rv[x[key]] = rv[x[key]] || []).push(x);
-    return rv;
-  }, {});
-};
+export const groupBy = (xs, key) =>
+  (xs === []
+    ? {}
+    : xs.reduce(function(rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {})
+  );
 
 export const groupByType = actions =>
   Object.entries(groupBy(actions, "type"))
