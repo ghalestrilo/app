@@ -29,7 +29,7 @@ class Combat extends React.Component {
 
     if (forAll(heroes, x => x.status.fled === true))  this.finishCombat("flee");
     if (forAll(heroes, x => x.status.dead === true))  this.finishCombat("defeat");
-    if (forAll(enemies, x => x.status.dead === true)) this.finishCombat("victory");
+    if (forAll(enemies, x => (x.status.dead === true || x.status.flee === true))) this.finishCombat("victory");
   }
 
   openActionPicker = actions => this.setState({
@@ -38,12 +38,17 @@ class Combat extends React.Component {
     pickingAction: true
   })
 
-  pickAction = action => this.setState({
-    ...this.state,
-    action: action,
-    pickingAction: false,
-    pickingTarget: true
-  })
+  pickAction = action => {
+    this.setState({
+      ...this.state,
+      action: action,
+      pickingAction: false,
+      pickingTarget: true
+    });
+
+    if (action.target === "self")
+      this.pickTarget(this.props.playerID);
+  }
 
   pickTarget = target => {
     const event = {
@@ -82,11 +87,11 @@ class Combat extends React.Component {
       player={player}
       enemies={enemies}
       actions={actions}
-      
+
       action={this.state.action}
       showActionPicker={this.state.pickingAction}
       showTargetPicker={this.state.pickingTarget}
-      
+
 
       onActionGroup={action => this.openActionPicker(action)}
       onChooseAction={action => this.pickAction(action)}

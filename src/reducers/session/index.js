@@ -21,6 +21,7 @@ import {
   BEGIN_SESSION
 } from "../../actions/types";
 import { avatars } from "../../images";
+import { actionTypes } from "../../util/rules";
 
 const session = (state = initialState, action) => {
   switch(action.type){
@@ -95,7 +96,9 @@ const session = (state = initialState, action) => {
             .map(([ name, action ]) => ({
               ...action,
               avatar: avatars.actions[action.avatar],
-              name: name
+              name: name,
+              type: actionTypes[action.type] || action.type,
+              target: (action.type === actionTypes.flee ? "self" : "pick")
             }))
         })),
       availableEnemies: Object.values(action.payload.availableEnemies || [])

@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from "react-native";
 
-import { Button, Badge } from "react-native-elements";
+import { Button, Badge, Divider } from "react-native-elements";
 
 import * as Progress from "react-native-progress";
 import { colors } from "../../styles";
@@ -15,6 +15,7 @@ import style from "./style";
 import { IgorBackground } from "../Igor";
 import { Picker } from "../Picker";
 import { groupByType } from "../../util/groupBy";
+import { log } from "../../util/console";
 
 import Modal from "react-native-modal";
 
@@ -104,7 +105,7 @@ const CombatScreen = ({
           )
         }
       </ScrollView>
-
+      <Divider/>
       <View style={style.hud}>
         <ActorList title={"Heróis"} actors={heroes} keyname={"hero"}/>
         <PlayerHUD actor={player}/>
@@ -115,7 +116,7 @@ const CombatScreen = ({
     <View style={style.actionDrawer}>
       <Text style={style.playername}>Ações</Text>
       {
-        groupByType(player.actions|| [])
+        groupByType(log(player.actions) || [])
           .map((action, i) =>
             <CombatAction
               key={`action${i}`}
@@ -138,7 +139,7 @@ const CombatScreen = ({
           options={(player.hero
             ? (action.damage ? enemies : heroes)
             : (action.damage ? heroes : enemies))}
-          disable={target => target.status.dead || target.status.fled }
+          disableItem={target => target.status.dead || target.status.fled }
           reindexed
         />
         : null }

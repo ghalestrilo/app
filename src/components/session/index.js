@@ -98,6 +98,7 @@ const SessionScreen = ({
     <Modal isVisible={configuringCombat === true}>
       { (pickingEnemy === true)
         ? <Picker
+          style={style.combatEditor}
           title={"Adicionar Inimigo"}
           options={availableEnemies || []}
           pick={i => pickEnemy(i)}
