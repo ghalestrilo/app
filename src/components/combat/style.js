@@ -8,11 +8,18 @@ const style = StyleSheet.create({
     justifyContent: "space-between"
   },
 
+  picker: {
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: "lightgray"
+  },
+
 
   // --------------------------------- EVENT
 
   eventbox: {
-    padding: 8
+    padding: 8,
+    marginBottom: 0
   },
 
   event: {
@@ -54,7 +61,8 @@ const style = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "space-between",
 
-    marginTop: 16
+    marginTop: 16,
+    marginBottom: 80
   },
 
   actorlist: {

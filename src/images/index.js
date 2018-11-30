@@ -4,6 +4,7 @@ export const avatars = {
     crono: require("./temp/portraits/crono.png"),
     ayla: require("./temp/portraits/ayla.png"),
     lucca: require("./temp/portraits/lucca.png"),
+    robo: require("./temp/portraits/robo.png"),
     marle: require("./temp/portraits/marle.png")
   },
   // enemies
@@ -21,7 +22,8 @@ export const avatars = {
     firebolt: require("./spells/fire_bolt.jpg"),
     immolation: require("./spells/immolation.jpg"),
     icespear: require("./spells/ice_spear.jpg"),
-    frostbolt: require("./spells/frost_bolt.jpg")
+    frostbolt: require("./spells/frost_bolt.jpg"),
+    healing: require("./spells/healing.jpg")
   }
 };
 export const heroes = avatars.heroes;

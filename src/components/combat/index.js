@@ -13,8 +13,10 @@ import * as Progress from "react-native-progress";
 import { colors } from "../../styles";
 import style from "./style";
 import { IgorBackground } from "../Igor";
-import { PickerModal } from "../Picker";
+import { Picker } from "../Picker";
 import { groupByType } from "../../util/groupBy";
+
+import Modal from "react-native-modal";
 
 export const CombatEvent = ({ author, action, target }) =>
   <View style={style.event}>
@@ -85,8 +87,8 @@ export const PlayerHUD = ({ actor, onPress }) => (
 
 const CombatScreen = ({
   events, heroes, player, enemies, actions, // Data
-  showActionPicker, showTargetPicker, // Display
-  onActionGroup, onChooseAction, onChooseTarget, onFinishAction // Callbacks
+  action, showActionPicker, showTargetPicker, // Display
+  onActionGroup, onChooseAction, onChooseTarget // Callbacks
 }) => IgorBackground(
   <View style={style.screen}>
     <View style={{ flex: 1 }}>
@@ -127,21 +129,41 @@ const CombatScreen = ({
       }
     </View>
 
-    <PickerModal
-      title={"Alvo"}
-      pick={onChooseTarget}
-      visible={showTargetPicker}
-      options={player.hero ? enemies : heroes}
-      disable={target => target.status.dead || target.status.fled }
-      reindexed={true}
-    />
-    <PickerModal
-      title={"Ação"}
-      pick={onChooseAction}
-      visible={showActionPicker}
-      options={actions || []}
-      reindexed={true}
-    />
+    <Modal style={style.picker} visible={showTargetPicker || showActionPicker}>
+      { (showTargetPicker === true)
+        ? <Picker
+          title={"Alvo"}
+          pick={onChooseTarget}
+          visible={showTargetPicker}
+          options={(player.hero
+            ? (action.damage ? enemies : heroes)
+            : (action.damage ? heroes : enemies))}
+          disable={target => target.status.dead || target.status.fled }
+          reindexed
+        />
+        : null }
+
+      { (showActionPicker === true)
+        ? <Picker
+          reindexed
+          pickValue
+          title={"Ação"}
+          pick={onChooseAction}
+          visible={showActionPicker}
+          options={actions || []}
+          badgeLogic={action =>
+            ((action.damage || action.healing)
+              ? {
+                value: action.damage || action.healing,
+                containerStyle: (action.damage
+                  ? style.redText
+                  : (action.healing ? style.greenText : null))
+              }
+              : null
+            )}
+        />
+        : null }
+    </Modal>
   </View>);
 
 export default CombatScreen;

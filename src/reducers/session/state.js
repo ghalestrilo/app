@@ -1,4 +1,4 @@
-import { heroes as avatars } from "../../images";
+import { avatars } from "../../images";
 const ability = "habilidade";
 const spell = "magia";
 const attack = "ataque";
@@ -9,7 +9,7 @@ const item = "item";
 const state = {
   heroes: [
     {
-      avatar: avatars.crono,
+      avatar: avatars.heroes.crono,
       name: "Crono",
       hero: true,
       maxhp: 100,
@@ -31,7 +31,7 @@ const state = {
     },
 
     {
-      avatar: avatars.marle,
+      avatar: avatars.heroes.marle,
       name: "Marle",
       hero: true,
       maxhp: 60,
@@ -53,24 +53,24 @@ const state = {
           type: spell,
           name: "fireball",
           damage: 10,
-          avatar: avatars.fireball
+          avatar: avatars.spells.fireball
         },
         {
           type: spell,
           name: "firebolt",
           damage: 20,
-          avatar: avatars.firebolt
+          avatar: avatars.spells.firebolt
         },
         {
           type: spell,
           name: "immolation",
           damage: 5,
-          avatar: avatars.immolation
+          avatar: avatars.spells.immolation
         }
       ]
     },
     {
-      avatar: avatars.lucca,
+      avatar: avatars.heroes.lucca,
       name: "Lucca",
       hero: true,
       maxhp: 80,
@@ -92,7 +92,7 @@ const state = {
           type: spell,
           name: "ice spear",
           damage: 20,
-          avatar: avatars.icespear,
+          avatar: avatars.spells.icespear,
           effects: [
             {
               type: "freeze",
@@ -105,7 +105,7 @@ const state = {
           type: spell,
           name: "frost bolt",
           damage: 5,
-          avatar: avatars.frostbolt
+          avatar: avatars.spells.frostbolt
         }
       ]
     }
@@ -113,7 +113,7 @@ const state = {
 
   availableEnemies: [
     {
-      avatar: avatars.robo,
+      avatar: avatars.enemies.robo,
       name: "Robo",
       hero: false,
       maxhp: 100,
@@ -134,7 +134,7 @@ const state = {
       ]
     },
     {
-      avatar: avatars.javali,
+      avatar: avatars.enemies.javali,
       name: "Javali",
       hero: false,
       maxhp: 50,
@@ -155,7 +155,7 @@ const state = {
       ]
     },
     {
-      avatar: avatars.tigre,
+      avatar: avatars.enemies.tigre,
       name: "Tigre",
       hero: false,
       maxhp: 70,
@@ -176,7 +176,7 @@ const state = {
       ]
     },
     {
-      avatar: avatars.urso,
+      avatar: avatars.enemies.urso,
       name: "Urso",
       hero: false,
       maxhp: 200,
@@ -197,7 +197,7 @@ const state = {
       ]
     },
     {
-      avatar: avatars.ogro,
+      avatar: avatars.enemies.ogro,
       name: "Ogro",
       hero: false,
       maxhp: 1000,
@@ -218,7 +218,7 @@ const state = {
       ]
     },
     {
-      avatar: avatars.troll,
+      avatar: avatars.enemies.troll,
       name: "Troll",
       hero: false,
       maxhp: 150,

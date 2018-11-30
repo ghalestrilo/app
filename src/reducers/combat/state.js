@@ -34,7 +34,7 @@ const initialState = {
     },
 
     {
-      avatar: avatars.robo,
+      avatar: avatars.heroes.robo,
       name: "Robo",
       hero: false,
       maxhp: 100,
@@ -56,7 +56,7 @@ const initialState = {
     },
 
     {
-      avatar: avatars.marle,
+      avatar: avatars.heroes.marle,
       name: "Marle",
       hero: true,
       maxhp: 60,
@@ -78,24 +78,24 @@ const initialState = {
           type: spell,
           name: "fireball",
           damage: 10,
-          avatar: avatars.fireball
+          avatar: avatars.spells.fireball
         },
         {
           type: spell,
           name: "firebolt",
           damage: 20,
-          avatar: avatars.firebolt
+          avatar: avatars.spells.firebolt
         },
         {
           type: spell,
           name: "immolation",
           damage: 5,
-          avatar: avatars.immolation
+          avatar: avatars.spells.immolation
         }
       ]
     },
     {
-      avatar: avatars.lucca,
+      avatar: avatars.heroes.lucca,
       name: "Lucca",
       hero: true,
       maxhp: 80,
@@ -117,7 +117,7 @@ const initialState = {
           type: spell,
           name: "ice spear",
           damage: 20,
-          avatar: avatars.icespear,
+          avatar: avatars.spells.icespear,
           effects: [
             {
               type: "freeze",
@@ -130,7 +130,13 @@ const initialState = {
           type: spell,
           name: "frost bolt",
           damage: 5,
-          avatar: avatars.frostbolt
+          avatar: avatars.spells.frostbolt
+        },
+        {
+          type: spell,
+          name: "healing touch",
+          healing: 20,
+          avatar: avatars.spells.healing
         }
       ]
     }

@@ -11,7 +11,7 @@ import {
 } from "react-native-elements";
 import Modal from "react-native-modal";
 import { colors } from "../styles";
-
+import { log } from "../util/console";
 
 const style = StyleSheet.create({
   picker: {
@@ -29,8 +29,8 @@ const style = StyleSheet.create({
 
 export const PickerModal = ({
   visible, options, pick, title,
-  disableItem, reindexed,
-  badge
+  disableItem, badgeLogic,
+  reindexed, pickValue
 }) =>
   <Modal style={style.picker} isVisible={visible}>
     <Picker
@@ -38,14 +38,16 @@ export const PickerModal = ({
       pick={pick}
       title={title}
       reindexed={reindexed}
+      pickValue={pickValue}
       disableItem={disableItem}
-      badge={badge}
+      badgeLogic={badgeLogic || (() => null)}
     />
   </Modal>;
 
 export const Picker = ({
   options, pick, title,
-  disableItem, reindexed, badge
+  disableItem, badgeLogic,
+  reindexed, pickValue
 }) =>
   <View style={style.picker} style={{ flex: 1 }}>
     <Text style={style.pickerTitle}>{title}</Text>
@@ -56,8 +58,12 @@ export const Picker = ({
             key={`${option.name}_${index}`}
             title={option.name}
             disabled={disableItem && disableItem(option)}
-            onPress={() => pick(reindexed === true ? option.index : index)}
-            badge={badge}
+            onPress={() =>
+              (pickValue === true
+                ? pick(option)
+                : pick(reindexed === true ? option.index : index))
+            }
+            badge={badgeLogic ? badgeLogic(option) : {}}
             avatar={option.avatar}
           />
         )
