@@ -9,6 +9,7 @@ import {
 
 import CombatScreen from "../../../components/combat";
 import forAll from "../../../util/forAll";
+import { log } from "../../../util/console";
 
 const initialState = {
   pickingAction: false,
@@ -65,12 +66,6 @@ class Combat extends React.Component {
   }))
 
   finishCombat = result => {
-    // this.setState({
-    //   ...this.state,
-    //   pickingAction: false,
-    //   pickingTarget: false
-    // });
-
     this.props.dispatch(finishCombat(result));
     this.props.navigation.navigate("Session");
   }
@@ -90,9 +85,11 @@ class Combat extends React.Component {
       player={player}
       enemies={enemies}
       actions={actions}
-
+      
+      action={this.state.action}
       showActionPicker={this.state.pickingAction}
       showTargetPicker={this.state.pickingTarget}
+      
 
       onActionGroup={action => this.openActionPicker(action)}
       onChooseAction={action => this.pickAction(action)}
