@@ -8,7 +8,9 @@ import {
 import {
   ListItem,
   Button,
-  List
+  List,
+  Avatar,
+  Divider
 } from "react-native-elements";
 
 import Icon from "react-native-vector-icons/Entypo";
@@ -17,6 +19,7 @@ import Modal from "react-native-modal";
 import { Picker } from "../Picker";
 import { IgorBackground } from "../Igor";
 import style from "./style";
+import forAll from "../../util/forAll";
 
 const CombatEditor = ({
   heroes,
@@ -68,7 +71,11 @@ const CombatEditor = ({
       </List>
     </ScrollView>
     <View style={style.combatEditorStartButton}>
-      <Button title="INICIAR!" onPress={beginCombat}/>
+      <Button
+        title="INICIAR!"
+        onPress={beginCombat}
+        disabled={ forAll(heroes, x => x.picked === false) || enemies.length === 0 }
+      />
     </View>
   </View>;
 
@@ -117,19 +124,34 @@ const SessionScreen = ({
 
     <View style={{ flex: 1 }}>
       <Text style={style.screenHeader}> Histórico </Text>
-      <List>
+      <View style={style.eventbox}>
         { history.map((event, i) =>
-          <ListItem
-            key={`heroes_${i}`}
-            title={event.type}
-          />)
-
+          <View style={style.event} key={`heroes_${i}`}>
+            { (event.type === "combat")
+              ? <View style={{ flex: 1 }}>
+                <Text>Combate</Text>
+                <Divider/>
+                <View style={{ margin: 20, padding: 20, flex: 1, justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+                  { event.enemies.map((enemy, j) =>
+                    <Avatar
+                      key={`avatar-${i}-${j}`}
+                      medium
+                      rounded
+                      source={enemy.avatar}
+                      onPress={() => this.handleFormChange("crono", "avatar")}
+                      activeOpacity={0.7}/>)
+                  }
+                </View>
+              </View>
+              : null
+            }
+          </View>)
         }
-      </List>
+      </View>
     </View>
 
     <View style={style.actionDrawer}>
-      <Text style={style.combatEditorHeaderText}>Ações</Text>
+      <Text style={style.combatEditorHeaderText}>Eventos</Text>
       <Button title="COMBATE" onPress={configureCombat}/>
     </View>
   </View>

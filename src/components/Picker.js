@@ -27,17 +27,26 @@ const style = StyleSheet.create({
   }
 });
 
-export const PickerModal = ({ visible, options, pick, title, reindexed }) =>
+export const PickerModal = ({
+  visible, options, pick, title,
+  disableItem, reindexed,
+  badge
+}) =>
   <Modal style={style.picker} isVisible={visible}>
     <Picker
       options={options}
       pick={pick}
       title={title}
       reindexed={reindexed}
+      disableItem={disableItem}
+      badge={badge}
     />
   </Modal>;
 
-export const Picker = ({ options, pick, title, reindexed }) =>
+export const Picker = ({
+  options, pick, title,
+  disableItem, reindexed, badge
+}) =>
   <View style={style.picker} style={{ flex: 1 }}>
     <Text style={style.pickerTitle}>{title}</Text>
     <List>
@@ -46,7 +55,9 @@ export const Picker = ({ options, pick, title, reindexed }) =>
           <ListItem
             key={`${option.name}_${index}`}
             title={option.name}
+            disabled={disableItem && disableItem(option)}
             onPress={() => pick(reindexed === true ? option.index : index)}
+            badge={badge}
             avatar={option.avatar}
           />
         )

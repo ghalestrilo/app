@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from "react-native";
 
-import { Button } from "react-native-elements";
+import { Button, Badge } from "react-native-elements";
 
 import * as Progress from "react-native-progress";
 import { colors } from "../../styles";
@@ -20,8 +20,8 @@ export const CombatEvent = ({ author, action, target }) =>
   <View style={style.event}>
     <Image style={style.circle} source={author.avatar}/>
     <Text style={style.eventAction}> {action.type} </Text>
-    {action.damage ? <Text style={[ style.eventAction, style.redText ]}> {action.damage} </Text> : null}
-    {action.healing ? <Text style={[ style.eventAction, style.greenText ]}> {action.healing} </Text> : null}
+    {action.damage ? <Badge style={style.eventAction} containerStyle={style.redText} value={action.damage}/> : null}
+    {action.healing ? <Badge style={style.eventAction} containerStyle={style.greenText} value={action.healing}/> : null}
     <Image style={style.circle} source={target.avatar}/>
   </View>;
 
@@ -132,6 +132,8 @@ const CombatScreen = ({
       pick={onChooseTarget}
       visible={showTargetPicker}
       options={player.hero ? enemies : heroes}
+      disable={target => target.status.dead || target.status.fled }
+      reindexed={true}
     />
     <PickerModal
       title={"Ação"}

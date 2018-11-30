@@ -6,7 +6,9 @@ import {
   finishCombat
 } from "../../../actions/combat";
 
+
 import CombatScreen from "../../../components/combat";
+import forAll from "../../../util/forAll";
 
 const initialState = {
   pickingAction: false,
@@ -16,8 +18,21 @@ const initialState = {
   target: null
 };
 
+
+
 class Combat extends React.Component {
   state = initialState;
+
+  componentWillUpdate = nextProps => {
+    if (!nextProps.ongoing) return;
+    const actors = nextProps.actors.map((a, i) => ({ ...a, index: i }));
+    const enemies = actors.filter(x => x.hero === false);
+    const heroes = actors.filter(x => x.hero === true);
+
+    if (forAll(heroes, x => x.status.fled === true))  this.finishCombat("flee");
+    if (forAll(heroes, x => x.status.dead === true))  this.finishCombat("defeat");
+    if (forAll(enemies, x => x.status.dead === true)) this.finishCombat("victory");
+  }
 
   openActionPicker = actions => this.setState({
     ...this.state,
@@ -49,23 +64,25 @@ class Combat extends React.Component {
     author: this.props.playerID
   }))
 
+  finishCombat = result => {
+    // this.setState({
+    //   ...this.state,
+    //   pickingAction: false,
+    //   pickingTarget: false
+    // });
+
+    this.props.dispatch(finishCombat(result));
+    this.props.navigation.navigate("Session");
+  }
+
   render = () => {
 
-    const { player, events, dispatch } = this.props;
+    const { player, events } = this.props;
     const actions = this.state.actions;
 
     const actors = this.props.actors.map((a, i) => ({ ...a, index: i }));
     const enemies = actors.filter(x => x.hero === false);
     const heroes = actors.filter(x => x.hero === true);
-
-    if (heroes.map(x => x.status.fled === true).reduce((a, b) => a && b))
-      dispatch(finishCombat("flee"));
-
-    if (enemies.filter(x => x.status.dead === false) === undefined)
-      dispatch(finishCombat("victory"));
-
-    if (heroes.filter(x => x.status.dead === false) === undefined)
-      dispatch(finishCombat("defeat"));
 
     return <CombatScreen
       events={events}
@@ -95,6 +112,7 @@ const mapStateToProps = ({ combat }) => ({
         target: combat.actors[event.target]
       })),
 
+  ongoing: combat.ongoing,
   actors: combat.actors.map((a, index) => ({ ...a, index: index })),
   player: combat.actors[combat.player],
   playerID: combat.player
