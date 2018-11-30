@@ -21,6 +21,19 @@ import {
   BEGIN_SESSION
 } from "../../actions/types";
 import { avatars } from "../../images";
+import { actionTypes } from "../../util/rules";
+
+const prepActor = actor => ({
+  ...actor,
+  actions: Object.entries(actor.actions)
+    .map(([ name, action ]) => ({
+      ...action,
+      avatar: avatars.actions[action.avatar],
+      name: name,
+      type: actionTypes[action.type] || action.type,
+      target: (action.type === actionTypes.flee ? "self" : "pick")
+    }))
+});
 
 const session = (state = initialState, action) => {
   switch(action.type){
@@ -86,30 +99,20 @@ const session = (state = initialState, action) => {
   case BEGIN_SESSION:
     return {
       ...state,
-      heroes: Object.values(action.payload.heroes || {})
-        .map(hero => ({
-          ...hero,
-          avatar: avatars.heroes[hero.avatar],
-          picked: true,
-          actions: Object.entries(hero.actions)
-            .map(([ name, action ]) => ({
-              ...action,
-              avatar: avatars.actions[action.avatar],
-              name: name
-            }))
-        })),
+      availableEnemies: Object.values(action.payload.availableEnemies || {}).map(x => prepActor(x)),
       enemies: Object.values(action.payload.enemies || {})
+        .map(x => prepActor(x))
         .map(enemy => ({
           ...enemy,
           avatar: avatars.enemies[enemy.avatar],
-          actions: Object.entries(enemy.actions)
-            .map(([ name, action ]) => ({
-              ...action,
-              avatar: avatars.actions[action.avatar],
-              name: name
-            }))
+          picked: true
         })),
-      availableEnemies: Object.values(action.payload.availableEnemies || {})
+      heroes: Object.values(action.payload.heroes || {})
+        .map(x => prepActor(x))
+        .map(hero => ({
+          ...hero,
+          avatar: avatars.heroes[hero.avatar]
+        }))
     };
 
   case FINISH_COMBAT:

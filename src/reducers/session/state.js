@@ -1,9 +1,7 @@
 import { avatars } from "../../images";
-const ability = "habilidade";
-const spell = "magia";
-const attack = "ataque";
-const flee = "fugir";
-const item = "item";
+import { actionTypes } from "../../util/rules";
+const { ability, spell, attack, flee, item } = actionTypes;
+
 
 
 const state = {
