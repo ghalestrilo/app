@@ -78,19 +78,19 @@ const initialState = {
           type: spell,
           name: "fireball",
           damage: 10,
-          avatar: avatars.spells.fireball
+          avatar: avatars.actions.fireball
         },
         {
           type: spell,
           name: "firebolt",
           damage: 20,
-          avatar: avatars.spells.firebolt
+          avatar: avatars.actions.firebolt
         },
         {
           type: spell,
           name: "immolation",
           damage: 5,
-          avatar: avatars.spells.immolation
+          avatar: avatars.actions.immolation
         }
       ]
     },
@@ -117,7 +117,7 @@ const initialState = {
           type: spell,
           name: "ice spear",
           damage: 20,
-          avatar: avatars.spells.icespear,
+          avatar: avatars.actions.icespear,
           effects: [
             {
               type: "freeze",
@@ -130,13 +130,13 @@ const initialState = {
           type: spell,
           name: "frost bolt",
           damage: 5,
-          avatar: avatars.spells.frostbolt
+          avatar: avatars.actions.frostbolt
         },
         {
           type: spell,
           name: "healing touch",
           healing: 20,
-          avatar: avatars.spells.healing
+          avatar: avatars.actions.healing
         }
       ]
     }

@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  View,
   Text,
   ScrollView,
   StyleSheet
@@ -11,7 +10,6 @@ import {
 } from "react-native-elements";
 import Modal from "react-native-modal";
 import { colors } from "../styles";
-import { log } from "../util/console";
 
 const style = StyleSheet.create({
   picker: {
@@ -49,7 +47,7 @@ export const Picker = ({
   disableItem, badgeLogic,
   reindexed, pickValue
 }) =>
-  <View style={style.picker} style={{ flex: 1 }}>
+  <ScrollView style={style.picker} style={{ flex: 1 }}>
     <Text style={style.pickerTitle}>{title}</Text>
     <List>
       {
@@ -70,4 +68,4 @@ export const Picker = ({
         )
       }
     </List>
-  </View>;
+  </ScrollView>;
