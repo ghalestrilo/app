@@ -1,22 +1,10 @@
+import avatars from "../../images";
 const ability = "habilidade";
 const spell = "magia";
 const attack = "ataque";
 const flee = "fugir";
 const item = "item";
 
-const avatars = {
-  crono: require("../../images/temp/portraits/crono.png"),
-  ayla: require("../../images/temp/portraits/ayla.png"),
-  lucca: require("../../images/temp/portraits/lucca.png"),
-  marle: require("../../images/temp/portraits/marle.png"),
-  robo: require("../../images/temp/portraits/robo.png"),
-
-  fireball: require("../../images/spells/fire_ball.jpg"),
-  firebolt: require("../../images/spells/fire_bolt.jpg"),
-  immolation: require("../../images/spells/immolation.jpg"),
-  icespear: require("../../images/spells/ice_spear.jpg"),
-  frostbolt: require("../../images/spells/frost_bolt.jpg")
-};
 
 const state = {
   heroes: [
@@ -142,6 +130,111 @@ const state = {
           type: attack,
           mod: 3,
           damage: 15
+        }
+      ]
+    },
+    {
+      avatar: avatars.javali,
+      name: "Javali",
+      hero: false,
+      maxhp: 50,
+      status: {
+        hp: 50,
+        effects: []
+      },
+      actions: [
+        {
+          type: flee,
+          mod: 0
+        },
+        {
+          type: attack,
+          mod: 3,
+          damage: 6
+        }
+      ]
+    },
+    {
+      avatar: avatars.tigre,
+      name: "Tigre",
+      hero: false,
+      maxhp: 70,
+      status: {
+        hp: 70,
+        effects: []
+      },
+      actions: [
+        {
+          type: flee,
+          mod: 0
+        },
+        {
+          type: attack,
+          mod: 3,
+          damage: 20
+        }
+      ]
+    },
+    {
+      avatar: avatars.urso,
+      name: "Robo",
+      hero: false,
+      maxhp: 200,
+      status: {
+        hp: 200,
+        effects: []
+      },
+      actions: [
+        {
+          type: flee,
+          mod: 0
+        },
+        {
+          type: attack,
+          mod: 3,
+          damage: 15
+        }
+      ]
+    },
+    {
+      avatar: avatars.ogro,
+      name: "Robo",
+      hero: false,
+      maxhp: 1000,
+      status: {
+        hp: 1000,
+        effects: []
+      },
+      actions: [
+        {
+          type: flee,
+          mod: 0
+        },
+        {
+          type: attack,
+          mod: 3,
+          damage: 20
+        }
+      ]
+    },
+    {
+      avatar: avatars.troll,
+      name: "Troll",
+      hero: false,
+      maxhp: 150,
+      status: {
+        hp: 150,
+        effects: []
+      },
+      actions: [
+        {
+          type: flee,
+          mod: 0
+        },
+        {
+          type: attack,
+          mod: 3,
+          damage: 30
         }
       ]
     }
