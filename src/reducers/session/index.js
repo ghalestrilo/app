@@ -86,7 +86,7 @@ const session = (state = initialState, action) => {
   case BEGIN_SESSION:
     return {
       ...state,
-      heroes: Object.values(action.payload.heroes)
+      heroes: Object.values(action.payload.heroes || {})
         .map(hero => ({
           ...hero,
           avatar: avatars.heroes[hero.avatar],
@@ -98,7 +98,7 @@ const session = (state = initialState, action) => {
               name: name
             }))
         })),
-      availableEnemies: Object.values(action.payload.availableEnemies || [])
+      availableEnemies: Object.values(action.payload.availableEnemies || {})
     };
 
   case FINISH_COMBAT:
