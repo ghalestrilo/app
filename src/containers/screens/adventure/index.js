@@ -24,7 +24,7 @@ import styles from "./styles";
 import Colors from "../../../styles/colors";
 import { Avatar, FormLabel, Button, Slider, List, ListItem } from "react-native-elements";
 import { addPlayer, getPlayers, setNextSession } from "../../../actions/adventure";
-import { heroes } from "../../../images";
+import { heroes, avatars } from "../../../images";
 
 
 const newsessionimage = require("../../../images/buttons/add-session.png");
@@ -74,13 +74,13 @@ class AdventureScreen extends React.Component {
   }
 
   async newPlayer() {
-    const player = {
+    const heroe = {
       name: this.state.name,
       avatar: this.state.avatar,
       class: this.state.class,
       maxhp: this.state.maxhp
     };
-    await this.props.addPlayer(this.props.chosen.id, player);
+    await this.props.addPlayer(this.props.chosen.id, heroe);
   }
   render(){
     const { chosen } = this.props;
@@ -147,7 +147,9 @@ class AdventureScreen extends React.Component {
                     <View style = {{ width: "100%", height: 2, backgroundColor: "rgb(200,200,200)" }}/>
                     <View style = {{ flex: 1 }}>
                       <View style= {{ flex: 1, marginTop: "5%", marginLeft: "5%" }}>
-                        <Text>{chosen.nextSession}</Text>
+                        <ListItem
+                          title={chosen.nextSession}
+                          onPress={() => {}}/>
                       </View>
                     </View>
                   </View>
@@ -273,13 +275,13 @@ class AdventureScreen extends React.Component {
               </View>
               <View style = {styles.inputbackground}>
                 <List containerStyle={{ marginBottom: 20 }}>
-                  {Object.keys(this.props.players).map(index => (
+                  { Object.entries(this.props.heroes || {}).map(([ name, hero ]) => (
                     <ListItem
                       roundAvatar
-                      avatar={heroes[this.props.players[index].avatar]}
+                      avatar={avatars.heroes[hero.avatar]}
                       hideChevron
-                      key={index}
-                      title={index}
+                      title={name}
+                      subtitle={hero.class}
                     />
                   ))}
                 </List>
@@ -302,7 +304,7 @@ class AdventureScreen extends React.Component {
 const mapStateToProps = (state) => ({
   adventures: state.adventures.list,
   chosen: state.adventures.chosen,
-  players: state.adventures.players
+  heroes: state.adventures.heroes
 });
 
 const mapActionsToProps = {

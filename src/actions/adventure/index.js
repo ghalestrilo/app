@@ -71,7 +71,7 @@ export const setNextSession = (id, nextSession) => dispatch => (
 );
 
 export const addPlayer = (adventureID, newPlayer) => dispatch => (
-  API.ref(`/adventures/${adventureID}/players/${newPlayer.name}`).set(newPlayer).then(() => {
+  API.ref(`/adventures/${adventureID}/heroes/${newPlayer.name}`).set(newPlayer).then(() => {
     getPlayers(adventureID);
   }).catch(err => {
     dispatch({
@@ -85,7 +85,7 @@ export const getPlayers = adventureID => dispatch => {
   dispatch({
     type: REQUEST_GET_PLAYERS
   });
-  return API.ref(`/adventures/${adventureID}/players`).on("value", snapshot => {
+  return API.ref(`/adventures/${adventureID}/heroes`).on("value", snapshot => {
     dispatch({
       type: RECEIVE_GET_PLAYERS,
       payload: snapshot.val()

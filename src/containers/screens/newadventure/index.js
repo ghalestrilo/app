@@ -75,6 +75,7 @@ class NewAdventureScreen extends React.Component {
           title: this.state.adventure,
           image: this.state.switch,
           nextSession: ["ainda nao marcada"],
+          heroes: {},
           brief: this.state.brief,
           progress: 0
         });
