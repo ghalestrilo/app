@@ -12,10 +12,12 @@ import Modal from "react-native-modal";
 import {
   TabBarNavigation,
   IgorBackground,
-  Fab
+  Fab,
+  MainMenuButton
 } from "../../../components/Igor";
 import { setEdit } from "../../../reducers/adv/index";
 import styles from "./styles";
+import { setNextSession } from "../../../actions/adventure";
 
 const newsessionimage = require("../../../images/buttons/add-session.png");
 const newplayerimage = require("../../../images/buttons/add-player.png");
@@ -25,7 +27,8 @@ class AdventureScreen extends React.Component {
     this.state = {
       andamento: true,
       createSession: false,
-      text: ""
+      dia: "00",
+      mes: "00"
     };
   }
   handleFormChange(value, key) {
@@ -35,6 +38,17 @@ class AdventureScreen extends React.Component {
   }
   edit(){
     this.props.navigation.navigate("EditAdv");
+  }
+  dia(dia){
+    this.setState({ dia });
+  }
+  mes(mes){
+    this.setState({ mes });
+  }
+  createsession(){
+    console.log(`${this.state.dia}/${this.state.mes}`);
+    this.setState({ createSession: false });
+    // await this.props.setNextSession( this.props.chosen.id, `${this.state.dia}/${this.state.mes}`);
   }
   render(){
     const { chosen } = this.props;
@@ -49,11 +63,26 @@ class AdventureScreen extends React.Component {
                 <Text style = {styles.textsession}>
                   Insira a data da Proxima Sessao:
                 </Text>
-                <TextInput
-                  onChangeText={(text) => this.setState({ text })}
-                  value={this.state.text}
-                  maxLength = {5}
-                  keyboardType = {"numeric"}
+                <View style = {{ flexDirection: "row", justifyContent: "center" }}>
+                  <TextInput
+                    style = {styles.textinput}
+                    onChangeText={(dia) => { this.dia(dia) ; }}
+                    value={this.state.dia}
+                    maxLength = {2}
+                    keyboardType = {"numeric"}
+                  />
+                  <Text>/</Text>
+                  <TextInput
+                    style = {styles.textinput}
+                    onChangeText={(mes) => { this.mes(mes) ; }}
+                    value={this.state.mes}
+                    maxLength = {2}
+                    keyboardType = {"numeric"}
+                  />
+                </View>
+                <MainMenuButton
+                  onPress={() => { this.createsession(); }}
+                  title = "CRIAR"
                 />
               </View>
             </Modal>
@@ -85,11 +114,9 @@ class AdventureScreen extends React.Component {
                     </View>
                     <View style = {{ width: "100%", height: 2, backgroundColor: "rgb(200,200,200)" }}/>
                     <View style = {{ flex: 1 }}>
-                      <ScrollView style= {{ flex: 1, marginTop: "5%", marginLeft: "5%" }}>
-                        {chosen.nextSession.map((session, i) =>
-                          <Text key = {i}>{session}</Text>)
-                        }
-                      </ScrollView>
+                      <View style= {{ flex: 1, marginTop: "5%", marginLeft: "5%" }}>
+                        <Text>{chosen.nextSession}</Text>
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -144,4 +171,7 @@ const mapStateToProps = (state) => ({
   chosen: state.adventures.chosen
 });
 
-export default connect(mapStateToProps, { setEdit: setEdit })(AdventureScreen);
+export default connect(mapStateToProps, {
+  setEdit: setEdit,
+  setNextSession: setNextSession
+})(AdventureScreen);

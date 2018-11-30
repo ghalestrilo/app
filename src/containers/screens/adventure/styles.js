@@ -37,7 +37,11 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   textsession: {
-    fontSize: fonts.biggest
+    fontSize: fonts.bigger
+  },
+  textinput: {
+    height: 40,
+    alignSelf: "center"
   }
 
 });
