@@ -1,5 +1,6 @@
 import {
   CONFIGURE_COMBAT,
+  BEGIN_COMBAT,
   TOGGLE_HERO,
   CANCEL,
 
@@ -13,11 +14,6 @@ import {
 export const newEvent = event => ({
   type: NEW_EVENT,
   payload: event
-});
-
-export const configureCombat = heroes => ({
-  type: CONFIGURE_COMBAT,
-  payload: { heroes }
 });
 
 export const addEnemy = () => ({
@@ -38,4 +34,14 @@ export const pickEnemy = i => ({
 export const removeEnemy = i => ({
   type: REMOVE_ENEMY,
   payload: i
+});
+
+export const configureCombat = heroes => ({
+  type: CONFIGURE_COMBAT,
+  payload: { heroes }
+});
+
+export const beginCombat = combat => ({
+  type: BEGIN_COMBAT,
+  payload: combat
 });

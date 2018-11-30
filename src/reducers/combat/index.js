@@ -1,7 +1,8 @@
 import initialState from "./state.js";
 import {
   NEW_EVENT,
-  FINISH_COMBAT
+  FINISH_COMBAT,
+  BEGIN_COMBAT
 
 } from "../../actions/types";
 
@@ -44,8 +45,35 @@ const nextplayer = (player, actors) =>
       ? nextplayer(0, actors)
       : 0));
 
+// const shuffle = array =>
+//   array.reduce((newArray, element) =>
+//     (newArray.find(element)
+//       ? newArray
+//       : ))
+
+
+const shuffle = array =>
+  array.sort(() => (Math.random() % 2 === 0));
+
+const buildCombatFromEvent = event => ({
+  actors: shuffle([
+    ...event.enemies,
+    ...event.heroes.filter(hero => hero.picked)
+  ]),
+  events: [],
+  ongoing: true,
+  player: 0,
+  result: null
+});
+
 const combat = (state = initialState, action) => {
+  console.log(initialState);
+
   switch(action.type){
+
+  case BEGIN_COMBAT:
+    console.log("state: ", buildCombatFromEvent(action.payload));
+    return buildCombatFromEvent(action.payload);
 
   case NEW_EVENT:
     return {
