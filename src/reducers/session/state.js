@@ -192,7 +192,7 @@ const state = {
         {
           type: attack,
           mod: 3,
-          damage: 15
+          damage: 10
         }
       ]
     },
@@ -213,7 +213,7 @@ const state = {
         {
           type: attack,
           mod: 3,
-          damage: 20
+          damage: 15
         }
       ]
     },

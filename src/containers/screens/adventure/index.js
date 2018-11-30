@@ -23,7 +23,7 @@ import { setEdit } from "../../../reducers/adv/index";
 import styles from "./styles";
 import Colors from "../../../styles/colors";
 import { Avatar, FormLabel, Button, Slider, List, ListItem } from "react-native-elements";
-import { addPlayer, getPlayers, setNextSession } from "../../../actions/adventure";
+import { addPlayer, getPlayers, setNextSession, beginSession } from "../../../actions/adventure";
 import { heroes, avatars } from "../../../images";
 
 
@@ -40,7 +40,7 @@ class AdventureScreen extends React.Component {
       modalVisible: false,
       name: "",
       avatar: "crono",
-      class: "",
+      class: "Mago",
       maxhp: 200
     };
   }
@@ -71,6 +71,11 @@ class AdventureScreen extends React.Component {
 
   async componentDidMount() {
     await this.props.getPlayers(this.props.chosen.id);
+  }
+
+  startSession = () => {
+    this.props.beginSession(this.props.chosen);
+    this.props.navigation.navigate("Session");
   }
 
   async newPlayer() {
@@ -149,7 +154,7 @@ class AdventureScreen extends React.Component {
                       <View style= {{ flex: 1, marginTop: "5%", marginLeft: "5%" }}>
                         <ListItem
                           title={chosen.nextSession}
-                          onPress={() => {}}/>
+                          onPress={() => this.startSession()}/>
                       </View>
                     </View>
                   </View>
@@ -311,7 +316,8 @@ const mapActionsToProps = {
   setEdit: setEdit,
   addPlayer: addPlayer,
   getPlayers: getPlayers,
-  setNextSession: setNextSession
+  setNextSession: setNextSession,
+  beginSession: beginSession
 };
 export default connect(mapStateToProps, mapActionsToProps)(AdventureScreen);
 

@@ -1,5 +1,3 @@
-import state from "./state"; // remove
-
 const initialState = {
   configuringCombat: false,
   pickingEnemy: false,
@@ -8,11 +6,7 @@ const initialState = {
   newevent: false,
 
   enemies: [],
-  history: [],
-
-  // These belong to the adventure reducer. Please remove once properly integrated
-  heroes: state.heroes,
-  availableEnemies: state.availableEnemies
+  history: []
 };
 
 import {
@@ -23,8 +17,10 @@ import {
   PICK_ENEMY,
   REMOVE_ENEMY,
   BEGIN_COMBAT,
-  CLEAR_NEWS
+  CLEAR_NEWS,
+  BEGIN_SESSION
 } from "../../actions/types";
+import { avatars } from "../../images";
 
 const session = (state = initialState, action) => {
   switch(action.type){
@@ -85,6 +81,17 @@ const session = (state = initialState, action) => {
       ...state,
       configuringCombat: false,
       pickingEnemy: false
+    };
+
+  case BEGIN_SESSION:
+    return {
+      ...state,
+      heroes: Object.values(action.payload.heroes)
+        .map(hero => ({
+          ...hero,
+          avatar: avatars.heroes[hero.avatar]
+        })),
+      availableEnemies: Object.values(action.payload.availableEnemies)
     };
 
   case FINISH_COMBAT:

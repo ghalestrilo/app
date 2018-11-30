@@ -19,6 +19,7 @@ import {
 import styles from "./styles";
 import { delAdventure, unsetEditMode } from "../../../reducers/adv/index";
 import { addAdventure, updateAdventure } from "../../../actions/adventure";
+import characters from "../../../reducers/session/state";
 
 const corvali = {
   source: require("../../../images/adventures/miniatura_corvali.png"),
@@ -74,10 +75,11 @@ class NewAdventureScreen extends React.Component {
         await this.props.addAdventure({
           title: this.state.adventure,
           image: this.state.switch,
-          nextSession: ["ainda nao marcada"],
+          nextSession: "ainda nao marcada",
           heroes: {},
           brief: this.state.brief,
-          progress: 0
+          progress: 0,
+          availableEnemies: characters.availableEnemies
         });
       }else{
         this.props.delAdventure(chosen);
@@ -99,7 +101,7 @@ class NewAdventureScreen extends React.Component {
         await this.props.updateAdventure({
           title: this.state.adventure,
           image: this.state.switch,
-          nextSession: ["ainda nao marcada"],
+          nextSession: chosen.nextSession,
           brief: this.state.brief,
           progress: chosen.progress
         });
@@ -123,6 +125,7 @@ class NewAdventureScreen extends React.Component {
     this.state.switch = this.props.isEditMode ? this.props.chosen.image : this.state.switch;
   }
   render(){
+    console.log(characters.availableEnemies);
     const { chosen, isEditMode } = this.props;
     return(
       IgorBackground(
