@@ -163,7 +163,7 @@ export const Adventure = ({ props }) => {
         classname="adventure">
         <Text>{props.title}</Text>
 
-        <Text>{"Próxima Sessão: " + props.nextSession[0]}</Text>
+        <Text>{"Próxima Sessão: " + props.nextSession}</Text>
 
         <Text>{"Progresso: " + props.progress}</Text>
       </ImageBackground>

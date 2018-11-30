@@ -18,6 +18,7 @@ import {
 import { setEdit } from "../../../reducers/adv/index";
 import styles from "./styles";
 import { setNextSession } from "../../../actions/adventure";
+import { setsession } from "../../../reducers/adv/index";
 
 const newsessionimage = require("../../../images/buttons/add-session.png");
 const newplayerimage = require("../../../images/buttons/add-player.png");
@@ -46,12 +47,13 @@ class AdventureScreen extends React.Component {
     this.setState({ mes });
   }
   async createsession(){
-    console.log(`${this.state.dia}/${this.state.mes}`);
     this.setState({ createSession: false });
+    this.props.setsession(`${this.state.dia}/${this.state.mes}`);
     await this.props.setNextSession( this.props.chosen.id, `${this.state.dia}/${this.state.mes}`);
   }
   render(){
     const { chosen } = this.props;
+    const { nextSession } = this.props;
     if(this.state.andamento){
       return(
         IgorBackground(
@@ -168,10 +170,12 @@ class AdventureScreen extends React.Component {
 
 const mapStateToProps = (state) => ({
   adventures: state.adventures.list,
-  chosen: state.adventures.chosen
+  chosen: state.adventures.chosen,
+  nextSession: state.adventures.nextSession
 });
 
 export default connect(mapStateToProps, {
   setEdit: setEdit,
-  setNextSession: setNextSession
+  setNextSession: setNextSession,
+  setsession: setsession
 })(AdventureScreen);

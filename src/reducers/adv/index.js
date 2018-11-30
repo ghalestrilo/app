@@ -12,8 +12,7 @@ export const initialAdventures = {
   chosen: {},
   list: [],
   edit: "",
-  editMode: false,
-  nextSession: ""
+  editMode: false
   // {
   //   title: 'A aventura eterna',
   //   image: require(),
@@ -39,6 +38,11 @@ export const pickAdventure = adventure => ({
   payload: adventure
 });
 
+export const setsession = session => ({
+  type: SET_SESSION,
+  payload: session
+});
+
 
 const adv = (state = initialAdventures, action) => {
   switch (action.type) {
@@ -59,7 +63,10 @@ const adv = (state = initialAdventures, action) => {
   case SET_SESSION:
     return{
       ...state,
-      nextSession: action.payload
+      chosen: {
+        ...state.chosen,
+        nextSession: action.payload
+      }
     };
   case SET_EDIT:
     return {
