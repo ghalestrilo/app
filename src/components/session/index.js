@@ -99,7 +99,7 @@ const SessionScreen = ({
       { (pickingEnemy === true)
         ? <Picker
           title={"Adicionar Inimigo"}
-          options={availableEnemies || []}
+          options={availableEnemies || {}}
           pick={i => pickEnemy(i)}
           hold={() => {}} // more info
         />

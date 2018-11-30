@@ -111,8 +111,8 @@ const state = {
     }
   ],
 
-  availableEnemies: [
-    {
+  availableEnemies: {
+    Robo: {
       avatar: avatars.enemies.robo,
       name: "Robo",
       hero: false,
@@ -121,19 +121,19 @@ const state = {
         hp: 100,
         effects: []
       },
-      actions: [
-        {
+      actions: {
+        fugir: {
           type: flee,
           mod: 0
         },
-        {
+        ataque: {
           type: attack,
           mod: 3,
           damage: 15
         }
-      ]
+      }
     },
-    {
+    Javali: {
       avatar: avatars.enemies.javali,
       name: "Javali",
       hero: false,
@@ -142,19 +142,19 @@ const state = {
         hp: 50,
         effects: []
       },
-      actions: [
-        {
+      actions: {
+        fugir: {
           type: flee,
           mod: 0
         },
-        {
+        ataque: {
           type: attack,
           mod: 3,
           damage: 6
         }
-      ]
+      }
     },
-    {
+    Tigre: {
       avatar: avatars.enemies.tigre,
       name: "Tigre",
       hero: false,
@@ -163,19 +163,19 @@ const state = {
         hp: 70,
         effects: []
       },
-      actions: [
-        {
+      actions: {
+        fugir: {
           type: flee,
           mod: 0
         },
-        {
+        ataque: {
           type: attack,
           mod: 3,
           damage: 20
         }
-      ]
+      }
     },
-    {
+    Urso: {
       avatar: avatars.enemies.urso,
       name: "Urso",
       hero: false,
@@ -184,19 +184,19 @@ const state = {
         hp: 200,
         effects: []
       },
-      actions: [
-        {
+      actions: {
+        fugir: {
           type: flee,
           mod: 0
         },
-        {
+        ataque: {
           type: attack,
           mod: 3,
           damage: 10
         }
-      ]
+      }
     },
-    {
+    Ogro: {
       avatar: avatars.enemies.ogro,
       name: "Ogro",
       hero: false,
@@ -205,19 +205,19 @@ const state = {
         hp: 1000,
         effects: []
       },
-      actions: [
-        {
+      actions: {
+        fugir: {
           type: flee,
           mod: 0
         },
-        {
+        ataque: {
           type: attack,
           mod: 3,
           damage: 15
         }
-      ]
+      }
     },
-    {
+    Troll: {
       avatar: avatars.enemies.troll,
       name: "Troll",
       hero: false,
@@ -226,19 +226,19 @@ const state = {
         hp: 150,
         effects: []
       },
-      actions: [
-        {
+      actions: {
+        fugir: {
           type: flee,
           mod: 0
         },
-        {
+        ataque: {
           type: attack,
           mod: 3,
           damage: 30
         }
-      ]
+      }
     }
-  ]
+  }
 };
 
 export default state;
