@@ -67,8 +67,25 @@ const style = StyleSheet.create({
     fontSize: 20,
     margin: 8,
     color: colors.darkgray
-  }
+  },
 
+  combatEditorStartButton: {
+    flex: 1,
+    flexDirection: "row",
+
+    maxHeight: 60,
+    margin: 8,
+
+    borderRadius: 10,
+    color: colors.green
+  },
+
+
+  test: {
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: "lightgray"
+  }
 });
 
 export default style;

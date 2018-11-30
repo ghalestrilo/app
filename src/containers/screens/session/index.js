@@ -14,11 +14,12 @@ import {
 import SessionScreen from "../../../components/session";
 
 class Session extends React.Component {
+  startCombat = () => {
+    this.props.beginCombat(this.props.event);
+    this.props.navigation.navigate("Combat");
+  }
 
   render = () => {
-    // console.log("event: ", this.props.event);
-    console.log("pickingEnemy: ", this.props.pickingEnemy);
-    console.log("configuringCombat: ", this.props.configuringCombat);
     return <SessionScreen
       history={this.props.history}
       event={this.props.event || {}}
@@ -27,13 +28,14 @@ class Session extends React.Component {
       configuringCombat={this.props.configuringCombat}
       pickingEnemy={this.props.pickingEnemy}
 
-      configureCombat={() => this.props.configureCombat(this.props.heroes)}
       toggleHero={this.props.toggleHero}
       addEnemy={this.props.addEnemy}
       pickEnemy={this.props.pickEnemy}
       removeEnemy={this.props.removeEnemy}
-      beginCombat={this.props.beginCombat}
-    />
+
+      configureCombat={() => this.props.configureCombat(this.props.heroes)}
+      beginCombat={() => this.startCombat()}
+    />;
   }
 }
 
@@ -50,12 +52,13 @@ const mapStateToProps = ({ session, adventure }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  configureCombat: heroes => dispatch(configureCombat(heroes)),
   toggleHero: i => dispatch(toggleHero(i)),
   addEnemy: () => dispatch(addEnemy()),
   pickEnemy: i => dispatch(pickEnemy(i)),
   removeEnemy: i => dispatch(removeEnemy(i)),
-  beginCombat: () => dispatch(beginCombat())
+
+  configureCombat: heroes => dispatch(configureCombat(heroes)),
+  beginCombat: combat => dispatch(beginCombat(combat))
 });
 
 

@@ -5,13 +5,16 @@ import {
   RECEIVE_GET_ADVENTURES,
   SET_EDIT,
   UNSET_EDIT,
-  SET_SESSION
+  SET_SESSION,
+  RECEIVE_GET_PLAYERS,
+  REQUEST_GET_PLAYERS
 } from "../../actions/types";
 
 export const initialAdventures = {
   chosen: {},
   list: [],
   edit: "",
+  players: {},
   editMode: false
   // {
   //   title: 'A aventura eterna',
@@ -52,6 +55,13 @@ const adv = (state = initialAdventures, action) => {
     return {
       ...state,
       list: action.payload
+    };
+  case REQUEST_GET_PLAYERS:
+    return state;
+  case RECEIVE_GET_PLAYERS:
+    return {
+      ...state,
+      players: action.payload
     };
   case DEL_ADVENTURE:
     return state;

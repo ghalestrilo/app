@@ -20,7 +20,8 @@ import {
   TOGGLE_HERO,
   ADD_ENEMY,
   PICK_ENEMY,
-  REMOVE_ENEMY
+  REMOVE_ENEMY,
+  BEGIN_COMBAT
 } from "../../actions/types";
 
 const session = (state = initialState, action) => {
@@ -75,6 +76,13 @@ const session = (state = initialState, action) => {
             ? { ...character, picked: !character.picked }
             : character)
       }
+    };
+
+  case BEGIN_COMBAT:
+    return {
+      ...state,
+      configuringCombat: false,
+      pickingEnemy: false
     };
 
   case FINISH_COMBAT:

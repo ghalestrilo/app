@@ -19,17 +19,17 @@ import { IgorBackground } from "../Igor";
 import style from "./style";
 
 const CombatEditor = ({
-  visible,
-
   heroes,
   enemies,
 
   addEnemy,
   removeEnemy,
   toggleHero,
-  onPressCharacter
+  onPressCharacter,
+
+  beginCombat
 }) =>
-  <Modal style={style.combatEditor} visible={visible}>
+  <View style={style.combatEditor}>
     <View style={style.combatEditorHeader}>
       <Text style={style.combatEditorHeaderText}>Preparar Combate</Text>
       <Icon
@@ -67,7 +67,10 @@ const CombatEditor = ({
         }
       </List>
     </ScrollView>
-  </Modal>;
+    <View style={style.combatEditorStartButton}>
+      <Button title="INICIAR!" onPress={beginCombat}/>
+    </View>
+  </View>;
 
 const SessionScreen = ({
   configuringCombat,
@@ -83,52 +86,53 @@ const SessionScreen = ({
   removeEnemy,
   toggleHero,
   beginCombat
-}) =>
-  IgorBackground(
-    <View style={style.screen}>
-      <CombatEditor
-        enemies={event.enemies || []}
-        heroes={event.heroes || []}
-        visible={(configuringCombat === true) && (pickingEnemy === false)}
+}) => IgorBackground(
+  <View style={style.screen}>
+    <Modal isVisible={configuringCombat === true}>
+      { (pickingEnemy === true)
+        ? <Picker
+          title={"Adicionar Inimigo"}
+          options={availableEnemies || []}
+          pick={i => pickEnemy(i)}
+          hold={() => {}} // more info
+        />
+        : null
+      }
 
-        toggleHero={toggleHero}
-        addEnemy={addEnemy}
-        removeEnemy={removeEnemy}
-        onPressCharacter={() => {}}
-      />
+      { (configuringCombat === true && !pickingEnemy)
+        ? <CombatEditor
+          enemies={event.enemies || []}
+          heroes={event.heroes || []}
 
-      <Picker
-        title={"Adicionar Inimigo"}
-        options={availableEnemies || []}
-        pick={i => pickEnemy(i)}
-        hold={() => {}} // more info
-        visible={(pickingEnemy === true)}/>
+          toggleHero={toggleHero}
+          addEnemy={addEnemy}
+          removeEnemy={removeEnemy}
+          onPressCharacter={() => {}}
 
-      <View style={{ flex: 1 }}>
-        <Text style={style.screenHeader}> Histórico </Text>
-        <List>
-          { history.map((event, i) =>
-            <ListItem
-              key={`heroes_${i}`}
-              title={event.type}
-            />)
+          beginCombat={beginCombat}
+        />
+        : null
+      }
+    </Modal>
 
-          }
-        </List>
-      </View>
+    <View style={{ flex: 1 }}>
+      <Text style={style.screenHeader}> Histórico </Text>
+      <List>
+        { history.map((event, i) =>
+          <ListItem
+            key={`heroes_${i}`}
+            title={event.type}
+          />)
 
-      <View style={style.actionDrawer}>
-        <Text style={style.combatEditorHeaderText}>Ações</Text>
-
-        { !configuringCombat
-          ? <Button title="COMBATE" onPress={() => configureCombat()}/>
-          : null }
-
-        { configuringCombat && !pickingEnemy
-          ? <Button title="INICIAR" onPress={() => beginCombat()}/>
-          : null }
-      </View>
+        }
+      </List>
     </View>
-  );
+
+    <View style={style.actionDrawer}>
+      <Text style={style.combatEditorHeaderText}>Ações</Text>
+      <Button title="COMBATE" onPress={configureCombat}/>
+    </View>
+  </View>
+);
 
 export default SessionScreen;

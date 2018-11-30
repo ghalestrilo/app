@@ -1,4 +1,4 @@
-import avatars from "../../images";
+import { heroes as avatars } from "../../images";
 const ability = "habilidade";
 const spell = "magia";
 const attack = "ataque";
