@@ -11,7 +11,8 @@ import styles from "./igorstyles.js";
 import {
   FormLabel,
   FormInput,
-  Button
+  Button,
+  Slider
 } from "react-native-elements";
 
 import {
@@ -59,11 +60,14 @@ export const TabBarNavigation = (props) => (
       <View style={{
         justifyContent: "center",
         alignItems: "center" }}>
-        <Text style = {{
-          color: colors.yellow,
-          fontSize: 20 }}>
-                IGOR
-        </Text>
+
+        <Image
+          source={igor}
+          style={{
+            resizeMode: "contain",
+            width: 160
+          }}
+        />
       </View>
       <View style={{ width: 75, height: 75, backgroundColor: colors.drawerbackground }}>
         {props.edit ? <TouchableHighlight
@@ -156,16 +160,46 @@ export const Adventure = ({ props }) => {
   return (
     <TouchableOpacity
       key={props.title}
+      style={{
+        margin: 4
+      }}
       onPress={() => props.onPress()}>
       <ImageBackground
         source={getImageFromString(props.image)}
-        style={{ width: "100%", height: 128 }}
+        imageStyle={{
+          borderRadius: 10,
+          borderColor: colors.black,
+          borderWidth: 2
+        }}
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: 128,
+          padding: 16
+        }}
         classname="adventure">
-        <Text>{props.title}</Text>
 
-        <Text>{"Próxima Sessão: " + props.nextSession}</Text>
+        <View style={{ flex: 1, flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" }}>
+          <Text style={{ color: colors.white, fontSize: 20 }}>{props.title}</Text>
 
-        <Text>{"Progresso: " + props.progress}</Text>
+
+          <View style={{ alignItems: "flex-end" }}>
+            <Text style={{ color: colors.white, fontSize: 20 }}>{props.nextSession}</Text>
+            <Text style={{ color: colors.lightgray }}>{"Próxima Sessão"}</Text>
+          </View>
+        </View>
+
+        <Slider
+          disabled
+          trackStyle={{
+            backgroundColor: colors.green
+          }}
+          thumbStyle={{
+            display: "none"
+          }}
+          value={props.progress/100}
+        />
       </ImageBackground>
     </TouchableOpacity>);
 };
@@ -178,13 +212,29 @@ export const EditAdventure = ({ props }) => {
   return (
     <ImageBackground
       source={getImageFromString(props.image)}
-      style={{ width: "100%", height: 128 }}
+      imageStyle={{
+        borderRadius: 10,
+        borderColor: colors.black,
+        borderWidth: 2
+      }}
+      style={{
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "space-between",
+        height: 128,
+        margin: 4,
+        padding: 16
+      }}
       classname="adventure">
-      <Text>{props.title}</Text>
+      <View style={{ flex: 1, flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" }}>
+        <Text style={{ color: colors.white, fontSize: 20 }}>{props.title}</Text>
 
-      <Text>{"Próxima Sessão: " + props.nextSession[0]}</Text>
 
-      <Text>{"Progresso: " + props.progress}</Text>
+        <View style={{ alignItems: "flex-end" }}>
+          <Text style={{ color: colors.white, fontSize: 20 }}>{props.nextSession}</Text>
+          <Text style={{ color: colors.lightgray }}>{"Próxima Sessão"}</Text>
+        </View>
+      </View>
       <TouchableOpacity
         style = {styles.delete}
         onPress={() => props.delete()}>
