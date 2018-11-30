@@ -17,15 +17,18 @@ export const avatars = {
     urso: require("./temp/portraits/urso.jpg")
   },
   // spells
-  spells: {
+  actions: {
     fireball: require("./spells/fire_ball.jpg"),
     firebolt: require("./spells/fire_bolt.jpg"),
     immolation: require("./spells/immolation.jpg"),
     icespear: require("./spells/ice_spear.jpg"),
     frostbolt: require("./spells/frost_bolt.jpg"),
-    healing: require("./spells/healing.jpg")
+    healing: require("./spells/healing.jpg"),
+
+    arrow: require("./attacks/arrow.jpg"),
+    sword: require("./attacks/sword.jpg")
   }
 };
 export const heroes = avatars.heroes;
 export const enemies = avatars.enemies;
-export const spells = avatars.spells;
+export const actions = avatars.actions;

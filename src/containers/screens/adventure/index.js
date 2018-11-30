@@ -87,17 +87,17 @@ class AdventureScreen extends React.Component {
       avatar: this.state.avatar,
       class: this.state.class,
       maxhp: this.state.maxhp,
-      actions: [
-        {
+      actions: {
+        fugir: {
           type: flee,
           mod: 0
         },
-        {
+        ataque: {
           type: attack,
           mod: 3,
           damage: this.state.attack
         }
-      ]
+      }
     };
     await this.props.addPlayer(this.props.chosen.id, heroe);
   }

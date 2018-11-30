@@ -18,8 +18,7 @@ const style = StyleSheet.create({
   // --------------------------------- EVENT
 
   eventbox: {
-    padding: 8,
-    marginBottom: 0
+    padding: 8
   },
 
   event: {
@@ -61,8 +60,7 @@ const style = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "space-between",
 
-    marginTop: 16,
-    marginBottom: 80
+    marginTop: 16
   },
 
   actorlist: {

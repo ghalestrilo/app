@@ -9,7 +9,6 @@ import {
 
 import CombatScreen from "../../../components/combat";
 import forAll from "../../../util/forAll";
-import { log } from "../../../util/console";
 
 const initialState = {
   pickingAction: false,
@@ -18,8 +17,6 @@ const initialState = {
   action: null,
   target: null
 };
-
-
 
 class Combat extends React.Component {
   state = initialState;

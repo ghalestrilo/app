@@ -89,9 +89,16 @@ const session = (state = initialState, action) => {
       heroes: Object.values(action.payload.heroes)
         .map(hero => ({
           ...hero,
-          avatar: avatars.heroes[hero.avatar]
+          avatar: avatars.heroes[hero.avatar],
+          picked: true,
+          actions: Object.entries(hero.actions)
+            .map(([ name, action ]) => ({
+              ...action,
+              avatar: avatars.actions[action.avatar],
+              name: name
+            }))
         })),
-      availableEnemies: Object.values(action.payload.availableEnemies)
+      availableEnemies: Object.values(action.payload.availableEnemies || [])
     };
 
   case FINISH_COMBAT:
