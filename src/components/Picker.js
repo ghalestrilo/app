@@ -63,8 +63,9 @@ export const Picker = ({
                 ? pick(option)
                 : pick(reindexed === true ? option.index : index))
             }
-            badge={badgeLogic ? badgeLogic(option) : {}}
+            badge={badgeLogic ? badgeLogic(option) : false}
             avatar={option.avatar}
+            hideChevron
           />
         )
       }

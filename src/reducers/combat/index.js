@@ -100,9 +100,19 @@ const shuffle = array =>
 
 const buildCombatFromEvent = event => ({
   actors: shuffle([
-    ...event.enemies,
-    ...event.heroes.filter(hero => hero.picked)
-  ]),
+    ...event.enemies.map(enemy => ({ ...enemy, hero: false })),
+    ...event.heroes
+      .map(hero => ({ ...hero, hero: true }))
+      .filter(hero => hero.picked)
+  ]).map(actor => ({
+    ...actor,
+    status: {
+      hp: actor.maxhp,
+      fled: false,
+      dead: false,
+      effects: []
+    }
+  })),
   events: [],
   ongoing: true,
   player: 0,
