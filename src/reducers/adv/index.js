@@ -14,7 +14,7 @@ export const initialAdventures = {
   chosen: {},
   list: [],
   edit: "",
-  players: {},
+  heroes: {},
   editMode: false
   // {
   //   title: 'A aventura eterna',
@@ -61,7 +61,7 @@ const adv = (state = initialAdventures, action) => {
   case RECEIVE_GET_PLAYERS:
     return {
       ...state,
-      players: action.payload
+      heroes: action.payload
     };
   case DEL_ADVENTURE:
     return state;

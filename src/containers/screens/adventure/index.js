@@ -74,13 +74,13 @@ class AdventureScreen extends React.Component {
   }
 
   async newPlayer() {
-    const player = {
+    const heroe = {
       name: this.state.name,
       avatar: this.state.avatar,
       class: this.state.class,
       maxhp: this.state.maxhp
     };
-    await this.props.addPlayer(this.props.chosen.id, player);
+    await this.props.addPlayer(this.props.chosen.id, heroe);
   }
   render(){
     const { chosen } = this.props;
@@ -273,10 +273,10 @@ class AdventureScreen extends React.Component {
               </View>
               <View style = {styles.inputbackground}>
                 <List containerStyle={{ marginBottom: 20 }}>
-                  {Object.keys(this.props.players).map(index => (
+                  {Object.keys(this.props.heroes || []).map(index => (
                     <ListItem
                       roundAvatar
-                      avatar={heroes[this.props.players[index].avatar]}
+                      avatar={heroes[(this.props.heroes || [])[index].avatar]}
                       hideChevron
                       key={index}
                       title={index}
@@ -302,7 +302,7 @@ class AdventureScreen extends React.Component {
 const mapStateToProps = (state) => ({
   adventures: state.adventures.list,
   chosen: state.adventures.chosen,
-  players: state.adventures.players
+  heroes: state.adventures.heroes
 });
 
 const mapActionsToProps = {
